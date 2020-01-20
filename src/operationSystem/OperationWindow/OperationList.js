@@ -1,7 +1,7 @@
 import React from 'react'
 import OperationCard from './OperationCard'
 import OperationAddCardButton from './OperationAddCardButton'
-import planePic from './plane.png'
+import planePic from './plane.jpeg'
 
 const  OperationList = ({title , cards , listID, changePic}) => {
 

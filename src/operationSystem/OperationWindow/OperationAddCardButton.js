@@ -1,22 +1,22 @@
 import React, {Component} from 'react'
 import { connect  } from 'react-redux'
-import {addCard} from '../../Actions'
+import {addCardOperation} from '../../Actions'
 
 class OperationAddCardButton extends Component
 {
 
-    handleAddCard = (e) =>
+    handleAddCardOpertion = (e) =>
     {
         e.preventDefault();
         const {dispatch, listID} = this.props;
-        dispatch(addCard(listID));
+        dispatch(addCardOperation(listID));
     }
 
     render()
     {
         return (
             <div>
-                <button onClick={this.handleAddCard}/>
+                <button onClick={this.handleAddCardOpertion}/>
             </div>
 
         )

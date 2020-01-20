@@ -2,8 +2,9 @@ import React,{Component} from 'react'
 import { connect  } from 'react-redux'
 import OperationList from './OperationList'
 import OperationAddListButton from './OperationAddListButton'
-import planePic from './plane.png'
-import helicopterPic from './helicopter.png'
+import planePic from './plane.jpeg'
+import helicopterPic from './helicopter.jpeg'
+
 
 
 const picArray=[

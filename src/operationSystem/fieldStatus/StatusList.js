@@ -1,25 +1,22 @@
 import React from 'react'
+import StatusCard from './statusCard'
 
-const StatusList = () =>
+const StatusList = ({listID,title, cards, changeColor}) =>
 {
-    const toDoList = todos.length ? (
-        todos.map(todo =>{
-            return(
-           <div className="collection-item" key={todos.id} >
-                <span onClick={()=>{deleteTodo(todo.id)}}>
-                    {todo.content}
-                </span>
-           </div>
-            )
-        })
-
-    ) :(<p className="center">Nothing in the Todo List, YAy</p>)
-   
+  
     return (
-    <div className="todos collection">
-        {toDoList}
+        <div >
+            <div style={{fontWeight: "bold"}}>{title}</div>
+        <div style={styles.listsContainer}> 
+       {cards.map(card => (<StatusCard key={card.cardID} title={card.cardTitle} buttons={card.buttons} changeColor={changeColor} /> ))} 
+       </div>
         </div>
-   )
+    )
 }
-
-export default Todos; 
+const styles = {
+    listsContainer:
+    {
+        
+    },
+}   
+export default StatusList; 
