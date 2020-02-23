@@ -31,17 +31,17 @@ const initialState = {
                 cardTitle: ' אדרת 5',
                 cardID:0,
                 buttons:[
-                        {id:1,titleButton:'5י'},
-                        {id:2,titleButton:'2.4'},
-                        {id:1,titleButton:'5ח\''}
+                        {id:0,titleButton:'5י'},
+                        {id:1,titleButton:'2.4'},
+                        {id:2,titleButton:'5ח\''}
                     ]
                 },
                 {
                     cardTitle: 'אדרת 3',
                     cardID:1,
                     buttons:[
-                            {id:1,titleButton:'5'},
-                            {id:2,titleButton:'2.4'},
+                            {id:0,titleButton:'5'},
+                            {id:1,titleButton:'2.4'},
                         ]
                     }
                ]
@@ -201,10 +201,27 @@ const OperationReducer = (state = initialState, action) =>{
             return {...state,CountDownlists: CountDownlistsNew };
         }
 
+        case CONSTANTS.DELETE_BUTTON_FIELDSTATUS:
+        {
+            let list;
+            let card;
 
-        
+            for(let i=0;i<state.StatusList.length; i++)
+                if(state.StatusList[i].listID == action.payload.listID)
+                   list = i;
+            for(let i=0;i<state.StatusList[list].cards.length; i++)
+                if(state.StatusList[list].cards[i].cardID == action.payload.cardID)
+                   card = i;
 
+            let newStatusList = [...state.StatusList];
+            newStatusList[list].cards[card].buttons= state.StatusList[list].cards[card].buttons.filter(button =>
+                {
+                    if(button.id != action.payload.buttonID)
+                        return button;
+                });
+            return {...state,StatusList:newStatusList};
         
+        }
         default: return state;
     }
     

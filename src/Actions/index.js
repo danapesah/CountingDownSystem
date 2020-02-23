@@ -3,6 +3,7 @@ export * from "./OperationActions"
 export * from "./ActionsCountDown"
 export * from "./cardsActionCountDown"
 export * from './refreshActionCountDown'
+export * from "./FieldStatusActions"
 
 export const CONSTANTS = {
     ADD_LIST_OPERATION: "ADD_LIST_OPERATION",
@@ -14,5 +15,6 @@ export const CONSTANTS = {
     DELETE_EVENT_COUNTDOWN: "DELETE_EVENT_COUNTDOWN",
     DELETE_ENTITY_COUNTDOWN: "DELETE_ENTITY_COUNTDOWN",
     ADD_ENTITY_COUNTDOWN: "ADD_ENTITY_COUNTDOWN",
+    DELETE_BUTTON_FIELDSTATUS: "DELETE_BUTTON_FIELDSTATUS",
 };
 

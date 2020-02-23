@@ -1,6 +1,7 @@
 import React,{Component} from 'react'
 import { connect  } from 'react-redux'
 import StatusList from './StatusList'
+import { deleteButtonFieldStatus } from "../../Actions";
 
 class MainComponent extends Component
 {
@@ -24,6 +25,12 @@ class MainComponent extends Component
              e.target.style.backgroundColor="green";
         }
    }
+   
+    deleteCard = (cardID,buttonID,listID)=>
+    {
+       this.props.dispatch(deleteButtonFieldStatus(cardID,buttonID,listID));
+    }
+
     render()
     {  
         const {lists} = this.props;
@@ -33,7 +40,7 @@ class MainComponent extends Component
         
         <div style={styles.listsStyle}>
         {lists.map(list => 
-          ( <StatusList listID={list.listID} key ={list.listID} title = {list.listTitle} cards = {list.cards} changeColor={this.changeColor}/>))}
+          ( <StatusList listID={list.listID} key ={list.listID} title = {list.listTitle} cards = {list.cards} changeColor={this.changeColor} deleteCard={this.deleteCard}/>))}
           </div> 
         </div>
         )
