@@ -17,9 +17,8 @@ class MainWindow extends Component
      
    changePic = (e) =>
    {
-      // console.log("IN");
-    // e.preventDefault();
-    console.log(picIndex);
+
+
         e.target.src=picArray[picIndex];
         if(picIndex == 1)
             picIndex=0;
@@ -37,7 +36,7 @@ class MainWindow extends Component
         <div class="center">חלון אופרציה</div>
         <div style={styles.blockStyle}>
         <div style={styles.lineContainer}>
-            <p> שם משימה </p>
+            <p style={ {marginBottom:"10%"}}> שם משימה </p>
             <p> אישור ירידה</p>
             <p> אישור המראה </p>
             <p> המראה </p>
@@ -64,19 +63,19 @@ const styles = {
      //display:"flex",
      display:"inline",
      float:"right",
-     backgroundColor:"green", 
-     margin:"auto"
-  
+     backgroundColor:"#1aa3ff", 
+     margin:"auto",
     },
     lineContainer:
     {   
-     paddingBottom:"3",
-     width:120,
+     //paddingBottom:"3",
+     width:"auto",
      float:"right",
     flexDirection:"column",
-     backgroundColor:"blue", 
-      marginLeft: 450,
-      margin:"auto"
+     backgroundColor:"#66c2ff", 
+     marginTop:"7%"
+     // marginLeft: 450,
+      //margin:"auto"
     },
     blockStyle:
     {   

@@ -51,11 +51,11 @@ class  MessageWindow  extends React.Component  {
        backgroundColor:"#F5F5DC",
     },
     labelInput : {
-     backgroundColor:"#FF8C00",
+     backgroundColor:"#ffe0b3",
      textAlign: "right",     
     },
     showText: {
-      backgroundColor:"#FF8C00",
+      backgroundColor:"##ffe0b3",
       fontSize:15,
     }
 }

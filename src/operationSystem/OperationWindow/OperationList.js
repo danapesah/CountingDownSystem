@@ -24,13 +24,16 @@ const styles = {
     listsContainer:
     {
       display:"flex",
-
+      //lineHeight: '0',
+      width: "auto",height: "auto", 
       flexDirection:"row",
       backgroundColor : "#dfe3e6",
       boredeRadius : 3,
-      padding :8,
+      //padding :2,
+     // paddingBottom:-50,
+      paddingLeft:1,
       marginRight:8,
-     height:  "100%",
+    // height:  "100%",
 
       
     },

@@ -4,10 +4,10 @@ const OperationCard = ({title}) =>
 {
     
     return(
-       <div class>
+       <div style={{lineHeight: '0',}}>
             <div>{title}</div>
             <form action="#">
-            <p>
+            <p >
             <label>
             <input type="checkbox" />
             <span></span>

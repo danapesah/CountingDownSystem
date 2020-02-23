@@ -1,0 +1,50 @@
+{
+  "name": "final",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.4.0",
+    "@testing-library/user-event": "^7.2.1",
+    "bootstrap": "^4.4.1",
+    "input-material-ui": "^2.2.0",
+    "materialize-css": "^1.0.0-rc.2",
+    "moment": "^2.24.0",
+    "react": "^16.12.0",
+    "react-beautiful-dnd": "^12.2.0",
+    "react-bootstrap": "^1.0.0-beta.16",
+    "react-dom": "^16.12.0",
+    "react-grid-layout": "^0.17.1",
+    "react-number-format": "^4.3.1",
+    "react-redux": "^7.1.3",
+    "react-scripts": "3.3.0",
+    "react-scrollbar": "^0.5.6",
+    "react-select": "^3.0.8",
+    "react-select-input": "^1.0.5",
+    "react-spring": "^8.0.27",
+    "react-textarea-autosize": "^7.1.2",
+    "reactjs-popup": "^1.5.0",
+    "redux": "^4.0.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

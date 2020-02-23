@@ -7,6 +7,8 @@ import GridLayout from 'react-grid-layout';
 import MainOperationWindow from './OperationWindow/MainComponent'
 import MainStatusWindow from './fieldStatus/mainComponent'
 import MessageWindow from './MessageWindow/MessageWindow'
+import MainComponentTime from './TimeWindow/MainComponentTime'
+import TestScheduler from './countDownWindow/TestScheduler'
 
 class MainWindow extends React.Component {
   render() {
@@ -25,13 +27,15 @@ const layout = [
       <div key="b" style={styles.cardsContainer}>
         <MainOperationWindow/>
       </div>
-      <div   style={styles.cardsContainer} key="c">
+      <div   style={ {backgroundColor: '#d1d1e0', overflow:"auto"}} key="c">
         <MainStatusWindow/>
       </div>
-      <div   style={{ backgroundColor: 'blue'}} key="d">d</div>
-      <div   style={{ backgroundColor: 'blue', overflow:"hidden"}} key="e"><MessageWindow/></div>
-      <div   style={{ backgroundColor: 'blue'}} key="f">f</div>
+      <div   style={{ backgroundColor: '#ffce99'}} key="d"><MainComponentTime/></div>
+      <div   style={{ backgroundColor: '#ffe0b3', overflow:"hidden"}} key="e"><MessageWindow/></div>
+      <div   style={{ backgroundColor: '#00b33c',  overflow: "auto"}} key="f"><TestScheduler/></div>
+      
     </GridLayout>
+
 
 // return(
 //   <MainOperationWindow/>
@@ -44,9 +48,9 @@ const styles = {
   cardsContainer:
   {
     width:"100%",
-    //backgroundColor: 'red',
+    backgroundColor: '#66c2ff',
     height:  "100%",
-    overflow: "scroll"
+    overflow: "auto"
     
   },
   
