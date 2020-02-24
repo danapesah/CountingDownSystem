@@ -30,6 +30,7 @@ const initialState = {
                 {
                 cardTitle: ' אדרת 5',
                 cardID:0,
+                cardComments:'הי שלום מה נשמע?',
                 buttons:[
                         {id:0,titleButton:'5י'},
                         {id:1,titleButton:'2.4'},
@@ -39,6 +40,7 @@ const initialState = {
                 {
                     cardTitle: 'אדרת 3',
                     cardID:1,
+                    cardComments:'sharon dana sharon',
                     buttons:[
                             {id:0,titleButton:'5'},
                             {id:1,titleButton:'2.4'},
@@ -53,6 +55,7 @@ const initialState = {
                 {
                 cardTitle: 'יארד',
                 cardID:0,
+                cardComments:' דנה דנה דנה',
                 buttons:[
                         {id:1,titleButton:'1'},
                     ]
@@ -222,6 +225,61 @@ const OperationReducer = (state = initialState, action) =>{
             return {...state,StatusList:newStatusList};
         
         }
+        case CONSTANTS.ADD_BUTTON_FIELDSTATUS:
+        {
+            //INPUT FIRST BUTTON CASE
+            let list;
+            let card;
+            let newButton =[];
+            for(let i=0;i<state.StatusList.length; i++)
+                if(state.StatusList[i].listID == action.payload.listID)
+                   list = i;
+            for(let i=0;i<state.StatusList[list].cards.length; i++)
+                if(state.StatusList[list].cards[i].cardID == action.payload.cardID)
+                   card = i;
+
+            let newStatusList = [...state.StatusList];
+            let newID;
+            if(newStatusList[list].cards[card].buttons.length == 0)
+                 newID=0;
+            else
+                 newID=(newStatusList[list].cards[card].buttons[(newStatusList[list].cards[card].buttons.length-1)].id)+1
+            newButton =
+            {
+                id: newID,
+                titleButton: action.payload.buttonTitle,
+            }
+
+            newStatusList[list].cards[card].buttons.push(newButton);
+            return {...state,StatusList:newStatusList};
+        
+        }
+
+        case CONSTANTS.ADD_CARD_FIELDSTATUS:
+        {
+            //INPUT FIRST BUTTON CASE
+            let list;
+            for(let i=0;i<state.StatusList.length; i++)
+                if(state.StatusList[i].listID == action.payload.listID)
+                   list = i;
+            let newStatusList = [...state.StatusList];
+            let newID;
+            if(newStatusList[list].cards.length == 0)
+                 newID=0;
+            else
+                 newID=(newStatusList[list].cards[(newStatusList[list].cards.length-1)].cardID)+1
+            const newCard =
+            {
+                cardTitle: action.payload.cardTitle,
+                cardID: newID,
+                cardComments: action.payload.cardComments,
+                buttons: [],
+            }
+            newStatusList[list].cards.push(newCard);
+            return {...state,StatusList:newStatusList};
+        
+        }
+
         default: return state;
     }
     

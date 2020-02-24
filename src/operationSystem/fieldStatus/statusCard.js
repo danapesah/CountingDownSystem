@@ -2,15 +2,21 @@ import React from 'react'
 import Button from 'react-bootstrap/Button';
 import Popup from "reactjs-popup";
 
-const StatusCard = ({title ,buttons, changeColor,cardID, listID, deleteCard}) =>
+const StatusCard = ({title ,buttons, changeColor,cardID, listID, deleteButton, addButton, cardComments}) =>
 {
     let state= {
         buttonName:""
     }
+    const handleSubmit =(event)=>
+    {
+        event.preventDefault();
+        addButton(cardID, listID,state.buttonName)
+
+   }   
 
     const handleChange =(event)=>
     {
-       if(event.target.name = "button")
+       if(event.target.name == "button")
         state.buttonName= event.target.value;
 
    }   
@@ -24,7 +30,7 @@ const StatusCard = ({title ,buttons, changeColor,cardID, listID, deleteCard}) =>
             trigger={ <Button style={{width:"auto",height:"auto", marginRight:"10px"}}>+</Button>}
             modal
             closeOnDocumentClick>
-           <form style={{float:"center"}} >
+           <form onSubmit={handleSubmit} >
                 <label style={{float:"center"}} >
                     Button Title:
                     <input  type="text" name="button" onChange={handleChange} />
@@ -39,11 +45,25 @@ const StatusCard = ({title ,buttons, changeColor,cardID, listID, deleteCard}) =>
     {
         //CHECK IF EDITABLE
         if(true)
-        return <div style={{float:"right",color:"red",cursor:"help", width:"2px",height:"auto",marginLeft:"5px"}} onClick={()=>deleteCard(cardID,buttonID,listID)}>x</div>
+        return <div style={{float:"right",color:"red",cursor:"help", width:"2px",height:"auto",marginLeft:"5px"}} onClick={()=>deleteButton(cardID,buttonID,listID)}>x</div>
     }
+
+    const showCardComments =()=>
+    {
+        return(
+            <Popup 
+            trigger={<div style={{color:"black",cursor:"help", width:"10px",height:"auto",display:"inline", marginRight:"5px", fontSize:"22px"}} onClick={showCardComments}>?</div>} 
+            position="right center" >
+            <div>
+            <div>{cardComments}</div>
+            </div>
+          </Popup>
+        )
+    }
+
     return (
         <div style={styles.cardContainer} >
-           
+         {showCardComments()}
         <div>
         {buttons.map(button=>(<Button style={{backgroundColor: "green", width:"auto"}} onClick={changeColor}>
         {deleteAble(cardID,button.id,listID)}

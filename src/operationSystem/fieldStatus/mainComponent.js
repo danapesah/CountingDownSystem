@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import { connect  } from 'react-redux'
 import StatusList from './StatusList'
-import { deleteButtonFieldStatus } from "../../Actions";
+import { deleteButtonFieldStatus, addButtonFieldStatus ,addCardFieldStatus } from "../../Actions";
 
 class MainComponent extends Component
 {
@@ -26,10 +26,24 @@ class MainComponent extends Component
         }
    }
    
-    deleteCard = (cardID,buttonID,listID)=>
+    deleteButton = (cardID,buttonID,listID)=>
     {
        this.props.dispatch(deleteButtonFieldStatus(cardID,buttonID,listID));
     }
+
+    addButton = ( cardID, listID,buttonTitle ) =>
+    {
+        this.props.dispatch(addButtonFieldStatus(cardID, listID,buttonTitle));
+    }
+
+    addCard = ( listID,cardTitle, cardComments ) =>
+    {
+        console.log(cardTitle);
+        this.props.dispatch(addCardFieldStatus(listID,cardTitle, cardComments));
+    }
+
+
+
 
     render()
     {  
@@ -40,7 +54,15 @@ class MainComponent extends Component
         
         <div style={styles.listsStyle}>
         {lists.map(list => 
-          ( <StatusList listID={list.listID} key ={list.listID} title = {list.listTitle} cards = {list.cards} changeColor={this.changeColor} deleteCard={this.deleteCard}/>))}
+          ( <StatusList listID={list.listID} 
+                        key ={list.listID}
+                        title = {list.listTitle} 
+                        cards = {list.cards} 
+                        changeColor={this.changeColor} 
+                        deleteButton={this.deleteButton} 
+                        addButton={this.addButton} 
+                        addCard ={this.addCard}
+                        />))}
           </div> 
         </div>
         )
