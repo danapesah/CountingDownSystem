@@ -5,64 +5,64 @@ let listIDNew=3;
 const initialState = {
     title: "This is the title",
     OperationList: [
-       {
-           listID:0,
-           title: 'First List',
-           cards:[
-               {id:0},
-               {id:1}
-           ]
-       },
-       {
-        listID:1,
-        title: 'Second List',
-        cards:[
-            {id:0},
-            {id:1}
-        ]
-        }
+    //    {
+    //        listID:0,
+    //        title: 'First List',
+    //        cards:[
+    //            {id:0},
+    //            {id:1}
+    //        ]
+    //    },
+    //    {
+    //     listID:1,
+    //     title: 'Second List',
+    //     cards:[
+    //         {id:0},
+    //         {id:1}
+    //     ]
+    //     }
     ],
     StatusList: [
-        {
-            listID:0,
-            listTitle: 'שדה',
-            cards:[
-                {
-                cardTitle: ' אדרת 5',
-                cardID:0,
-                cardComments:'הי שלום מה נשמע?',
-                buttons:[
-                        {id:0,titleButton:'5י'},
-                        {id:1,titleButton:'2.4'},
-                        {id:2,titleButton:'5ח\''}
-                    ]
-                },
-                {
-                    cardTitle: 'אדרת 3',
-                    cardID:1,
-                    cardComments:'sharon dana sharon',
-                    buttons:[
-                            {id:0,titleButton:'5'},
-                            {id:1,titleButton:'2.4'},
-                        ]
-                    }
-               ]
-         },
-         {
-         listID:1,
-            listTitle: 'מערכות חיצוניות',
-            cards:[
-                {
-                cardTitle: 'יארד',
-                cardID:0,
-                cardComments:' דנה דנה דנה',
-                buttons:[
-                        {id:1,titleButton:'1'},
-                    ]
-                },
+        //{
+        //     listID:0,
+        //     listTitle: 'שדה',
+        //     cards:[
+        //         {
+        //         cardTitle: ' אדרת 5',
+        //         cardID:0,
+        //         cardComments:'הי שלום מה נשמע?',
+        //         buttons:[
+        //                 {id:0,titleButton:'5י'},
+        //                 {id:1,titleButton:'2.4'},
+        //                 {id:2,titleButton:'5ח\''}
+        //             ]
+        //         },
+        //         {
+        //             cardTitle: 'אדרת 3',
+        //             cardID:1,
+        //             cardComments:'sharon dana sharon',
+        //             buttons:[
+        //                     {id:0,titleButton:'5'},
+        //                     {id:1,titleButton:'2.4'},
+        //                 ]
+        //             }
+        //        ]
+        //  },
+        //  {
+        //  listID:1,
+        //     listTitle: 'מערכות חיצוניות',
+        //     cards:[
+        //         {
+        //         cardTitle: 'יארד',
+        //         cardID:0,
+        //         cardComments:' דנה דנה דנה',
+        //         buttons:[
+        //                 {id:1,titleButton:'1'},
+        //             ]
+        //         },
 
-               ]
-         }
+        //        ]
+          //}
      ],
      CountDownlists:  
      {
