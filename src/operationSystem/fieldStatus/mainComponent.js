@@ -1,9 +1,8 @@
-
 import React,{Component} from 'react'
 import { connect  } from 'react-redux'
 import StatusList from './StatusList'
 import Popup from "reactjs-popup";
-import { deleteButtonFieldStatus, addButtonFieldStatus ,addCardFieldStatus, deleteCardFieldStatus,deleteListFieldStatus } from "../../Actions";
+import { deleteButtonFieldStatus, addButtonFieldStatus ,addCardFieldStatus, deleteCardFieldStatus,deleteListFieldStatus, addListFieldStatus } from "../../Actions";
 
 class MainComponent extends Component
 {
@@ -16,7 +15,9 @@ class MainComponent extends Component
     {
         if(event.target.name == "deleteList")
             this.state.deleteList = event.target.value;
-        console.log(this.state.deleteList);
+        if(event.target.name = "addList")
+            this.state.addListTitle = event.target.value; 
+       
     }
 
     handleSubmit =(event)=>
@@ -33,9 +34,10 @@ class MainComponent extends Component
             {
                 this.props.dispatch(deleteListFieldStatus(this.state.deleteList));
                 this.state.deleteList = ""
-            }
-                
+            }  
         }
+        else if(event.target.name == "addList")
+            this.props.dispatch(addListFieldStatus(this.state.addListTitle));
        
    }   
 
@@ -88,10 +90,10 @@ class MainComponent extends Component
             trigger={ <button style={{float:"right",width:"auto",height:"auto", marginLeft:"5px", marginRight:"5px"}}>הוספת רשימה</button>}
             modal
             closeOnDocumentClick>
-           <form name="listTitle" onSubmit={this.handleSubmit} >
+           <form name="addList" onSubmit={this.handleSubmit} >
                 <label style={{float:"center"}} >
                     List Title:
-                    <input  type="text" name="listTitle" onChange={this.handleChange} />
+                    <input  type="text" name="addList" onChange={this.handleChange} />
                 </label>
                  <input type="submit" value="Submit" /> 
             </form>  
