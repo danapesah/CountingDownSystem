@@ -156,7 +156,6 @@ const OperationReducer = (state = initialState, action) =>{
         case CONSTANTS.DELETE_ENTITY_COUNTDOWN:
         {
             const deleteID = action.payload.id;
-            //console.log(action.payload.id);
             let newResourcesList = [];
             let newEventsList = [];
             for(let i=0;i<state.CountDownlists.resources.length;i++)
@@ -294,6 +293,31 @@ const OperationReducer = (state = initialState, action) =>{
             return {...state,StatusList:newStatusList};
         
         }
+
+        case CONSTANTS.DELETE_LIST_FIELDSTATUS:
+        {
+            let newStatusList = [...state.StatusList];
+            newStatusList= state.StatusList.filter(list =>
+                {
+                    if(list.listID != action.payload.listID)
+                        return list;
+                });
+            return {...state,StatusList:newStatusList};
+        }
+
+        case CONSTANTS.ADD_LIST_FIELDSTATUS:
+            {
+                let newStatusList = [...state.StatusList];
+                const newList = 
+                {
+                    listID: ((newStatusList[newStatusList.length-1].listID)+1),
+                    listTitle: action.payload.listTitle,
+                    cards:[],
+                }
+                newStatusList.push(newList);
+                return {...state,StatusList:newStatusList};
+            }
+
 
         default: return state;
     }

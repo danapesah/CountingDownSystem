@@ -27,3 +27,17 @@ export const deleteCardFieldStatus = (listID, cardID) => {
       payload: {listID, cardID}
   };
 };
+
+export const deleteListFieldStatus = (listID) => {
+  return{
+      type: CONSTANTS.DELETE_LIST_FIELDSTATUS,
+      payload: {listID}
+  };
+};
+
+export const addListFieldStatus = (listTitle) => {
+  return{
+      type: CONSTANTS.ADD_LIST_FIELDSTATUS,
+      payload: {listTitle}
+  };
+};

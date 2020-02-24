@@ -20,9 +20,8 @@ const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, 
             deleteCard(listID, state.deleteCard);
 
         }
-        
-
    }   
+   
    const handleChange =(event)=>
     {
        if(event.target.name == "cardTitle")
@@ -38,7 +37,7 @@ const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, 
         if(true)
             return(
             <Popup
-            trigger={ <div style={{color:"green",cursor:"help", width:"2px",height:"auto",display:"inline", marginRight:"5px", fontSize:"12px"}}>+הוספת שורה </div>}
+            trigger={ <div style={{color:"green",cursor:"help", width:"2px",height:"auto",display:"inline", marginRight:"5px", fontSize:"12px"}}>+הוספת כרטיס </div>}
             modal
             closeOnDocumentClick>
            <form name="addCard" onSubmit={handleSubmit} >
@@ -66,7 +65,7 @@ const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, 
         if(true)
             return(
             <Popup
-            trigger={ <div style={{color:"red",cursor:"help", width:"2px",height:"auto",display:"inline", marginRight:"10px", fontSize:"12px"}}>-מחיקת שורה</div>}
+            trigger={ <div style={{color:"red",cursor:"help", width:"2px",height:"auto",display:"inline", marginRight:"10px", fontSize:"12px"}}>-מחיקת כרטיס</div>}
             modal
             closeOnDocumentClick>
            <form name="deleteCard" onSubmit={handleSubmit} >
