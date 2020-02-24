@@ -2,24 +2,35 @@ import React from 'react'
 import StatusCard from './statusCard'
 import Popup from "reactjs-popup";
 
-const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, addCard}) =>
+const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, addCard, deleteCard}) =>
 {
     let state= {
         cardTitle:"",
         cardComments:"",
+        deleteCard:"",
     }
 
     const handleSubmit =(event)=>
     {
         event.preventDefault();
+        if(event.target.name == "addCard")
         addCard(listID,state.cardTitle,state.cardComments);
+        else if(event.target.name == "deleteCard")
+        {
+            deleteCard(listID, state.deleteCard);
+
+        }
+        
+
    }   
    const handleChange =(event)=>
     {
        if(event.target.name == "cardTitle")
         state.cardTitle= event.target.value;
-      else if(event.target.name == "cardComments")
+       else if(event.target.name == "cardComments")
         state.cardComments= event.target.value;
+        else if(event.target.name == "deleteCard")
+        state.deleteCard=event.target.value;
    }   
     const addAble =()=>
     {
@@ -27,12 +38,12 @@ const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, 
         if(true)
             return(
             <Popup
-            trigger={ <div style={{color:"red",cursor:"help", width:"2px",height:"auto",display:"inline", marginRight:"5px", fontSize:"12px"}}>+הוספת שורה </div>}
+            trigger={ <div style={{color:"green",cursor:"help", width:"2px",height:"auto",display:"inline", marginRight:"5px", fontSize:"12px"}}>+הוספת שורה </div>}
             modal
             closeOnDocumentClick>
-           <form onSubmit={handleSubmit} >
+           <form name="addCard" onSubmit={handleSubmit} >
                 <label style={{float:"center"}} >
-                    List Title:
+                    Card Title:
                     <input  type="text" name="cardTitle" onChange={handleChange} />
                     <textarea name="cardComments" onChange={handleChange}>Extra Comments</textarea>
                 </label>
@@ -42,11 +53,40 @@ const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, 
 
     }
 
+    const makeSelectInput =()=>
+     {
+         let inputCardArray=[];
+        cards.map(card=>{
+        inputCardArray.push(<option value={card.cardID}>{card.cardTitle}</option>)})
+         return inputCardArray;
+    }
+    const deleteAble =()=>
+    {
+        //CHECK IF EDITABLE
+        if(true)
+            return(
+            <Popup
+            trigger={ <div style={{color:"red",cursor:"help", width:"2px",height:"auto",display:"inline", marginRight:"10px", fontSize:"12px"}}>-מחיקת שורה</div>}
+            modal
+            closeOnDocumentClick>
+           <form name="deleteCard" onSubmit={handleSubmit} >
+           <label style={{display:"inline-block"}}>
+                 Card Title:
+                <select name= "deleteCard" style={{display:"inline-block", width:"auto"}} onChange={handleChange}>
+                    {makeSelectInput()}
+                </select>
+            </label>
+                 <input name="deleteCard" type="submit" value="Submit" /> 
+            </form>  
+          </Popup>)
+    }
+
     return (
-        <div >
+        <div style={{ borderBottom: '2px dotted black',marginBottom:"5px"}} >
             <div style={{fontWeight: "bold"}}>
                 {title}
                 {addAble()}
+                {deleteAble()}
                 </div>   
         <div> 
        {cards.map(card => (<StatusCard key={card.cardID} 
@@ -58,7 +98,7 @@ const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, 
                                        deleteButton={deleteButton} 
                                        addButton={addButton} 
                                        cardComments={card.cardComments} /> ))} 
-       </div>
+       </div >
         </div>
     )
 }

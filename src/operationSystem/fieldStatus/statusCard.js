@@ -40,6 +40,7 @@ const StatusCard = ({title ,buttons, changeColor,cardID, listID, deleteButton, a
           </Popup>)
 
     }
+    
 
     const deleteAble =(cardID,buttonID,listID)=>
     {

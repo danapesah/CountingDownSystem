@@ -38,7 +38,6 @@ class countDownAddEventButton extends Component
          event.preventDefault();
          if(this.state.entity == "")
             this.state.entity=this.props.lists[0].key;
-        console.log(this.state.entity);
         this.props.dispatch(addEventCountDown(this.state.title,this.state.startHour,this.state.endHour,this.state.comments, this.state.entity));
 
      }   

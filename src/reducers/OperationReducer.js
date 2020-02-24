@@ -279,6 +279,21 @@ const OperationReducer = (state = initialState, action) =>{
             return {...state,StatusList:newStatusList};
         
         }
+        case CONSTANTS.DELETE_CARD_FIELDSTATUS:
+        {
+            let list;
+            for(let i=0;i<state.StatusList.length; i++)
+                if(state.StatusList[i].listID == action.payload.listID)
+                   list = i;
+            let newStatusList = [...state.StatusList];
+            newStatusList[list].cards= state.StatusList[list].cards.filter(card =>
+                {
+                    if(card.cardID != action.payload.cardID)
+                        return card;
+                });
+            return {...state,StatusList:newStatusList};
+        
+        }
 
         default: return state;
     }

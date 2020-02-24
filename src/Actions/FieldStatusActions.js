@@ -20,3 +20,10 @@ export const addCardFieldStatus = (listID,cardTitle, cardComments) => {
       payload: {listID,cardTitle,cardComments}
   };
 };
+
+export const deleteCardFieldStatus = (listID, cardID) => {
+  return{
+      type: CONSTANTS.DELETE_CARD_FIELDSTATUS,
+      payload: {listID, cardID}
+  };
+};

@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import { connect  } from 'react-redux'
 import StatusList from './StatusList'
-import { deleteButtonFieldStatus, addButtonFieldStatus ,addCardFieldStatus } from "../../Actions";
+import { deleteButtonFieldStatus, addButtonFieldStatus ,addCardFieldStatus, deleteCardFieldStatus } from "../../Actions";
 
 class MainComponent extends Component
 {
@@ -38,8 +38,12 @@ class MainComponent extends Component
 
     addCard = ( listID,cardTitle, cardComments ) =>
     {
-        console.log(cardTitle);
         this.props.dispatch(addCardFieldStatus(listID,cardTitle, cardComments));
+    }
+
+    deleteCard = (listID, cardID) =>
+    {
+        this.props.dispatch(deleteCardFieldStatus(listID,cardID));
     }
 
 
@@ -62,6 +66,7 @@ class MainComponent extends Component
                         deleteButton={this.deleteButton} 
                         addButton={this.addButton} 
                         addCard ={this.addCard}
+                        deleteCard ={this.deleteCard}
                         />))}
           </div> 
         </div>
