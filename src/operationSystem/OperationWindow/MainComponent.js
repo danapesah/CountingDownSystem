@@ -1,3 +1,4 @@
+
 import React,{Component} from 'react'
 import { connect  } from 'react-redux'
 import OperationList from './OperationList'
@@ -82,4 +83,5 @@ const styles = {
     //display:"inline"
     },
 }
+
 export default connect(mapStateToProps)(MainWindow)

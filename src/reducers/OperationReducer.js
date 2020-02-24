@@ -30,18 +30,20 @@ const initialState = {
                 {
                 cardTitle: ' אדרת 5',
                 cardID:0,
+                cardComments:'הי שלום מה נשמע?',
                 buttons:[
-                        {id:1,titleButton:'5י'},
-                        {id:2,titleButton:'2.4'},
-                        {id:1,titleButton:'5ח\''}
+                        {id:0,titleButton:'5י'},
+                        {id:1,titleButton:'2.4'},
+                        {id:2,titleButton:'5ח\''}
                     ]
                 },
                 {
                     cardTitle: 'אדרת 3',
                     cardID:1,
+                    cardComments:'sharon dana sharon',
                     buttons:[
-                            {id:1,titleButton:'5'},
-                            {id:2,titleButton:'2.4'},
+                            {id:0,titleButton:'5'},
+                            {id:1,titleButton:'2.4'},
                         ]
                     }
                ]
@@ -53,6 +55,7 @@ const initialState = {
                 {
                 cardTitle: 'יארד',
                 cardID:0,
+                cardComments:' דנה דנה דנה',
                 buttons:[
                         {id:1,titleButton:'1'},
                     ]
@@ -153,7 +156,6 @@ const OperationReducer = (state = initialState, action) =>{
         case CONSTANTS.DELETE_ENTITY_COUNTDOWN:
         {
             const deleteID = action.payload.id;
-            //console.log(action.payload.id);
             let newResourcesList = [];
             let newEventsList = [];
             for(let i=0;i<state.CountDownlists.resources.length;i++)
@@ -201,10 +203,122 @@ const OperationReducer = (state = initialState, action) =>{
             return {...state,CountDownlists: CountDownlistsNew };
         }
 
+        case CONSTANTS.DELETE_BUTTON_FIELDSTATUS:
+        {
+            let list;
+            let card;
 
-        
+            for(let i=0;i<state.StatusList.length; i++)
+                if(state.StatusList[i].listID == action.payload.listID)
+                   list = i;
+            for(let i=0;i<state.StatusList[list].cards.length; i++)
+                if(state.StatusList[list].cards[i].cardID == action.payload.cardID)
+                   card = i;
 
+            let newStatusList = [...state.StatusList];
+            newStatusList[list].cards[card].buttons= state.StatusList[list].cards[card].buttons.filter(button =>
+                {
+                    if(button.id != action.payload.buttonID)
+                        return button;
+                });
+            return {...state,StatusList:newStatusList};
         
+        }
+        case CONSTANTS.ADD_BUTTON_FIELDSTATUS:
+        {
+            //INPUT FIRST BUTTON CASE
+            let list;
+            let card;
+            let newButton =[];
+            for(let i=0;i<state.StatusList.length; i++)
+                if(state.StatusList[i].listID == action.payload.listID)
+                   list = i;
+            for(let i=0;i<state.StatusList[list].cards.length; i++)
+                if(state.StatusList[list].cards[i].cardID == action.payload.cardID)
+                   card = i;
+
+            let newStatusList = [...state.StatusList];
+            let newID;
+            if(newStatusList[list].cards[card].buttons.length == 0)
+                 newID=0;
+            else
+                 newID=(newStatusList[list].cards[card].buttons[(newStatusList[list].cards[card].buttons.length-1)].id)+1
+            newButton =
+            {
+                id: newID,
+                titleButton: action.payload.buttonTitle,
+            }
+
+            newStatusList[list].cards[card].buttons.push(newButton);
+            return {...state,StatusList:newStatusList};
+        
+        }
+
+        case CONSTANTS.ADD_CARD_FIELDSTATUS:
+        {
+            //INPUT FIRST BUTTON CASE
+            let list;
+            for(let i=0;i<state.StatusList.length; i++)
+                if(state.StatusList[i].listID == action.payload.listID)
+                   list = i;
+            let newStatusList = [...state.StatusList];
+            let newID;
+            if(newStatusList[list].cards.length == 0)
+                 newID=0;
+            else
+                 newID=(newStatusList[list].cards[(newStatusList[list].cards.length-1)].cardID)+1
+            const newCard =
+            {
+                cardTitle: action.payload.cardTitle,
+                cardID: newID,
+                cardComments: action.payload.cardComments,
+                buttons: [],
+            }
+            newStatusList[list].cards.push(newCard);
+            return {...state,StatusList:newStatusList};
+        
+        }
+        case CONSTANTS.DELETE_CARD_FIELDSTATUS:
+        {
+            let list;
+            for(let i=0;i<state.StatusList.length; i++)
+                if(state.StatusList[i].listID == action.payload.listID)
+                   list = i;
+            let newStatusList = [...state.StatusList];
+            newStatusList[list].cards= state.StatusList[list].cards.filter(card =>
+                {
+                    if(card.cardID != action.payload.cardID)
+                        return card;
+                });
+            return {...state,StatusList:newStatusList};
+        
+        }
+
+        case CONSTANTS.DELETE_LIST_FIELDSTATUS:
+        {
+            let newStatusList = [...state.StatusList];
+            newStatusList= state.StatusList.filter(list =>
+                {
+                    if(list.listID != action.payload.listID)
+                        return list;
+                });
+            return {...state,StatusList:newStatusList};
+        }
+
+        case CONSTANTS.ADD_LIST_FIELDSTATUS:
+            {
+                let newStatusList = [...state.StatusList];
+                const newList = 
+                {
+                    listID: ((newStatusList[newStatusList.length-1].listID)+1),
+                    listTitle: action.payload.listTitle,
+                    cards:[],
+                }
+                newStatusList.push(newList);
+                return {...state,StatusList:newStatusList};
+            }
+
+
         default: return state;
     }
     

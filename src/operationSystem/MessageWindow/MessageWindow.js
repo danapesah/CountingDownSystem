@@ -1,3 +1,4 @@
+
 import TextScroller from './TextScroller'
 import React from "react";
 import { TextField } from '@material-ui/core';
@@ -59,6 +60,5 @@ class  MessageWindow  extends React.Component  {
       fontSize:15,
     }
 }
-
 
   export default MessageWindow;

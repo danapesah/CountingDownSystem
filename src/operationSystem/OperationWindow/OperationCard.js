@@ -1,3 +1,4 @@
+
 import React from 'react'
 
 const OperationCard = ({title}) =>
@@ -32,5 +33,6 @@ const OperationCard = ({title}) =>
        
     )
 }
+
 
 export default OperationCard
