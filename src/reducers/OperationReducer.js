@@ -1,69 +1,10 @@
 import {CONSTANTS} from "../Actions";
-import * as moment from 'moment';
+// import * as moment from 'moment';
 
-let listIDNew=3;
+// let listIDNew=3;
 const initialState = {
     title: "This is the title",
-    OperationList: [
-    //    {
-    //        listID:0,
-    //        title: 'First List',
-    //        cards:[
-    //            {id:0},
-    //            {id:1}
-    //        ]
-    //    },
-    //    {
-    //     listID:1,
-    //     title: 'Second List',
-    //     cards:[
-    //         {id:0},
-    //         {id:1}
-    //     ]
-    //     }
-    ],
-    StatusList: [
-        //{
-        //     listID:0,
-        //     listTitle: 'שדה',
-        //     cards:[
-        //         {
-        //         cardTitle: ' אדרת 5',
-        //         cardID:0,
-        //         cardComments:'הי שלום מה נשמע?',
-        //         buttons:[
-        //                 {id:0,titleButton:'5י'},
-        //                 {id:1,titleButton:'2.4'},
-        //                 {id:2,titleButton:'5ח\''}
-        //             ]
-        //         },
-        //         {
-        //             cardTitle: 'אדרת 3',
-        //             cardID:1,
-        //             cardComments:'sharon dana sharon',
-        //             buttons:[
-        //                     {id:0,titleButton:'5'},
-        //                     {id:1,titleButton:'2.4'},
-        //                 ]
-        //             }
-        //        ]
-        //  },
-        //  {
-        //  listID:1,
-        //     listTitle: 'מערכות חיצוניות',
-        //     cards:[
-        //         {
-        //         cardTitle: 'יארד',
-        //         cardID:0,
-        //         cardComments:' דנה דנה דנה',
-        //         buttons:[
-        //                 {id:1,titleButton:'1'},
-        //             ]
-        //         },
-
-        //        ]
-          //}
-     ],
+ 
      CountDownlists:  
      {
         resources:[
@@ -75,9 +16,9 @@ const initialState = {
             {title: "משימה 6", key:"5"},
         ],
         events:[
-            {id:1,title:"Event",startHour:3,endHour:4, columID:0, comments:"Dana"},
-            {id:2,title:"Event",startHour:5,endHour:7, columID:3, comments:"Shoky"},
-            {id:3,title:"Event",startHour:1,endHour:2, columID:4, comments: "Tooffee"}
+            {id:1,title:"sharon",startHour:3,endHour:4, columID:0, comments:"Dana"},
+            {id:2,title:"lior",startHour:5,endHour:7, columID:3, comments:"Shoky"},
+            {id:3,title:"oshrat",startHour:1,endHour:2, columID:4, comments: "Tooffee"}
         ]
      }
     
@@ -87,45 +28,49 @@ const initialState = {
 }
 
 const OperationReducer = (state = initialState, action) =>{
+    console.log(state.CountDownlists.events)
     let listID=3;
     switch(action.type){
-    case CONSTANTS.ADD_LIST_OPERATION:
-    {
-        const newList = {
-            listID : listIDNew, 
-            title:"List num"+listIDNew,
-            cards: [] , 
-        }
-        listIDNew++; 
-            return {...state,OperationList: [...state.OperationList, newList]};
-    }
+    // case CONSTANTS.ADD_LIST_OPERATION:
+    // {
+    //     const newList = {
+    //         listID : listIDNew, 
+    //         title:"List num"+listIDNew,
+    //         cards: [] , 
+    //     }
+    //     listIDNew++; 
+    //         return {...state,OperationList: [...state.OperationList, newList]};
+    // }
 
-    case CONSTANTS.ADD_CARD_OPERATION:
-    {
-        const newCard = {
-            id:4
-        } 
-       
-       const newOperationList= state.OperationList.map (list => {
-            if(list.listID === action.payload.listID){
-                return{
-                    ...list,
-                    cards:[...list.cards, newCard]
-                }
-            }else{
-                return list;
-            }
-        });   
-        return {...state, OperationList: newOperationList};
-        }
+    // case CONSTANTS.ADD_CARD_OPERATION:
+    // {
+    //     console.log("hereADD_CARD_OPERATION")
+    //     const newCard = {
+    //         id:4
+    //     } 
+    //    console.log("here 1")
+    //    const newOperationList= state.OperationList.map (list => {
+    //         if(list.listID === action.payload.listID){
+    //             return{
+    //                 ...list,
+    //                 cards:[...list.cards, newCard]
+    //             }
+    //         }else{
+    //             return list;
+    //         }
+    //     });   
+    //     return {...state, OperationList: newOperationList};
+    //     }
 
         case CONSTANTS.ADD_EVENT_COUNTDOWN:{
+            console.log("here ADD_EVENT_COUNTDOWN")
+            let event_ID=state.CountDownlists.events.length;
             const CountDownlistsNew = {
                 resources:[...state.CountDownlists.resources],
                 events:[
                     ...state.CountDownlists.events,
                     {
-                        id:4,
+                        id:event_ID+1,
                         title:action.payload.title,
                         startHour:action.payload.startHour,
                         endHour:action.payload.endHour, 
@@ -138,11 +83,11 @@ const OperationReducer = (state = initialState, action) =>{
             return {...state,CountDownlists: CountDownlistsNew };
         }
         case CONSTANTS.DELETE_EVENT_COUNTDOWN:
-        {
+        { console.log("here 1")
             const deleteID = action.payload.id.id;
                const newEventsList = state.CountDownlists.events.filter( event=>
                 {
-                  if(event.id != deleteID)      
+                  if(event.id !== deleteID)      
                    return event
                 }
                )
@@ -154,13 +99,13 @@ const OperationReducer = (state = initialState, action) =>{
         };
 
         case CONSTANTS.DELETE_ENTITY_COUNTDOWN:
-        {
+        { console.log("here DELETE_ENTITY_COUNTDOWN")
             const deleteID = action.payload.id;
             let newResourcesList = [];
             let newEventsList = [];
             for(let i=0;i<state.CountDownlists.resources.length;i++)
                 {
-                    if(state.CountDownlists.resources[i].key != deleteID)
+                    if(state.CountDownlists.resources[i].key !== deleteID)
                     {
                         if(state.CountDownlists.resources[i].key>deleteID)
                         {
@@ -172,7 +117,7 @@ const OperationReducer = (state = initialState, action) =>{
                 }
                 for(let i=0;i<state.CountDownlists.events.length;i++)
                 {
-                    if(state.CountDownlists.events[i].columID != deleteID)
+                    if(state.CountDownlists.events[i].columID !== deleteID)
                     {
                         if(state.CountDownlists.events[i].columID >deleteID)
                         {
@@ -190,6 +135,7 @@ const OperationReducer = (state = initialState, action) =>{
              return {...state,CountDownlists: CountDownlistsNew };    
         };
         case CONSTANTS.ADD_ENTITY_COUNTDOWN:{
+            console.log("here ADD_ENTITY_COUNTDOWN")
             const CountDownlistsNew = {
                 resources:[
                     ...state.CountDownlists.resources,
@@ -209,16 +155,16 @@ const OperationReducer = (state = initialState, action) =>{
             let card;
 
             for(let i=0;i<state.StatusList.length; i++)
-                if(state.StatusList[i].listID == action.payload.listID)
+                if(state.StatusList[i].listID === action.payload.listID)
                    list = i;
             for(let i=0;i<state.StatusList[list].cards.length; i++)
-                if(state.StatusList[list].cards[i].cardID == action.payload.cardID)
+                if(state.StatusList[list].cards[i].cardID === action.payload.cardID)
                    card = i;
 
             let newStatusList = [...state.StatusList];
             newStatusList[list].cards[card].buttons= state.StatusList[list].cards[card].buttons.filter(button =>
                 {
-                    if(button.id != action.payload.buttonID)
+                    if(button.id !== action.payload.buttonID)
                         return button;
                 });
             return {...state,StatusList:newStatusList};
@@ -231,15 +177,15 @@ const OperationReducer = (state = initialState, action) =>{
             let card;
             let newButton =[];
             for(let i=0;i<state.StatusList.length; i++)
-                if(state.StatusList[i].listID == action.payload.listID)
+                if(state.StatusList[i].listID === action.payload.listID)
                    list = i;
             for(let i=0;i<state.StatusList[list].cards.length; i++)
-                if(state.StatusList[list].cards[i].cardID == action.payload.cardID)
+                if(state.StatusList[list].cards[i].cardID === action.payload.cardID)
                    card = i;
 
             let newStatusList = [...state.StatusList];
             let newID;
-            if(newStatusList[list].cards[card].buttons.length == 0)
+            if(newStatusList[list].cards[card].buttons.length === 0)
                  newID=0;
             else
                  newID=(newStatusList[list].cards[card].buttons[(newStatusList[list].cards[card].buttons.length-1)].id)+1
@@ -259,11 +205,11 @@ const OperationReducer = (state = initialState, action) =>{
             //INPUT FIRST BUTTON CASE
             let list;
             for(let i=0;i<state.StatusList.length; i++)
-                if(state.StatusList[i].listID == action.payload.listID)
+                if(state.StatusList[i].listID === action.payload.listID)
                    list = i;
             let newStatusList = [...state.StatusList];
             let newID;
-            if(newStatusList[list].cards.length == 0)
+            if(newStatusList[list].cards.length === 0)
                  newID=0;
             else
                  newID=(newStatusList[list].cards[(newStatusList[list].cards.length-1)].cardID)+1
@@ -282,12 +228,12 @@ const OperationReducer = (state = initialState, action) =>{
         {
             let list;
             for(let i=0;i<state.StatusList.length; i++)
-                if(state.StatusList[i].listID == action.payload.listID)
+                if(state.StatusList[i].listID === action.payload.listID)
                    list = i;
             let newStatusList = [...state.StatusList];
             newStatusList[list].cards= state.StatusList[list].cards.filter(card =>
                 {
-                    if(card.cardID != action.payload.cardID)
+                    if(card.cardID !== action.payload.cardID)
                         return card;
                 });
             return {...state,StatusList:newStatusList};
@@ -299,7 +245,7 @@ const OperationReducer = (state = initialState, action) =>{
             let newStatusList = [...state.StatusList];
             newStatusList= state.StatusList.filter(list =>
                 {
-                    if(list.listID != action.payload.listID)
+                    if(list.listID !== action.payload.listID)
                         return list;
                 });
             return {...state,StatusList:newStatusList};
@@ -321,7 +267,7 @@ const OperationReducer = (state = initialState, action) =>{
 
         default: return state;
     }
-    
+  
 }
 
 export default OperationReducer;

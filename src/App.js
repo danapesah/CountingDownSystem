@@ -3,10 +3,12 @@ import LoginPage from './LoginPage'
 import MainWindow from './operationSystem/MainWindow'
 import InputSelect from 'react-select-input';
 import NumberFormat from 'react-number-format';
-
+import TestScheduler from './operationSystem/countDownWindow/TestScheduler';
 function App() {
   return (
-      <MainWindow/>
+
+    <TestScheduler/>
+      // <MainWindow/>
   );
 }
 

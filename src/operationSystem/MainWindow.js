@@ -25,8 +25,9 @@ const layout = [
   return (
     <GridLayout className="layout" layout={layout} cols={12} rowHeight={100} width={3000}>
       {/* <div   style={{ backgroundColor: 'blue', overflow: "scroll"}}  key="a">a</div> */}
-      <div key="b" style={styles.cardsContainer}>
+      <div  key="b" style={styles.cardsContainer}>
         <MainOperationWindow/>
+        
       </div>
       <div   style={ {backgroundColor: '#d1d1e0', overflow:"auto"}} key="c">
         <MainStatusWindow/>

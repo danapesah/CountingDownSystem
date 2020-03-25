@@ -20,15 +20,15 @@ class countDownAddEventButton extends Component
     }
     handleChange=(event)=>
     {
-        if(event.target.name == 'title')
+        if(event.target.name === 'title')
         this.setState({title: event.target.value})
-        else if(event.target.name == 'startHour')
+        else if(event.target.name === 'startHour')
         this.setState({startHour: this.convertTimeInput(event.target.value)})
-        else if(event.target.name == 'endHour')
+        else if(event.target.name === 'endHour')
         this.setState({endHour: this.convertTimeInput(event.target.value)})
-        else if(event.target.name == 'comments')
+        else if(event.target.name === 'comments')
         this.setState({comments: event.target.value})
-        else if(event.target.name == 'entity')
+        else if(event.target.name === 'entity')
         this.setState({entity: event.target.value})
 
     }
@@ -36,7 +36,7 @@ class countDownAddEventButton extends Component
      handleSubmit =(event)=>
      {
          event.preventDefault();
-         if(this.state.entity == "")
+         if(this.state.entity === "")
             this.state.entity=this.props.lists[0].key;
 
         this.props.dispatch(addEventCountDown(this.state.title,this.state.startHour,this.state.endHour,this.state.comments, this.state.entity));

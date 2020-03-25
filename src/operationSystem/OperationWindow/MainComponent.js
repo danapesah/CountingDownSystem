@@ -21,7 +21,7 @@ class MainWindow extends Component
 
 
         e.target.src=picArray[picIndex];
-        if(picIndex == 1)
+        if(picIndex === 1)
             picIndex=0;
         else
             picIndex++;

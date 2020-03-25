@@ -11,7 +11,7 @@ class CountDownAddEntityButton extends Component
   }
   handleChange=(event)=>
   {
-      if(event.target.name == 'title')
+      if(event.target.name === 'title')
       this.setState({title: event.target.value})
 
   }

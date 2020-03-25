@@ -13,9 +13,9 @@ class MainComponent extends Component
   
     handleChange =(event)=>
     {
-        if(event.target.name == "deleteList")
+        if(event.target.name === "deleteList")
             this.state.deleteList = event.target.value;
-        if(event.target.name = "addList")
+        if(event.target.name === "addList")
             this.state.addListTitle = event.target.value; 
        
     }
@@ -23,9 +23,9 @@ class MainComponent extends Component
     handleSubmit =(event)=>
     {
         event.preventDefault();
-        if(event.target.name == "deleteList")
+        if(event.target.name === "deleteList")
         {
-            if(this.state.deleteList == "")
+            if(this.state.deleteList === "")
             {
                 this.props.dispatch(deleteListFieldStatus(this.props.lists[0].listID));
                 this.state.deleteList = ""
@@ -36,7 +36,7 @@ class MainComponent extends Component
                 this.state.deleteList = ""
             }  
         }
-        else if(event.target.name == "addList")
+        else if(event.target.name === "addList")
             this.props.dispatch(addListFieldStatus(this.state.addListTitle));
        
    }   
@@ -44,19 +44,19 @@ class MainComponent extends Component
 
    changeColor =(e)=>
    {    
-       if( e.target.style.backgroundColor=="green")
+       if( e.target.style.backgroundColor==="green")
           {
               e.target.style.backgroundColor="orange";
            }
-       else if( e.target.style.backgroundColor=="orange")
+       else if( e.target.style.backgroundColor==="orange")
          {
               e.target.style.backgroundColor="Red";
         }
-        else if( e.target.style.backgroundColor=="red")
+        else if( e.target.style.backgroundColor==="red")
           {
               e.target.style.backgroundColor="black";
           }
-       else if( e.target.style.backgroundColor=="black")
+       else if( e.target.style.backgroundColor==="black")
          { 
              e.target.style.backgroundColor="green";
         }

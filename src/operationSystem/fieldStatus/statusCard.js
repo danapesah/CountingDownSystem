@@ -17,7 +17,7 @@ const StatusCard = ({title ,buttons, changeColor,cardID, listID, deleteButton, a
 
     const handleChange =(event)=>
     {
-       if(event.target.name == "button")
+       if(event.target.name === "button")
         state.buttonName= event.target.value;
 
    }   

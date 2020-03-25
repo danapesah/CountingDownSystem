@@ -14,9 +14,9 @@ const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, 
     const handleSubmit =(event)=>
     {
         event.preventDefault();
-        if(event.target.name == "addCard")
+        if(event.target.name === "addCard")
         addCard(listID,state.cardTitle,state.cardComments);
-        else if(event.target.name == "deleteCard")
+        else if(event.target.name === "deleteCard")
         {
             deleteCard(listID, state.deleteCard);
 
@@ -25,11 +25,11 @@ const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, 
    
    const handleChange =(event)=>
     {
-       if(event.target.name == "cardTitle")
+       if(event.target.name === "cardTitle")
         state.cardTitle= event.target.value;
-       else if(event.target.name == "cardComments")
+       else if(event.target.name === "cardComments")
         state.cardComments= event.target.value;
-        else if(event.target.name == "deleteCard")
+        else if(event.target.name === "deleteCard")
         state.deleteCard=event.target.value;
    }   
     const addAble =()=>
