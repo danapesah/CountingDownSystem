@@ -45,7 +45,7 @@ class CountDownAddEntityButton extends Component
 
 
 const mapStateToProps = (state)=> ({
-    resources: state.CountDownlists.resources,
-  })
+  resources: state.CountDownlists.resources,
+})
 
 export default connect(mapStateToProps)(CountDownAddEntityButton)

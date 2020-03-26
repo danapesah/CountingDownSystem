@@ -3,7 +3,7 @@ import * as moment from 'moment';
 
 let listIDNew=3;
 const initialState = {
-    title: "This is the title",
+    title: "This is the title of the state ",
     OperationList: [
        {
            listID:0,
@@ -66,6 +66,7 @@ const initialState = {
      ],
      CountDownlists:  
      {
+       
         resources:[
             {title: "משימה 1", key:"0"},
             {title: "משימה 2", key:"1"},
@@ -75,9 +76,9 @@ const initialState = {
             {title: "משימה 6", key:"5"},
         ],
         events:[
-            {id:1,title:"Event",startHour:3,endHour:4, columID:0, comments:"Dana"},
-            {id:2,title:"Event",startHour:5,endHour:7, columID:3, comments:"Shoky"},
-            {id:3,title:"Event",startHour:1,endHour:2, columID:4, comments: "Tooffee"}
+            {id:1,title:"sharon",startHour:3,endHour:4, columID:0, comments:"Dana"},
+            {id:2,title:"dana",startHour:5,endHour:7, columID:3, comments:"Shoky"},
+            {id:3,title:"lior",startHour:1,endHour:2, columID:4, comments: "Tooffee"}
         ]
      }
     
@@ -120,12 +121,14 @@ const OperationReducer = (state = initialState, action) =>{
         }
 
         case CONSTANTS.ADD_EVENT_COUNTDOWN:{
+            /////////////////////////////////////
+            console.log("here ADD_EVENT_COUNTDOWN")
             const CountDownlistsNew = {
                 resources:[...state.CountDownlists.resources],
                 events:[
                     ...state.CountDownlists.events,
                     {
-                        id:4,
+                        id:state.CountDownlists.events.length+1,
                         title:action.payload.title,
                         startHour:action.payload.startHour,
                         endHour:action.payload.endHour, 
@@ -135,6 +138,7 @@ const OperationReducer = (state = initialState, action) =>{
                 ]
        
             } 
+            console.log(state.CountDownlists.events)
             return {...state,CountDownlists: CountDownlistsNew };
         }
         case CONSTANTS.DELETE_EVENT_COUNTDOWN:
