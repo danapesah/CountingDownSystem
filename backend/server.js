@@ -19,6 +19,11 @@ connection.once('open', ()=>{
     console.log("MongoBD database connection established successfully" );
 })
 
+
+const countsRouter = require('./routes/counts');
+
+app.use('/counts', countsRouter);
+
 app.listen(port ,()=> {
     console.log('Server is running on port:',  {port} ); //start the server
 });

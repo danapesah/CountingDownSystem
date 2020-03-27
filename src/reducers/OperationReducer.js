@@ -1,5 +1,7 @@
 import {CONSTANTS} from "../Actions";
 import * as moment from 'moment';
+import axios from 'axios';
+
 
 let listIDNew=3;
 const initialState = {
@@ -138,7 +140,16 @@ const OperationReducer = (state = initialState, action) =>{
                 ]
        
             } 
-            console.log(state.CountDownlists.events)
+            const count = {
+                events:  [...state.CountDownlists.events],
+                resources:[...state.CountDownlists.events]
+              }
+
+              console.log(count);
+        axios.post('http://localhost:5000/counts/add', count)
+        .then(res => console.log(res.data +"ressssssssssssss" )); //promise, after its posted well console our the res.data
+
+           // console.log(state.CountDownlists.events)
             return {...state,CountDownlists: CountDownlistsNew };
         }
         case CONSTANTS.DELETE_EVENT_COUNTDOWN:
