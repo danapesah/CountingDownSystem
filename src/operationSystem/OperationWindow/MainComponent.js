@@ -37,9 +37,9 @@ class MainWindow extends Component
         <div style={styles.blockStyle}>
         <div style={styles.lineContainer}>
             <p style={ {marginBottom:"10%"}}> שם משימה </p>
-            <p> אישור ירידה</p>
-            <p> אישור המראה </p>
-            <p> המראה </p>
+             אישור ירידה<br/>
+             אישור המראה <br/>
+             המראה <br/>
         </div  >
         <div style={styles.listsContainer}>
         {lists.map(list => 
@@ -73,7 +73,7 @@ const styles = {
      float:"right",
     flexDirection:"column",
      backgroundColor:"#66c2ff", 
-     marginTop:"7%"
+     marginTop:"6%"
      // marginLeft: 450,
       //margin:"auto"
     },
