@@ -7,18 +7,16 @@ const initialState = {
     OperationList: [
        {
            listID:0,
-           title: 'First List',
            cards:[
-               {id:0},
-               {id:1}
+               {id:0, title: 'First Card', picture:0, checkBox:[1,0,0]},
+               {id:1,title: 'Second Card', picture:0, checkBox:[0,0,0]}
            ]
        },
        {
         listID:1,
         title: 'Second List',
         cards:[
-            {id:0},
-            {id:1}
+            {id:0, title: 'First Card', picture:0, checkBox:[0,1,1]}
         ]
         }
     ],
@@ -306,7 +304,7 @@ const OperationReducer = (state = initialState, action) =>{
         }
 
         case CONSTANTS.ADD_LIST_FIELDSTATUS:
-            {
+        {
                 let newStatusList = [...state.StatusList];
                 const newList = 
                 {
@@ -316,6 +314,21 @@ const OperationReducer = (state = initialState, action) =>{
                 }
                 newStatusList.push(newList);
                 return {...state,StatusList:newStatusList};
+        }
+
+        case CONSTANTS.DELETE_CARD_OPERATION:
+            {
+                let list;
+                for(let i=0;i<state.OperationList.length; i++)
+                    if(state.OperationList[i].listID == action.payload.listID)
+                    list = i;
+                let newOperationList = [...state.OperationList];
+                newOperationList[list].cards= state.OperationList[list].cards.filter(card =>
+                    {
+                        if(card.id != action.payload.cardID)
+                            return card;
+                    });
+                return {...state,OperationList:newOperationList};
             }
 
 

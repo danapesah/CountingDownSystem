@@ -13,3 +13,11 @@ export const addCardOperation = (listID) => {
       payload: {listID},
   };
 };
+
+
+export const deleteCardOperation = (cardID,listID) => {
+  return{
+      type: CONSTANTS.DELETE_CARD_OPERATION,
+      payload: {cardID,listID},
+  };
+};

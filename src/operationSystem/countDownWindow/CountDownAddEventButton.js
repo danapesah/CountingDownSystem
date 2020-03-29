@@ -62,6 +62,8 @@ class countDownAddEventButton extends Component
         trigger={<button style={{position:"absolute", width:"50px", height:"50px"}}className="button">+</button>}
         modal
         closeOnDocumentClick>
+          {close =>(
+              <div>
        <form onSubmit={this.handleSubmit}>
             <label >
                 Mission Title:
@@ -87,11 +89,31 @@ class countDownAddEventButton extends Component
             <textarea name="comments" onChange={this.handleChange}>Extra Comments</textarea>
              <input type="submit" value="Submit" /> 
         </form>  
-    
+        <a className="close" onClick={close} style={styles.close}>
+            &times;
+             </a>
+             </div>)}
       </Popup>
         )
     }
 }
+
+const styles = {
+    close:
+    {
+      cursor: 'pointer',
+      position: "absolute",
+      display: "block",
+      padding: "2px 5px",
+      right: "-10px",
+      top:"-10px",
+      fontSize: "15px",
+      background:" #ffffff",
+      borderRadius: "18px",
+      border: "1px solid #cfcece"
+    }
+  }
+
 const mapStateToProps = (state)=> ({
     lists: state.CountDownlists.resources,
     events: state.CountDownlists.events,

@@ -1,40 +1,21 @@
 import React,{Component} from 'react'
 import { connect  } from 'react-redux'
 import OperationList from './OperationList'
-import OperationAddListButton from './OperationAddListButton'
-import planePic from './plane.jpeg'
-import helicopterPic from './helicopter.jpeg'
+import { deleteCardOperation } from '../../Actions';
 
-
-
-const picArray=[
-    planePic,
-    helicopterPic
-]
-let picIndex=1;
 class MainWindow extends Component
 {
-     
-   changePic = (e) =>
-   {
-
-
-        e.target.src=picArray[picIndex];
-        if(picIndex == 1)
-            picIndex=0;
-        else
-            picIndex++;
-       
-   }
-
-
+    deleteCard = (cardID,listID) =>
+    {
+        this.props.dispatch(deleteCardOperation(cardID,listID));
+    }
     render()
     {  
         const {lists} = this.props;
         return(
         <div>
         <div class="center">חלון אופרציה</div>
-        <div style={styles.blockStyle}>
+        <div>
         <div style={styles.lineContainer}>
             <p style={ {marginBottom:"10%"}}> שם משימה </p>
              אישור ירידה<br/>
@@ -43,8 +24,7 @@ class MainWindow extends Component
         </div  >
         <div style={styles.listsContainer}>
         {lists.map(list => 
-          ( <OperationList listID={list.listID} key ={list.id} title = {list.title} cards = {list.cards} changePic={this.changePic} />))}
-          <OperationAddListButton/>
+          ( <OperationList key ={list.listID} listID={list.listID} cards = {list.cards} deleteCard={this.deleteCard}/>))}
           </div> 
         </div>
         </div>
@@ -60,26 +40,16 @@ const mapStateToProps = (state) =>{
 const styles = {
     listsContainer:
     {
-     //display:"flex",
      display:"inline",
      float:"right",
-     backgroundColor:"#1aa3ff", 
      margin:"auto",
     },
     lineContainer:
     {   
-     //paddingBottom:"3",
      width:"auto",
      float:"right",
     flexDirection:"column",
-     backgroundColor:"#66c2ff", 
-     marginTop:"6%"
-     // marginLeft: 450,
-      //margin:"auto"
-    },
-    blockStyle:
-    {   
-    //display:"inline"
-    },
+     marginTop:"25px"
+    }
 }
 export default connect(mapStateToProps)(MainWindow)
