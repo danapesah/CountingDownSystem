@@ -15,9 +15,11 @@ function App() {
 
 <div>
     <FirstPage/>
+    {/* <FirstPage/> */}
 
     {/* {console.log(window.location.pathname) } */}
        {/* <MainWindow  /> */}
+       <MainWindow  />
        </div>
   );
 }
