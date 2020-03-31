@@ -45,7 +45,6 @@ class CountDownAddEntityButton extends Component
              </a>
              </div>
             )}
-            
           </Popup>
         )
     }

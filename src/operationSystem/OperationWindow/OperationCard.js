@@ -41,19 +41,20 @@ const OperationCard = ({listID, cardID,title, checkBox, picture, deleteCard}) =>
     {
         //CHECK IF EDITABLE
         if(true)
-        return <div style={{float:"center",color:"red",cursor:"help",fontSize:"small",paddingTop:"15px"}}
-        onClick={()=>deleteCard(cardID,listID)} >מחיקת כרטיסx</div>
+        return <div style={{float:"right",color:"red",cursor:"help",fontSize:"small",paddingTop:"15px"}}
+        onClick={()=>deleteCard(cardID,listID)} >x</div>
     }
 
     
     return(
        <div style={{lineHeight: '0',borderRight: '2px dotted black',paddingLeft:"3px",paddingRight:"1px"}}>
            <img src={picArray[picture]} style={{width:"50px",height:"40px"}}></img>
+           {deleteAble(cardID,listID)}
             <div style={{paddingTop:"10px"}}>{title}</div>
             <form action="#" style={{paddingTop:"19px"}} >
             {checkBoxUtil(checkBox)}
             </form>
-            {deleteAble(cardID,listID)}
+           
         </div>
 
     )
