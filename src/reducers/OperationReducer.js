@@ -1,11 +1,15 @@
 import {CONSTANTS} from "../Actions";
 import * as moment from 'moment';
 import axios from 'axios';
-
+import MainWindow from '../operationSystem/MainWindow' 
 
 let listIDNew=3;
 const initialState = {
     title: "This is the title of the state ",
+    hours_before_target: '',
+    hours_after_target: '',
+
+
     OperationList: [
        {
            listID:0,
@@ -78,9 +82,9 @@ const initialState = {
             {title: "משימה 6", key:"5"},
         ],
         events:[
-            {id:1,title:"sharon",startHour:3,endHour:4, columID:0, comments:"Dana"},
-            {id:2,title:"dana",startHour:5,endHour:7, columID:3, comments:"Shoky"},
-            {id:3,title:"lior",startHour:1,endHour:2, columID:4, comments: "Tooffee"}
+            // {id:1,title:"sharon",startHour:3,endHour:4, columID:0, comments:"Dana"},
+            // {id:2,title:"dana",startHour:5,endHour:7, columID:3, comments:"Shoky"},
+            // {id:3,title:"lior",startHour:1,endHour:2, columID:4, comments: "Tooffee"}
         ]
      }
     
@@ -92,6 +96,39 @@ const initialState = {
 const OperationReducer = (state = initialState, action) =>{
     let listID=3;
     switch(action.type){
+
+    case CONSTANTS.SET_NEW_TABLE:{
+        const StatusListNew=[]
+        const CountDownlistsNew = {
+            events:  [],
+            resources:[...state.CountDownlists.resources],
+          }
+         
+        return {...state, StatusList:StatusListNew, CountDownlists: CountDownlistsNew , };
+    }
+    case CONSTANTS.SAVE_STATE:{
+        const count = {
+            title: state.title,
+            events:  [...state.CountDownlists.events],
+            resources:[...state.CountDownlists.resources],
+          }
+        if (action.payload.id=== -1 ){
+                    console.log(count);
+        axios.post('http://localhost:5000/counts/add', count)
+        .then(res => console.log(res.data  ),  );//promise, after its posted well console our the res.data
+        }
+        else {
+            console.log(  action.payload.id,  action.payload.id ,) 
+            axios.post('http://localhost:5000/counts/update/' + 
+            action.payload.id, count)
+            .then(res => console.log(res.data));
+        } 
+          window.location = '/';
+        return state;
+    }
+
+
+
     case CONSTANTS.ADD_LIST_OPERATION:
     {
         const newList = {
@@ -140,24 +177,30 @@ const OperationReducer = (state = initialState, action) =>{
                 ]
        
             } 
-            const count = {
-                events:  [...state.CountDownlists.events],
-                resources:[...state.CountDownlists.events]
-              }
-
-              console.log(count);
-        axios.post('http://localhost:5000/counts/add', count)
-        .then(res => console.log(res.data +"ressssssssssssss" )); //promise, after its posted well console our the res.data
-
-           // console.log(state.CountDownlists.events)
             return {...state,CountDownlists: CountDownlistsNew };
         }
+
+
+        
+        case CONSTANTS.CHANGE_STATE:
+        {
+        
+            const CountDownlistsNew = {
+                resources:[...action.payload.res],
+                events:[...action.payload.eve]
+            } 
+            return {...state,CountDownlists: CountDownlistsNew };
+        };
+
+
+
+
         case CONSTANTS.DELETE_EVENT_COUNTDOWN:
         {
             const deleteID = action.payload.id.id;
                const newEventsList = state.CountDownlists.events.filter( event=>
                 {
-                  if(event.id != deleteID)      
+                  if(event.id !== deleteID)      
                    return event
                 }
                )

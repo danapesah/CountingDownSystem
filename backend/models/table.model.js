@@ -8,7 +8,13 @@ const Schema = mongoose.Schema;
 
 
 const tableSchema = new Schema({
-  c: {  }
+  c: {
+    //  type: Object,
+      // required: true,
+      // unique: true,
+
+
+    }, 
   //c:[],
  // resources:[],
 
@@ -27,6 +33,8 @@ const tableSchema = new Schema({
 }, 
 {
   timestamps: true,
+
+
 });
 
 const Table = mongoose.model('Table', tableSchema); 

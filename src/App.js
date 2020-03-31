@@ -13,11 +13,12 @@ function App() {
 
   return (
 
-
+<div>
     <FirstPage/>
 
-     
-      // <MainWindow/>
+    {/* {console.log(window.location.pathname) } */}
+       {/* <MainWindow  /> */}
+       </div>
   );
 }
 

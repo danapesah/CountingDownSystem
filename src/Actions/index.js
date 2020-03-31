@@ -4,6 +4,8 @@ export * from "./ActionsCountDown"
 export * from "./cardsActionCountDown"
 export * from './refreshActionCountDown'
 export * from "./FieldStatusActions"
+export * from "./ServerAction"
+
 
 export const CONSTANTS = {
     ADD_LIST_OPERATION: "ADD_LIST_OPERATION",
@@ -20,6 +22,10 @@ export const CONSTANTS = {
     ADD_CARD_FIELDSTATUS: "ADD_CARD_FIELDSTATUS",
     DELETE_CARD_FIELDSTATUS: "DELETE_CARD_FIELDSTATUS",
     DELETE_LIST_FIELDSTATUS: "DELETE_LIST_FIELDSTATUS",
-    ADD_LIST_FIELDSTATUS: "ADD_LIST_FIELDSTATUS"
+    ADD_LIST_FIELDSTATUS: "ADD_LIST_FIELDSTATUS",
+    CHANGE_STATE : "CHANGE_STATE",
+    SAVE_STATE : "SAVE_STATE",
+    SET_NEW_TABLE:"SET_NEW_TABLE",
+
 };
 
