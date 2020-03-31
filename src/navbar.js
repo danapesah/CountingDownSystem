@@ -19,9 +19,6 @@ class Navbar extends Component {
          <li className="navbar-item">
           <Link to="/edit/:id" className="nav-link">ee </Link>
           </li>  */}
-
-          <li className="navbar-item">
-        </li>
         </ul>
         </div>
       </nav>

@@ -123,7 +123,6 @@ const OperationReducer = (state = initialState, action) =>{
             action.payload.id, count)
             .then(res => console.log(res.data));
         } 
-       //   window.location = '/';
           window.location = '/';
         return state;
     }
@@ -161,8 +160,6 @@ const OperationReducer = (state = initialState, action) =>{
         }
 
         case CONSTANTS.ADD_EVENT_COUNTDOWN:{
-            /////////////////////////////////////
-            console.log("here ADD_EVENT_COUNTDOWN")
             const CountDownlistsNew = {
                 resources:[...state.CountDownlists.resources],
                 events:[
