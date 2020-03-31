@@ -40,7 +40,6 @@ const layout = [
       </div>
       <div   style={{ backgroundColor: '#ffce99'}} key="d"><MainComponentTime/></div>
       <div   style={{ backgroundColor: '#ffe0b3', overflow:"hidden"}} key="e"><MessageWindow/></div>
-      <div   style={{ backgroundColor: '#00b33c',  overflow: "auto"}} key="f"><CreatingTable/></div>
       <div   style={{ backgroundColor: '#00b33c',  overflow: "auto"}} key="f"><TestScheduler/></div>
       <div   key="g">   
       {curr_location==="/user"  ?  

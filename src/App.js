@@ -14,7 +14,6 @@ function App() {
   return (
 
 <div>
-    <FirstPage/>
     {/* <FirstPage/> */}
 
     {/* {console.log(window.location.pathname) } */}

@@ -123,7 +123,6 @@ const OperationReducer = (state = initialState, action) =>{
             action.payload.id, count)
             .then(res => console.log(res.data));
         } 
-          window.location = '/';
        //   window.location = '/';
         return state;
     }

@@ -18,7 +18,6 @@ class FirstPage extends Component {
             <br/>
             <Route path="/" exact component={Temp }/> 
              <Route path="/edit/:id" component={MainWindow}  />{/*add /edit/:id to the address
-            {/* <Route path="/create" component={null} /> */}
             <Route path="/user" component={MainWindow} /> {/*add /user to the address*/ }
         </div>
 
