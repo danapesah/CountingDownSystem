@@ -4,21 +4,20 @@ import * as moment from 'moment';
 let listIDNew=3;
 const initialState = {
     title: "This is the title",
+    OperationRows: ["אישור ירידה", "אישור המראה", "המראה"],
     OperationList: [
        {
            listID:0,
-           title: 'First List',
            cards:[
-               {id:0},
-               {id:1}
+               {id:0, title: 'First Card', picture:0, checkBox:[1,0,0]},
+               {id:1,title: 'Second Card', picture:0, checkBox:[0,0,0]}
            ]
        },
        {
         listID:1,
         title: 'Second List',
         cards:[
-            {id:0},
-            {id:1}
+            {id:0, title: 'First Card', picture:0, checkBox:[0,1,1]}
         ]
         }
     ],
@@ -91,35 +90,47 @@ const OperationReducer = (state = initialState, action) =>{
     switch(action.type){
     case CONSTANTS.ADD_LIST_OPERATION:
     {
-        const newList = {
-            listID : listIDNew, 
-            title:"List num"+listIDNew,
-            cards: [] , 
+        let newID;
+         if(state.OperationList.length == 0)
+            newID = 0;
+        else
+            newID = (state.OperationList[state.OperationList.length-1].listID+1)
+        const newOperationList = 
+        {
+            listID : newID, 
+            cards: [] 
         }
-        listIDNew++; 
-            return {...state,OperationList: [...state.OperationList, newList]};
+            return {...state,OperationList: [...state.OperationList, newOperationList]};
     }
 
     case CONSTANTS.ADD_CARD_OPERATION:
     {
-        const newCard = {
-            id:4
-        } 
-       
-       const newOperationList= state.OperationList.map (list => {
-            if(list.listID === action.payload.listID){
-                return{
-                    ...list,
-                    cards:[...list.cards, newCard]
-                }
-            }else{
-                return list;
+        let newOperationList =[...state.OperationList]
+        for (let i=0;i<newOperationList.length;i++)
+            {
+                if(newOperationList[i].listID == action.payload.listID)
+                { 
+                    let newID;
+                    if(newOperationList[i].cards.length == 0)
+                    newID = 0;
+                    else
+                    newID = (newOperationList[i].cards[newOperationList[i].cards.length-1].id+1)
+                    let newCard=
+                    {
+                    id:newID, 
+                    title:action.payload.cardTitle,
+                    picture:action.payload.cardType, 
+                    checkBox:Array(state.OperationRows.length).fill(0)
+                    }
+                    newOperationList[i].cards.push(newCard);
+                    console.log(newOperationList[i].cards)
+                 }   
             }
-        });   
         return {...state, OperationList: newOperationList};
-        }
+    }
 
-        case CONSTANTS.ADD_EVENT_COUNTDOWN:{
+    case CONSTANTS.ADD_EVENT_COUNTDOWN:
+    {
             const CountDownlistsNew = {
                 resources:[...state.CountDownlists.resources],
                 events:[
@@ -306,7 +317,7 @@ const OperationReducer = (state = initialState, action) =>{
         }
 
         case CONSTANTS.ADD_LIST_FIELDSTATUS:
-            {
+        {
                 let newStatusList = [...state.StatusList];
                 const newList = 
                 {
@@ -316,7 +327,57 @@ const OperationReducer = (state = initialState, action) =>{
                 }
                 newStatusList.push(newList);
                 return {...state,StatusList:newStatusList};
+        }
+
+        case CONSTANTS.DELETE_CARD_OPERATION:
+            {
+                let list;
+                for(let i=0;i<state.OperationList.length; i++)
+                    if(state.OperationList[i].listID == action.payload.listID)
+                    list = i;
+                let newOperationList = [...state.OperationList];
+                newOperationList[list].cards= state.OperationList[list].cards.filter(card =>
+                    {
+                        if(card.id != action.payload.cardID)
+                            return card;
+                    });
+                return {...state,OperationList:newOperationList};
             }
+        case CONSTANTS.ADD_ROW_OPERATION:
+            {
+                let newOperationRows = [...state.OperationRows];
+                newOperationRows.push(action.payload.rowTitle);
+                let newOperationList = [...state.OperationList];
+                for(let i=0;i<state.OperationList.length; i++)
+                    for(let j=0; j<state.OperationList[i].cards.length; j++)
+                            newOperationList[i].cards[j].checkBox.push(0);
+                return {...state,OperationRows:newOperationRows, OperationList:newOperationList};
+            }
+         case CONSTANTS.DELETE_ROW_OPERATION:
+                {
+                    let newOperationRows = [...state.OperationRows];
+                    if(action.payload.rowPlace == 0)
+                        newOperationRows.shift();
+                    else
+                        newOperationRows.splice(action.payload.rowPlace,action.payload.rowPlace);
+                    let newOperationList = [...state.OperationList];
+                    for(let i=0;i<state.OperationList.length; i++)
+                        for(let j=0; j<state.OperationList[i].cards.length; j++)
+                                newOperationList[i].cards[j].checkBox.pop();
+                    return {...state,OperationRows:newOperationRows, OperationList:newOperationList};
+                }
+          case CONSTANTS.DELETE_LIST_OPERATION:
+                {       
+                    console.log(action.payload.ListID)
+                    let newOperationRows = [...state.OperationList];
+                    newOperationRows= state.OperationList.filter(list =>
+                        {
+                            if(list.listID != action.payload.ListID)
+                                return list;
+                        });
+                    return {...state,OperationList:newOperationRows};
+                }
+            
 
 
         default: return state;
