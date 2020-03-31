@@ -10,6 +10,7 @@ import MainWindow from './operationSystem/MainWindow'
 class FirstPage extends Component {
 
     render() {
+     // console.log(window.location.pathname); 
       return (
         <Router>
        
@@ -18,6 +19,7 @@ class FirstPage extends Component {
             <br/>
             <Route path="/" exact component={Temp }/> 
              <Route path="/edit/:id" component={MainWindow}  />{/*add /edit/:id to the address
+            {/* <Route path="/create" component={null} /> */}
             <Route path="/user" component={MainWindow} /> {/*add /user to the address*/ }
         </div>
 

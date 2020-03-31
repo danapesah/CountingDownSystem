@@ -3,10 +3,12 @@ let Table = require('../models/table.model'); // mongoose model we created
 
 router.route('/').get((req, res) => { //if theres a / at the end
   Table.find() //mongoose methode  get a list of all the users from thr db
+    .then(counts => res.json(counts)) //get all the tables
     .catch(err => res.status(400).json('Error: ' + err)); //if theres error
 });
 
 router.route('/add').post((req, res) => { 
+  const c = req.body; 
 
   const newTable = new Table({c}); //new table
 

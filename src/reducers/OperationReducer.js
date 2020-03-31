@@ -124,6 +124,7 @@ const OperationReducer = (state = initialState, action) =>{
             .then(res => console.log(res.data));
         } 
        //   window.location = '/';
+          window.location = '/';
         return state;
     }
 
