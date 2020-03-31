@@ -16,7 +16,7 @@ const StatusCard = ({title ,buttons, changeColor,cardID, listID, deleteButton, a
 
     const handleChange =(event)=>
     {
-       if(event.target.name == "button")
+       if(event.target.name === "button")
         state.buttonName= event.target.value;
 
    }   
@@ -66,7 +66,7 @@ const StatusCard = ({title ,buttons, changeColor,cardID, listID, deleteButton, a
         <div style={styles.cardContainer} >
          {showCardComments()}
         <div>
-        {buttons.map(button=>(<Button style={{backgroundColor: "green", width:"auto"}} onClick={changeColor}>
+        {buttons.map((button,i)=>(<Button key={i} style={{backgroundColor: "green", width:"auto"}} onClick={changeColor}>
         {deleteAble(cardID,button.id,listID)}
         {button.titleButton} </Button>))}
         </div>

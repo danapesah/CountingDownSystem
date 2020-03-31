@@ -1,7 +1,5 @@
 import {CONSTANTS} from "../Actions";
-import * as moment from 'moment';
 
-let listIDNew=3;
 const initialState = {
     title: "This is the title",
     OperationRows: ["אישור ירידה", "אישור המראה", "המראה"],
@@ -229,7 +227,7 @@ const OperationReducer = (state = initialState, action) =>{
             let newStatusList = [...state.StatusList];
             newStatusList[list].cards[card].buttons= state.StatusList[list].cards[card].buttons.filter(button =>
                 {
-                    if(button.id != action.payload.buttonID)
+                    if(button.id !== action.payload.buttonID)
                         return button;
                 });
             return {...state,StatusList:newStatusList};
@@ -319,9 +317,14 @@ const OperationReducer = (state = initialState, action) =>{
         case CONSTANTS.ADD_LIST_FIELDSTATUS:
         {
                 let newStatusList = [...state.StatusList];
+                let listIDNew;
+                if(newStatusList.length == 0)
+                    listIDNew = 0;
+                else
+                    listIDNew = ((newStatusList[newStatusList.length-1].listID)+1);
                 const newList = 
                 {
-                    listID: ((newStatusList[newStatusList.length-1].listID)+1),
+                    listID: listID,
                     listTitle: action.payload.listTitle,
                     cards:[],
                 }
@@ -368,13 +371,19 @@ const OperationReducer = (state = initialState, action) =>{
                 }
           case CONSTANTS.DELETE_LIST_OPERATION:
                 {       
-                    console.log(action.payload.ListID)
                     let newOperationRows = [...state.OperationList];
-                    newOperationRows= state.OperationList.filter(list =>
-                        {
-                            if(list.listID != action.payload.ListID)
-                                return list;
-                        });
+                    if(state.OperationList.length == 1)
+                    {
+                        newOperationRows = []
+                    }
+                    else
+                    {
+                        newOperationRows= state.OperationList.filter(list =>
+                            {
+                                 if(list.listID != action.payload.ListID)
+                                     return list;
+                             });   
+                    }
                     return {...state,OperationList:newOperationRows};
                 }
             

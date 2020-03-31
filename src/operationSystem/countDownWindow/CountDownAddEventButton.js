@@ -20,15 +20,15 @@ class countDownAddEventButton extends Component
     }
     handleChange=(event)=>
     {
-        if(event.target.name == 'title')
+        if(event.target.name === 'title')
         this.setState({title: event.target.value})
-        else if(event.target.name == 'startHour')
+        else if(event.target.name === 'startHour')
         this.setState({startHour: this.convertTimeInput(event.target.value)})
-        else if(event.target.name == 'endHour')
+        else if(event.target.name === 'endHour')
         this.setState({endHour: this.convertTimeInput(event.target.value)})
-        else if(event.target.name == 'comments')
+        else if(event.target.name === 'comments')
         this.setState({comments: event.target.value})
-        else if(event.target.name == 'entity')
+        else if(event.target.name === 'entity')
         this.setState({entity: event.target.value})
 
     }
@@ -36,8 +36,8 @@ class countDownAddEventButton extends Component
      handleSubmit =(event)=>
      {
          event.preventDefault();
-         if(this.state.entity == "")
-            this.state.entity=this.props.lists[0].key;
+         if(this.state.entity === "")
+            this.setState({entity: this.props.lists[0].key})
         this.props.dispatch(addEventCountDown(this.state.title,this.state.startHour,this.state.endHour,this.state.comments, this.state.entity));
 
      }   
@@ -47,7 +47,7 @@ class countDownAddEventButton extends Component
          let inputResourceArray=[];
          for(let i=0;i<this.props.lists.length;i++)
          {
-            inputResourceArray.push(<option value={this.props.lists[i].key}>{this.props.lists[i].title}</option>)
+            inputResourceArray.push(<option key={i} value={this.props.lists[i].key}>{this.props.lists[i].title}</option>)
          }
          return inputResourceArray;
      }
@@ -86,7 +86,7 @@ class countDownAddEventButton extends Component
                     {this.makeSelectInput()}
                 </select>
             </label>
-            <textarea name="comments" onChange={this.handleChange}>Extra Comments</textarea>
+            <textarea name="comments" onChange={this.handleChange} defaultValue={"Extra Comments"}/>
              <input type="submit" value="Submit" /> 
         </form>  
         <a className="close" onClick={close} style={styles.close}>

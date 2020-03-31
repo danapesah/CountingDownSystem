@@ -36,9 +36,9 @@ class MainWindow extends Component
                 </label>
                  <input type="submit" value="Submit" /> 
             </form>  
-            <a className="close" onClick={close} style={styles.close}>
+            <button className="close" onClick={close} style={styles.close}>
             &times;
-             </a>
+             </button>
             </div>
             )}
           </Popup>)
@@ -61,7 +61,7 @@ class MainWindow extends Component
                 <label style={{float:"center"}} >
                     Row Title:
                     <select name= "deleteRow" style={{display:"inline-block", width:"auto"}} onChange={this.handleChange}>
-                    {this.props.operationRows.map((row,i)=>(<option value={i}>{row}</option>))}
+                    {this.props.operationRows.map((row,i)=>(<option key={i} value={i}>{row}</option>))}
                     
                     </select>
                 </label>
@@ -77,20 +77,20 @@ class MainWindow extends Component
 
     handleChange=(event,listID)=>
     {
-      if(event.target.name == 'addRow')
+      if(event.target.name === 'addRow')
         this.setState({rowTitle: event.target.value})
-      else if(event.target.name == 'deleteRow')
+      else if(event.target.name === 'deleteRow')
         this.setState({deleteRow: event.target.value})
-      else if(event.target.name == 'cardTitle')
+      else if(event.target.name === 'cardTitle')
       {
         this.setState({cardTitle: event.target.value})
         this.setState({newCardListID: listID})
       }
-      else if(event.target.name == 'cardType')
+      else if(event.target.name === 'cardType')
         this.setState({cardType: event.target.value})
-      else if(event.target.name == 'deleteList')
+      else if(event.target.name === 'deleteList')
         this.setState({deleteListID: event.target.value})
-      else if(listID == 'closeWindow')
+      else if(listID === 'closeWindow')
       {
         this.setState({cardTitle: ""})
         this.setState({newCardListID: 0})
@@ -103,25 +103,25 @@ class MainWindow extends Component
     handleSubmit =(event)=>
    {
        event.preventDefault();
-      if(event.target.name == 'addRow')
+      if(event.target.name === 'addRow')
       {
           this.props.dispatch(addRowOperation(this.state.rowTitle));
           this.setState({rowTitle:""})
       }
-      if(event.target.name == 'deleteRow')
+      if(event.target.name === 'deleteRow')
       {
           this.props.dispatch(deleteRowOperation(this.state.deleteRow));
           this.setState({deleteRow:0})
       }
-      if(event.target.name == 'addCard')
+      if(event.target.name === 'addCard')
       {
           this.props.dispatch(addCardOperation(this.state.newCardListID,this.state.cardTitle,this.state.cardType));
       }
-      if(event.target.name == 'addList')
+      if(event.target.name === 'addList')
       {
           this.props.dispatch(addListOperation());
       }
-      if(event.target.name == 'deleteList')
+      if(event.target.name === 'deleteList')
       {
           console.log(this.state.deleteListID)
         this.props.dispatch(deleteListOperation(this.state.deleteListID));
@@ -155,7 +155,7 @@ class MainWindow extends Component
                 <label style={{float:"center"}} >
                     List Number:
                     <select name= "deleteList" style={{display:"inline-block", width:"auto"}} onChange={this.handleChange}>
-                    {this.props.lists.map((list,i)=>(<option value={list.listID}>{i+1}</option>))}
+                    {this.props.lists.map((list,i)=>(<option key={i} value={list.listID}>{i+1}</option>))}
                     </select>
                 </label><br/>
                  <input type="submit" value="Submit" /> 
@@ -175,11 +175,11 @@ class MainWindow extends Component
         <div>
         {this.addRow()}
         {this.deleteRow()}
-        <div class="center">חלון אופרציה</div>
+        <div className="center">חלון אופרציה</div>
         <div>
         <div style={styles.lineContainer}>
             <p style={ {marginBottom:"10%"}}> שם משימה </p>
-             {operationRows.map(row =>(<div>{row}<br/></div>))}
+             {operationRows.map((row,i) =>(<div key={i}>{row}<br/></div>))}
         </div  >
         <div style={styles.listsContainer}>
         {lists.map(list => 

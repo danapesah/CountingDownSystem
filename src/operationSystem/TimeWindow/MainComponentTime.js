@@ -5,7 +5,7 @@ class MainComponentTime extends Component
     render(){
         return(
             <div>
-                <div class="center">חלון שעונים</div>
+                <div className="center">חלון שעונים</div>
                 <br/>
                 <div style={{ textAlign:"right",}}>
                 <div>-עולמי</div>

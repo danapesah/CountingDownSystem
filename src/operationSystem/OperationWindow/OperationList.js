@@ -22,7 +22,7 @@ const  OperationList = ({listID,cards, deleteCard,handleChange,handleSubmit}) =>
                 Card Title:
                 <input type="text" name="cardTitle" onChange={(event)=>{handleChange(event,listID)}}/>
             </label>
-            <label style={{display:"inline-block"}} on>
+            <label style={{display:"inline-block"}}>
                  Type:
                 <select name= "cardType" style={{display:"inline-block", width:"150px"}} onChange={(event)=>{handleChange(event)}}>
                 <option value={0}>מטוס</option>
