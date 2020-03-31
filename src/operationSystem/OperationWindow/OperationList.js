@@ -1,21 +1,52 @@
-
 import React from 'react'
 import OperationCard from './OperationCard'
-import OperationAddCardButton from './OperationAddCardButton'
-import planePic from './plane.jpeg'
+import Popup from "reactjs-popup";
 
-const  OperationList = ({title , cards , listID, changePic}) => {
+const  OperationList = ({listID,cards, deleteCard,handleChange,handleSubmit}) => 
+{
+
+
+    const addCard =(listID,handleChange,handleSubmit)=>
+    {
+        if(true)
+        return(
+        <Popup
+        trigger={<div style={styles.listsContainer,{cursor:"help",fontSize:"40px",paddingTop:"35px",height:"150px"}}className="button">+</div>}
+        modal
+        onClose={(event)=>handleChange(event,"closeWindow")}
+        closeOnDocumentClick>
+          {close =>(
+              <div>
+            <form name="addCard" onSubmit={handleSubmit}>
+            <label >
+                Card Title:
+                <input type="text" name="cardTitle" onChange={(event)=>{handleChange(event,listID)}}/>
+            </label>
+            <label style={{display:"inline-block"}} on>
+                 Type:
+                <select name= "cardType" style={{display:"inline-block", width:"150px"}} onChange={(event)=>{handleChange(event)}}>
+                <option value={0}>מטוס</option>
+                <option value={1}>מסוק</option>
+                </select>
+            </label>
+            <br/>
+             <input type="submit" value="Submit" /> 
+        </form>  
+        <a className="close" onClick={close} style={styles.close}>
+            &times;
+             </a>
+             </div>)}
+      </Popup>)
+    }
 
 
     return (
+       
         <div style={styles.listsStyle} > 
-        <img id={"pic"+listID} src={planePic} style={{width:"50%"}} onClick={changePic}></img>
-        <form>
-        <input type="text" placeholder={title} style={{width:90}}></input>
-        </form>
         <div style={styles.listsContainer}>
-       {cards.map(card => (<OperationCard key={card.id} title={card.title}/> ))} 
-       <OperationAddCardButton listID={listID}/>
+       {cards.map(card => (<OperationCard key={card.id} cardID={card.id} listID={listID} title={card.title} 
+                                        checkBox={card.checkBox} picture={card.picture} deleteCard={deleteCard}/> ))} 
+        {addCard(listID,handleChange,handleSubmit)}
        </div>
         </div>
     )
@@ -25,27 +56,33 @@ const styles = {
     listsContainer:
     {
       display:"flex",
-      //lineHeight: '0',
       width: "auto",height: "auto", 
       flexDirection:"row",
       backgroundColor : "#dfe3e6",
       boredeRadius : 3,
-      //padding :2,
-     // paddingBottom:-50,
       paddingLeft:1,
       marginRight:8,
-    // height:  "100%",
-
+      borderRight: '4px dotted black',
+      borderLeft: '4px dotted black'
       
     },
 
     listsStyle:
     {
         float:"right",
-        ///float:"right",
-        //position: "absolute",
-       
+    },
+    close:
+    {
+      cursor: 'pointer',
+      position: "absolute",
+      display: "block",
+      padding: "2px 5px",
+      right: "-10px",
+      top:"-10px",
+      fontSize: "15px",
+      background:" #ffffff",
+      borderRadius: "18px",
+      border: "1px solid #cfcece"
     },
 }
-
 export default OperationList

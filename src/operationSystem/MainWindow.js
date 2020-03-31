@@ -1,4 +1,3 @@
-
 import React from 'react'
 //import './react-resizable.css'
 //import './react-grid-layout.css'
@@ -6,7 +5,7 @@ import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css' 
 import GridLayout from 'react-grid-layout';
 import MainOperationWindow from './OperationWindow/MainComponent'
-import MainStatusWindow from './fieldStatus/mainComponent'
+import MainStatusWindow from './FieldStatusWindow/mainComponent'
 import MessageWindow from './MessageWindow/MessageWindow'
 import MainComponentTime from './TimeWindow/MainComponentTime'
 import TestScheduler from './countDownWindow/TestScheduler'
