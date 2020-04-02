@@ -32,3 +32,6 @@ class Navbar extends Component {
     state: state,
   })
   export default connect(mapStateToProps)(Navbar)
+
+
+  // style={{ marginTop:"50%"}}

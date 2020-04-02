@@ -4,7 +4,6 @@ import axios from 'axios';
 import { Link , BrowserRouter , useLocation  } from 'react-router-dom'; //link to different routs
 import TestScheduler from './TestScheduler';
 import { change_to_show_chosen_table_state , set_new_table, delete_chosen_table} from "../../Actions";
-
 import CountDownAddNewTablePopUp from './CountDownAddNewTablePopUp'; //the popup for create new table
 import ConfirmDeletePopup from './ConfirmDeletePopup'; //the popup for confirm delete
 
@@ -28,16 +27,6 @@ class Temp extends Component {
     })
 
   }
-
-  // _delete_chosen_table(id){
-  //   axios.delete('http://localhost:5000/counts/'+id)
-  //   .then(response => { console.log(response.data)});
-  //   this.setState({ 
-  //     DB_info : this.state.DB_info.filter(el => el._id !== id),
-  //     data_length: this.state.data_length-1,
-  //   }) 
-  //   window.location = '/';
-  // }
 
 
   show_all_tables_fromDB(){
@@ -66,26 +55,9 @@ class Temp extends Component {
           color={"#007bff"}
         />
 
-            
-        {/* |<Link to={"/edit/"+this.state.DB_info[i]._id} 
-          
-        onClick={()=>
-
-          {this.props.dispatch(change_to_show_chosen_table_state
-            (this.state.DB_info[i]._system_info_object))}}
-    
-        >edit </Link> */}
 
         |<ConfirmDeletePopup id={this.state.DB_info[i]._id}/>
 
-      
-      {/* | <Link to={"/delete/"+this.state.DB_info[i]._id} 
-          
-          onClick={()=>
-
-            {this._delete_chosen_table(this.state.DB_info[i]._id) } }
-      
-          > delete </Link> */}
 
       </div>
          

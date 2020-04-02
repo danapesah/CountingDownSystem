@@ -64,7 +64,3 @@ render(){
 
 
 export default ConfirmDeletePopup 
-
-
-
-

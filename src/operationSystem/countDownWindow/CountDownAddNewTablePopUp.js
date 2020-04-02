@@ -146,7 +146,3 @@ const mapStateToProps = (state)=> ({
     events: state.CountDownlists.events
 })
 export default connect(mapStateToProps)(CountDownAddNewTablePopUp) ;
-
-
-
-
