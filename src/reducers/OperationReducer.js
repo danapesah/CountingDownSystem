@@ -11,20 +11,6 @@ const initialState = {
     
     OperationRows: ["אישור ירידה", "אישור המראה", "המראה"],
     OperationList: [
-       {
-           listID:0,
-           cards:[
-               {id:0, title: 'First Card', picture:0, checkBox:[1,0,0]},
-               {id:1,title: 'Second Card', picture:0, checkBox:[0,0,0]}
-           ]
-       },
-       {
-        listID:1,
-        title: 'Second List',
-        cards:[
-            {id:0, title: 'First Card', picture:0, checkBox:[0,1,1]}
-        ]
-        }
     //    {
     //        listID:0,
     //        cards:[
@@ -106,7 +92,6 @@ const initialState = {
 }
 
 const OperationReducer = (state = initialState, action) =>{
-    let listID=3;
   //  let listID=3;
     switch(action.type){
 
@@ -115,11 +100,9 @@ const OperationReducer = (state = initialState, action) =>{
         const StatusListNew=[]
         const CountDownlistsNew = {
             events:  [],
-            resources:[...state.CountDownlists.resources],
             resources:[...state.CountDownlists.resources], //we will always need the default resources
           }
          
-        return {...state, StatusList:StatusListNew, CountDownlists: CountDownlistsNew , };
         return {
             title: action.payload.title, 
             hours_before_target: action.payload.down_count,
