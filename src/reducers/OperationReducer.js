@@ -130,18 +130,22 @@ const OperationReducer = (state = initialState, action) =>{
         }
         else {
          
-            console.log("count: SAVE_STATE " , count);
+            console.log("count edit: SAVE_STATE " , count);
           // console.log(  action.payload.id) 
             axios.post('http://localhost:5000/counts/edit/' + 
             action.payload.id, count)
             .then(res => console.log(res.data));
-            window.location = '/';
+            //window.location = '/';
             return state;
-        } 
-        
-       
+        }   
     }
-
+    case CONSTANTS.SET_EDIT_TABLE:{
+        return{...state, title: action.payload.title ,
+            hours_before_target:  action.payload.down_count,
+            hours_after_target: action.payload.up_count,
+            
+        }
+    }
 
 
     case CONSTANTS.ADD_LIST_OPERATION:
@@ -210,6 +214,7 @@ const OperationReducer = (state = initialState, action) =>{
         
     case CONSTANTS.CHANGE_STATE:
     {
+        //
         let chosen = action.payload.chosen_table_state
         return {
             title: chosen.title, 

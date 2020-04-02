@@ -53,6 +53,9 @@ class Temp extends Component {
           path={"/edit/"+this.state.DB_info[i]._id}
           link_name={" לחץ כאן לעריכה "}
           color={"#007bff"}
+          data = {this.state.DB_info[i]._system_info_object}
+          id = {this.state.DB_info[i]._system_info_object._id}
+
         />
 
 

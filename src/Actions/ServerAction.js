@@ -19,6 +19,16 @@ export const change_to_show_chosen_table_state = (chosen_table_state) => {
         payload:{title, down_count , up_count}
     };
   };
+  
+
+  export const edit_title_hours = (title, down_count , up_count, id) => {
+  /*save the new title and  hours if there was an update/edit */
+    return{
+        type: CONSTANTS.SET_EDIT_TABLE,
+        payload:{title, down_count , up_count, id }
+    };
+  };
+
 
 
 

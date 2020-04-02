@@ -4,7 +4,7 @@ import React, {Component} from 'react'
 import {connect } from 'react-redux'
 import Popup from "reactjs-popup";
 import NumberFormat from 'react-number-format';
-import {set_new_table} from "../../Actions";
+import {set_new_table, edit_title_hours} from "../../Actions";
 import { Link } from 'react-router-dom'; //link to different routs
 
 class CountDownAddNewTablePopUp extends Component {
@@ -48,7 +48,7 @@ check_input() //check if the input is valid
   }
   if(this.props.new_or_edit==="edit")
   {
-    console.log(this.state)
+  //  console.log(this.state)
 
     
     // if(this.state.title ==='' )
@@ -123,14 +123,28 @@ render(){
             </label>
 
             <br></br>
-         { this.check_input()  === "invalid_input" ? 
-          null:
-        <Link to={this.props.path} style={{backgroundColor:'lightblue'}}      
+         { this.check_input()  === "invalid_input" ? null: 
+          this.props.new_or_edit==="new" ? 
+        
+            
+          <Link to={this.props.path} style={{backgroundColor:'lightblue'}}      
           onClick={() =>{ 
-          this.props.dispatch(set_new_table(this.state.title,this.state.down_count,this.state.up_count) )  } } >
-         {this.props.link_name} 
-        </Link>   
-      }  
+           this.props.dispatch(set_new_table(this.state.title,this.state.down_count,this.state.up_count) )  
+          } } >
+         {this.props.link_name}  </Link>    
+        : 
+        
+        <Link to={this.props.path} style={{backgroundColor:'lightblue'}}      
+        onClick={() =>{ 
+          this.props.dispatch(edit_title_hours(this.state.title,this.state.down_count,this.state.up_count,this.props.id) )  
+
+        // this.props.dispatch(save_new_table_state(this.props.id) )  
+        } } >
+       {this.props.link_name}  </Link>    
+        
+        }
+    
+          
 
 
 
