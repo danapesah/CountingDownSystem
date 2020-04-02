@@ -14,7 +14,6 @@ class Temp extends Component {
           DB_info : {},
           data_length:0,
         };
-       //this.onClick = this.onClick.bind(this);
       }
   componentDidMount() {
     axios.get('http://localhost:5000/counts/') //GET REQUEST

@@ -9,6 +9,8 @@ router.route('/').get((req, res) => { //if theres a / at the end
 
 router.route('/add').post((req, res) => { 
   const _system_info_object = req.body; 
+ 
+  const newTable = new Table({_system_info_object}); //new table
 
   //console.log(newTable + "newCount")
   newTable.save() //save to the db
