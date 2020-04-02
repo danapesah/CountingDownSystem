@@ -4,7 +4,7 @@ import React, {Component} from 'react'
 import {connect } from 'react-redux'
 import Popup from "reactjs-popup";
 import NumberFormat from 'react-number-format';
-import {set_new_table, edit_title_hours} from "../../Actions";
+import {set_new_table, edit_title_hours, change_to_show_chosen_table_state} from "../../Actions";
 import { Link } from 'react-router-dom'; //link to different routs
 
 class CountDownAddNewTablePopUp extends Component {
@@ -136,6 +136,7 @@ render(){
         
         <Link to={this.props.path} style={{backgroundColor:'lightblue'}}      
         onClick={() =>{ 
+          this.props.dispatch(change_to_show_chosen_table_state(this.props.data));
           this.props.dispatch(edit_title_hours(this.state.title,this.state.down_count,this.state.up_count,this.props.id) )  
 
         // this.props.dispatch(save_new_table_state(this.props.id) )  

@@ -135,7 +135,7 @@ const OperationReducer = (state = initialState, action) =>{
             axios.post('http://localhost:5000/counts/edit/' + 
             action.payload.id, count)
             .then(res => console.log(res.data));
-            //window.location = '/';
+            window.location = '/';
             return state;
         }   
     }
