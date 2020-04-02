@@ -25,6 +25,20 @@ const initialState = {
             {id:0, title: 'First Card', picture:0, checkBox:[0,1,1]}
         ]
         }
+    //    {
+    //        listID:0,
+    //        cards:[
+    //            {id:0, title: 'First Card', picture:0, checkBox:[1,0,0]},
+    //            {id:1,title: 'Second Card', picture:0, checkBox:[0,0,0]}
+    //        ]
+    //    },
+    //    {
+    //     listID:1,
+    //     title: 'Second List',
+    //     cards:[
+    //         {id:0, title: 'First Card', picture:0, checkBox:[0,1,1]}
+    //     ]
+    //     }
     ],
     StatusList: [
         {
@@ -93,36 +107,56 @@ const initialState = {
 
 const OperationReducer = (state = initialState, action) =>{
     let listID=3;
+  //  let listID=3;
     switch(action.type){
 
     case CONSTANTS.SET_NEW_TABLE:{
+        //set a new "clean" state for a new table
         const StatusListNew=[]
         const CountDownlistsNew = {
             events:  [],
             resources:[...state.CountDownlists.resources],
+            resources:[...state.CountDownlists.resources], //we will always need the default resources
           }
          
         return {...state, StatusList:StatusListNew, CountDownlists: CountDownlistsNew , };
+        return {
+            title: action.payload.title, 
+            hours_before_target: action.payload.down_count,
+            hours_after_target:  action.payload.up_count ,
+
+            OperationRows:state.OperationRows,
+            OperationList:[] ,
+            StatusList: [] ,
+
+            CountDownlists: CountDownlistsNew
+           
+        }
     }
     case CONSTANTS.SAVE_STATE:{
-        const count = {
-            title: state.title,
-            events:  [...state.CountDownlists.events],
-            resources:[...state.CountDownlists.resources],
-          }
-        if (action.payload.id=== -1 ){
-                    console.log(count);
-        axios.post('http://localhost:5000/counts/add', count)
-        .then(res => console.log(res.data  ),  );//promise, after its posted well console our the res.data
+        //save new/edit table 
+        const count = {...state}
+
+        if (action.payload.id === -1 )
+        {
+            console.log("count: SAVE_STATE " , count);
+            axios.post('http://localhost:5000/counts/add', count)
+            .then(res => console.log(res.data  ),  );//promise, after its posted well console our the res.data
+            window.location = '/';
+            return state;
         }
         else {
-            console.log(  action.payload.id,  action.payload.id ,) 
-            axios.post('http://localhost:5000/counts/update/' + 
+         
+            console.log("count: SAVE_STATE " , count);
+          // console.log(  action.payload.id) 
+            axios.post('http://localhost:5000/counts/edit/' + 
             action.payload.id, count)
             .then(res => console.log(res.data));
+            window.location = '/';
+            return state;
         } 
-          window.location = '/';
-        return state;
+        
+       
     }
 
 
@@ -130,7 +164,7 @@ const OperationReducer = (state = initialState, action) =>{
     case CONSTANTS.ADD_LIST_OPERATION:
     {
         let newID;
-         if(state.OperationList.length == 0)
+         if(state.OperationList.length === 0)
             newID = 0;
         else
             newID = (state.OperationList[state.OperationList.length-1].listID+1)
@@ -144,13 +178,14 @@ const OperationReducer = (state = initialState, action) =>{
 
     case CONSTANTS.ADD_CARD_OPERATION:
     {
+        console.log("ADD_CARD_OPERATION")
         let newOperationList =[...state.OperationList]
         for (let i=0;i<newOperationList.length;i++)
             {
-                if(newOperationList[i].listID == action.payload.listID)
+                if(newOperationList[i].listID === action.payload.listID)
                 { 
                     let newID;
-                    if(newOperationList[i].cards.length == 0)
+                    if(newOperationList[i].cards.length === 0)
                     newID = 0;
                     else
                     newID = (newOperationList[i].cards[newOperationList[i].cards.length-1].id+1)
@@ -190,22 +225,29 @@ const OperationReducer = (state = initialState, action) =>{
 
 
         
-        case CONSTANTS.CHANGE_STATE:
-        {
-        
-            const CountDownlistsNew = {
-                resources:[...action.payload.res],
-                events:[...action.payload.eve]
-            } 
-            return {...state,CountDownlists: CountDownlistsNew };
-        };
+    case CONSTANTS.CHANGE_STATE:
+    {
+        let chosen = action.payload.chosen_table_state
+        return {
+            title: chosen.title, 
+            hours_before_target: chosen.hours_before_target,
+            hours_after_target:chosen.hours_after_target ,
+
+            OperationRows: chosen.OperationRows ,
+            OperationList:chosen.OperationList ,
+            StatusList: chosen.StatusList ,
+
+            CountDownlists: chosen.CountDownlists, 
+           
+        }
+    };
 
 
 
 
         case CONSTANTS.DELETE_EVENT_COUNTDOWN:
         {
-            const deleteID = action.payload.id.id;
+            const deleteID = action.payload.id;
                const newEventsList = state.CountDownlists.events.filter( event=>
                 {
                   if(event.id !== deleteID)      
@@ -271,6 +313,7 @@ const OperationReducer = (state = initialState, action) =>{
 
         case CONSTANTS.DELETE_BUTTON_FIELDSTATUS:
         {
+            console.log("ADD_CARD_OPERATION")
             let list;
             let card;
 
@@ -374,12 +417,27 @@ const OperationReducer = (state = initialState, action) =>{
         case CONSTANTS.ADD_LIST_FIELDSTATUS:
         {
                 let newStatusList = [...state.StatusList];
-                const newList = 
+                let newList={}
+                if(state.StatusList.length===0)
                 {
-                    listID: ((newStatusList[newStatusList.length-1].listID)+1),
-                    listTitle: action.payload.listTitle,
-                    cards:[],
+                   newList = 
+                    {
+                        listID: 0,
+                        listTitle: action.payload.listTitle,
+                        cards:[],
+                    }
+
                 }
+                else{
+
+                     newList = 
+                    {
+                        listID: ((newStatusList[newStatusList.length-1].listID)+1),
+                        listTitle: action.payload.listTitle,
+                        cards:[],
+                    }
+                }
+
                 newStatusList.push(newList);
                 return {...state,StatusList:newStatusList};
         }

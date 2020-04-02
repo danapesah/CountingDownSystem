@@ -21,6 +21,8 @@ class FirstPage extends Component {
              <Route path="/edit/:id" component={MainWindow}  />{/*add /edit/:id to the address
             {/* <Route path="/create" component={null} /> */}
             <Route path="/user" component={MainWindow} /> {/*add /user to the address*/ }
+            <Route path="/display" component={MainWindow} /> {/*add /display to the address*/ }
+     
         </div>
 
         </Router>

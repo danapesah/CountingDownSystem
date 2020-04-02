@@ -36,6 +36,7 @@ const tableSchema = new Schema({
 
 
 });
+const tableSchema = new Schema({_system_info_object:{}})
 
 const Table = mongoose.model('Table', tableSchema); 
 

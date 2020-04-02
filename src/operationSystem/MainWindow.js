@@ -19,6 +19,7 @@ class MainWindow extends React.Component {
     const curr_location =window.location.pathname
 
   console.log(window.location.pathname)
+  //console.log(window.location.pathname)
     // layout is an array of objects, see the demo for more complete usage
 const layout = [
     // {i: 'a', x: 0, y: 0, w: 1, h: 2},
@@ -33,6 +34,7 @@ const layout = [
       {/* <div   style={{ backgroundColor: 'blue', overflow: "scroll"}}  key="a">a</div> */}
       <div key="b" style={styles.cardsContainer}>
         {/* <MainOperationWindow/> */}
+        <MainOperationWindow/>
       </div>
       <div   style={ {backgroundColor: '#d1d1e0', overflow:"auto"}} key="c">
         <MainStatusWindow/>
@@ -42,12 +44,16 @@ const layout = [
       <div   style={{ backgroundColor: '#00b33c',  overflow: "auto"}} key="f"><TestScheduler/></div>
       <div   key="g">   
       {curr_location==="/user"  ?  
+      <div   key="g">
+      {curr_location=== "/display" ? null  :
+        curr_location==="/user"   ?  
         <button  onClick={()=>this.props.dispatch(save_new_table_state(-1) )} >save new table </button>:
         <button  onClick={()=>this.props.dispatch(save_new_table_state(curr_location.slice(6)) ) } >save edit table </button>
         }    </div>  
 
 
       
+      }</div>   
     </GridLayout>
 
 
