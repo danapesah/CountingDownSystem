@@ -36,8 +36,9 @@ class countDownAddEventButton extends Component
      handleSubmit =(event)=>
      {
          event.preventDefault();
-         if(this.state.entity === "")
-            this.setState({entity: this.props.lists[0].key})
+         if(this.state.entity == "")
+            this.state.entity=this.props.lists[0].key;
+
         this.props.dispatch(addEventCountDown(this.state.title,this.state.startHour,this.state.endHour,this.state.comments, this.state.entity));
 
      }   

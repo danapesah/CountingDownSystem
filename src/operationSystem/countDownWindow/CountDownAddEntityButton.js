@@ -66,7 +66,7 @@ const styles = {
   }
 }
 const mapStateToProps = (state)=> ({
-    resources: state.CountDownlists.resources,
-  })
+  resources: state.CountDownlists.resources,
+})
 
 export default connect(mapStateToProps)(CountDownAddEntityButton)

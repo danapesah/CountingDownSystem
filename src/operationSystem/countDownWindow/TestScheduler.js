@@ -7,6 +7,7 @@ import {deleteEventCountDown,deleteEntityCountDown} from '../../Actions';
 
 class TestScheduler extends Component
 { 
+    
     deleteColumn=(event)=>
     {
         
@@ -73,12 +74,18 @@ class TestScheduler extends Component
     return (
 
         <div>
+           
         {this.createTimeColumn()}
         {this.createMissionColumn()}
         {this.createAllEvents()}
+          
+       
         <CountDownAddEventButton />
         <CountDownAddEntityButton/>
+      
+
         </div>
+        
     )
 }
   
@@ -90,5 +97,24 @@ const mapStateToProps = (state)=> ({
 
 
   })
+
+
+  const styles={
+
+    a : {
+        paddingLeft : 30,
+         backgroundColor:"#ffe0b3",
+         marginTop:"20%"
+      },
+    
+    //   paddingLeft : 90,
+    //    backgroundColor:"#F5F5DC",
+    b:{
+        marginTop:"20%",
+    paddingLeft : 30,
+    }
+   
+}
+
 
 export default  connect(mapStateToProps)(TestScheduler)

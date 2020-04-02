@@ -14,12 +14,11 @@ const  CountDownEvent = ({id, title,startHourBytes,eventDuration, columID,commen
   return(
         <div style={{top:startHourBytes,left:leftPlace, position:"absolute", height:eventDuration,width:"140px",backgroundColor:"Yellow", border:"solid"}} >
            {checkIfEditAble()}
-          <Popup trigger={<div style={{cursor:"help", width:"15px",height:"auto"}} > ...</div>} 
-              position="right center" >
-                <div>
-              <div style={{fontWeight:"bold"}}>{startHour}-{endHour}</div>
-              <div>{comments}</div> 
-              </div>
+          <Popup trigger={<div style={{cursor:"help", width:"15px",height:"auto"}} > ...</div>} position="right center" >
+            <div>
+              <div>{startHour}-{endHour}</div>
+              <div>{comments}</div>
+            </div>
           </Popup>
           <div  style={{textAlign:"right"}}>{title}</div>
           </div>
