@@ -8,16 +8,19 @@ const OperationCard = ({listID, cardID,title, checkBox, picture, deleteCard}) =>
         planePic,
         helicopterPic
     ]
+
+    const onChangeTest =()=>{}
+    
     const checkBoxUtil =(checkBox)=>
     {
         let checkBoxDiv =[]
         for(let i=0; i< checkBox.length; i++)
         {
-            if(checkBox[i] == 0)
+            if(checkBox[i] === 0)
                 checkBoxDiv.push(
-                    <div>
+                    <div key={i}>
                     <label>
-                    <input type="checkbox" name={i} style={{width:"5px", height:"5px"}}/>
+                    <input type="checkbox" name={i} style={{width:"5px", height:"5px"}} onChange={onChangeTest}/>
                     <span></span>
                     </label>
                     <br/> 
@@ -25,9 +28,9 @@ const OperationCard = ({listID, cardID,title, checkBox, picture, deleteCard}) =>
                 ) 
             else
                 checkBoxDiv.push(
-                    <div>
+                    <div key={i}>
                     <label>
-                    <input type="checkbox" name={i} style={{width:"5px", height:"5px"}} checked/>
+                    <input type="checkbox" name={i} style={{width:"5px", height:"5px"}} onChange={onChangeTest} checked/>
                     <span></span>
                     </label>
                     <br/> 
@@ -40,9 +43,11 @@ const OperationCard = ({listID, cardID,title, checkBox, picture, deleteCard}) =>
     const deleteAble =(cardID,listID)=>
     {
         //CHECK IF EDITABLE
-        if(true)
-        return <div style={{float:"right",color:"red",cursor:"help",fontSize:"small",paddingTop:"15px"}}
-        onClick={()=>deleteCard(cardID,listID)} >x</div>
+        if(window.location.pathname.search("display") == -1)
+            return <div style={{float:"right",color:"red",cursor:"help",fontSize:"small",paddingTop:"15px"}}
+            onClick={()=>deleteCard(cardID,listID)} >x</div>
+        else
+            return(null);
     }
 
     

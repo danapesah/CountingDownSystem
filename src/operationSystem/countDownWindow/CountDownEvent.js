@@ -1,12 +1,15 @@
 import React from 'react';
 import Popup from "reactjs-popup";
 
-const  CountDownEvent = ({key,id, title,startHourBytes,eventDuration, columID,comments,startHour,endHour, editEvent})=>
+const  CountDownEvent = ({id, title,startHourBytes,eventDuration, columID,comments,startHour,endHour, editEvent})=>
 {
 
   const checkIfEditAble=()=>
   {
-    return <div style={{float:"right",color:"red",cursor:"help", width:"10px",height:"auto"}} onClick={()=>editEvent({id})}>x</div>
+    if(window.location.pathname.search("display") == -1)
+      return <div style={{float:"right",color:"red",cursor:"help", width:"10px",height:"auto"}} onClick={()=>editEvent({id})}>x</div>
+    else
+      return(null);
   }
 
  

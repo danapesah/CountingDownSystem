@@ -13,9 +13,9 @@ const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, 
     const handleSubmit =(event)=>
     {
         event.preventDefault();
-        if(event.target.name == "addCard")
+        if(event.target.name === "addCard")
         addCard(listID,state.cardTitle,state.cardComments);
-        else if(event.target.name == "deleteCard")
+        else if(event.target.name === "deleteCard")
         {
             deleteCard(listID, state.deleteCard);
 
@@ -24,17 +24,17 @@ const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, 
    
    const handleChange =(event)=>
     {
-       if(event.target.name == "cardTitle")
+       if(event.target.name === "cardTitle")
         state.cardTitle= event.target.value;
-       else if(event.target.name == "cardComments")
+       else if(event.target.name === "cardComments")
         state.cardComments= event.target.value;
-        else if(event.target.name == "deleteCard")
+        else if(event.target.name === "deleteCard")
         state.deleteCard=event.target.value;
    }   
     const addAble =()=>
     {
         //CHECK IF EDITABLE
-        if(true)
+        if(window.location.pathname.search("display") == -1)
             return(
             <Popup
             trigger={ <div style={{color:"green",cursor:"help", width:"2px",height:"auto",display:"inline", marginRight:"5px", fontSize:"12px"}}>+הוספת כרטיס </div>}
@@ -44,25 +44,27 @@ const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, 
                 <label style={{float:"center"}} >
                     Card Title:
                     <input  type="text" name="cardTitle" onChange={handleChange} />
-                    <textarea name="cardComments" onChange={handleChange}>Extra Comments</textarea>
+                    <textarea name="cardComments" onChange={handleChange} defaultValue="Extra Comments"/>
                 </label>
                  <input type="submit" value="Submit" /> 
             </form>  
           </Popup>)
+          else
+            return (null)
 
     }
 
     const makeSelectInput =()=>
      {
          let inputCardArray=[];
-        cards.map(card=>{
-        inputCardArray.push(<option value={card.cardID}>{card.cardTitle}</option>)})
+        cards.map((card,i)=>{
+        inputCardArray.push(<option key={i} value={card.cardID}>{card.cardTitle}</option>)})
          return inputCardArray;
     }
     const deleteAble =()=>
     {
         //CHECK IF EDITABLE
-        if(true)
+        if(window.location.pathname.search("display") == -1)
             return(
             <Popup
             trigger={ <div style={{color:"red",cursor:"help", width:"2px",height:"auto",display:"inline", marginRight:"10px", fontSize:"12px"}}>-מחיקת כרטיס</div>}
@@ -78,6 +80,8 @@ const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, 
                  <input name="deleteCard" type="submit" value="Submit" /> 
             </form>  
           </Popup>)
+          else
+            return (null)
     }
 
     return (

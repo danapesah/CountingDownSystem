@@ -11,7 +11,7 @@ class CountDownAddEntityButton extends Component
   handleChange=(event)=>
   {
 
-      if(event.target.name == 'title')
+      if(event.target.name === 'title')
       this.setState({title: event.target.value})
 
   }
@@ -24,6 +24,7 @@ class CountDownAddEntityButton extends Component
 
     render()
     {
+      if(window.location.pathname.search("display") == -1)
         return(
             <Popup
             trigger={<button style={{position:"absolute",left:(this.props.resources.length*140+50)}}className="button">+</button>}
@@ -47,6 +48,8 @@ class CountDownAddEntityButton extends Component
             )}
           </Popup>
         )
+        else
+        return(null)
     }
 }
 

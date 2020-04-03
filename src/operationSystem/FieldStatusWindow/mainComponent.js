@@ -6,37 +6,37 @@ import { deleteButtonFieldStatus, addButtonFieldStatus ,addCardFieldStatus, dele
 
 class MainComponent extends Component
 {
-    state={
+    state=
+    {
         deleteList:"",
         addListTitle:"",
     }
   
     handleChange =(event)=>
     {
-        if(event.target.name == "deleteList")
-            this.state.deleteList = event.target.value;
-        if(event.target.name = "addList")
-            this.state.addListTitle = event.target.value; 
+        if(event.target.name === "deleteList")
+            this.setState({deleteList: event.target.value})
+        if(event.target.name === "addList")
+            this.setState({addListTitle: event.target.value})
        
     }
 
     handleSubmit =(event)=>
     {
         event.preventDefault();
-        if(event.target.name == "deleteList")
+        if(event.target.name === "deleteList")
         {
-            if(this.state.deleteList == "")
+            if(this.state.deleteList === "")
             {
                 this.props.dispatch(deleteListFieldStatus(this.props.lists[0].listID));
-                this.state.deleteList = ""
             }
             else
             {
                 this.props.dispatch(deleteListFieldStatus(this.state.deleteList));
-                this.state.deleteList = ""
             }  
+            this.setState({deleteList: ""})
         }
-        else if(event.target.name == "addList")
+        else if(event.target.name === "addList")
             this.props.dispatch(addListFieldStatus(this.state.addListTitle));
        
    }   
@@ -44,19 +44,19 @@ class MainComponent extends Component
 
    changeColor =(e)=>
    {    
-       if( e.target.style.backgroundColor=="green")
+       if( e.target.style.backgroundColor === "green")
           {
               e.target.style.backgroundColor="orange";
            }
-       else if( e.target.style.backgroundColor=="orange")
+       else if( e.target.style.backgroundColor === "orange")
          {
               e.target.style.backgroundColor="Red";
         }
-        else if( e.target.style.backgroundColor=="red")
+        else if( e.target.style.backgroundColor === "red")
           {
               e.target.style.backgroundColor="black";
           }
-       else if( e.target.style.backgroundColor=="black")
+       else if( e.target.style.backgroundColor === "black")
          { 
              e.target.style.backgroundColor="green";
         }
@@ -84,7 +84,7 @@ class MainComponent extends Component
      addAble =()=>
     {
         //CHECK IF EDITABLE
-        if(true)
+        if(window.location.pathname.search("display") == -1)
             return(
             <Popup
             trigger={ <button style={{float:"right",width:"auto",height:"auto", marginLeft:"5px", marginRight:"5px"}}>הוספת רשימה</button>}
@@ -98,6 +98,8 @@ class MainComponent extends Component
                  <input type="submit" value="Submit" /> 
             </form>  
           </Popup>)
+        else
+            return (null)
 
     }
     
@@ -105,14 +107,15 @@ class MainComponent extends Component
     makeSelectInput =()=>
     {
         let inputListArray=[];
-        this.props.lists.map(list=>{
-        inputListArray.push(<option value={list.listID}>{list.listTitle}</option>)})
+        this.props.lists.map((list,i)=>{
+        inputListArray.push(<option key={i} value={list.listID}>{list.listTitle}</option>)})
         return inputListArray;
+        
    }
    deleteAble =()=>
    {
        //CHECK IF EDITABLE
-       if(true)
+       if(window.location.pathname.search("display") == -1)
            return(
            <Popup
            trigger={ <button style={{float:"right",cursor:"help",display:"inline"}}>מחיקת רשימה</button>}
@@ -128,6 +131,8 @@ class MainComponent extends Component
                 <input type="submit" value="Submit" /> 
            </form>  
          </Popup>)
+         else
+            return (null);
    }
 
     render()
@@ -135,7 +140,7 @@ class MainComponent extends Component
         const {lists} = this.props;
         return(
         <div>
-        <div class="center"> חלון סטטוס שדה</div>
+        <div className ="center"> חלון סטטוס שדה</div>
         
         <div style={styles.listsStyle}>
         {lists.map(list => 

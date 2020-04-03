@@ -3,7 +3,6 @@ import * as moment from 'moment';
 import axios from 'axios';
 import MainWindow from '../operationSystem/MainWindow' 
 
-let listIDNew=3;
 const initialState = {
     title: "This is the title of the state ",
     hours_before_target: '',
@@ -315,7 +314,7 @@ const OperationReducer = (state = initialState, action) =>{
             let newStatusList = [...state.StatusList];
             newStatusList[list].cards[card].buttons= state.StatusList[list].cards[card].buttons.filter(button =>
                 {
-                    if(button.id != action.payload.buttonID)
+                    if(button.id !== action.payload.buttonID)
                         return button;
                 });
             return {...state,StatusList:newStatusList};
@@ -469,13 +468,19 @@ const OperationReducer = (state = initialState, action) =>{
                 }
           case CONSTANTS.DELETE_LIST_OPERATION:
                 {       
-                    console.log(action.payload.ListID)
                     let newOperationRows = [...state.OperationList];
-                    newOperationRows= state.OperationList.filter(list =>
-                        {
-                            if(list.listID != action.payload.ListID)
-                                return list;
-                        });
+                    if(state.OperationList.length == 1)
+                    {
+                        newOperationRows = []
+                    }
+                    else
+                    {
+                        newOperationRows= state.OperationList.filter(list =>
+                            {
+                                 if(list.listID != action.payload.ListID)
+                                     return list;
+                             });   
+                    }
                     return {...state,OperationList:newOperationRows};
                 }
             
