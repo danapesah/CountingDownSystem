@@ -72,7 +72,7 @@ class Temp extends Component {
     render(){
 
       return (
-        <div>
+        <div  className="container">
             
         <h4 >Tables in the BD</h4>
         <table className="table">

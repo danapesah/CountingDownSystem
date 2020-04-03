@@ -6,7 +6,10 @@ const  CountDownEvent = ({id, title,startHourBytes,eventDuration, columID,commen
 
   const checkIfEditAble=()=>
   {
-    return <div style={{float:"right",color:"red",cursor:"help", width:"10px",height:"auto"}} onClick={()=>editEvent({id})}>x</div>
+    if(window.location.pathname.search("display") == -1)
+      return <div style={{float:"right",color:"red",cursor:"help", width:"10px",height:"auto"}} onClick={()=>editEvent({id})}>x</div>
+    else
+      return(null);
   }
 
  

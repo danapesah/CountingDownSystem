@@ -34,7 +34,7 @@ const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, 
     const addAble =()=>
     {
         //CHECK IF EDITABLE
-        if(true)
+        if(window.location.pathname.search("display") == -1)
             return(
             <Popup
             trigger={ <div style={{color:"green",cursor:"help", width:"2px",height:"auto",display:"inline", marginRight:"5px", fontSize:"12px"}}>+הוספת כרטיס </div>}
@@ -49,6 +49,8 @@ const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, 
                  <input type="submit" value="Submit" /> 
             </form>  
           </Popup>)
+          else
+            return (null)
 
     }
 
@@ -62,7 +64,7 @@ const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, 
     const deleteAble =()=>
     {
         //CHECK IF EDITABLE
-        if(true)
+        if(window.location.pathname.search("display") == -1)
             return(
             <Popup
             trigger={ <div style={{color:"red",cursor:"help", width:"2px",height:"auto",display:"inline", marginRight:"10px", fontSize:"12px"}}>-מחיקת כרטיס</div>}
@@ -78,6 +80,8 @@ const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, 
                  <input name="deleteCard" type="submit" value="Submit" /> 
             </form>  
           </Popup>)
+          else
+            return (null)
     }
 
     return (

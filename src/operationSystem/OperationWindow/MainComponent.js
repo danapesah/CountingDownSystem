@@ -19,7 +19,7 @@ class MainWindow extends Component
     addRow =()=>
     {
         //CHECK IF EDITABLE
-        if(true)
+        if(window.location.pathname.search("display") == -1)
             return(
             <Popup
             trigger={ <div style={{float:"right",cursor:"help",color:"green",height:"auto",display:"inline", fontSize:"15px",fontWeight:'bold'}}> הוספת שורה +</div>}
@@ -42,12 +42,14 @@ class MainWindow extends Component
             </div>
             )}
           </Popup>)
+        else 
+              return (null)
     }
 
     deleteRow =()=>
     {
         //CHECK IF EDITABLE
-        if(true)
+        if(window.location.pathname.search("display") == -1)
             return(
             <Popup
             trigger={ <div style={{float:"right",cursor:"help",color:"red",height:"auto",display:"inline", fontSize:"15px", paddingRight:"10px",fontWeight:'bold'}}> מחק שורה -</div>}
@@ -73,6 +75,8 @@ class MainWindow extends Component
             </div>
             )}
           </Popup>)
+        else
+            return (null)
     }
 
     handleChange=(event,listID)=>
@@ -136,12 +140,15 @@ class MainWindow extends Component
 
     addList= () =>
     {
+      if(window.location.pathname.search("display") == -1)
         return(<button name ="addList" style={{display:"inline", fontSize:"15px"}} onClick={this.handleSubmit}> הוספת קבוצה +</button>)
+      else
+        return (null)
     }
 
     deleteList= () =>
     {
-        if(true)
+      if(window.location.pathname.search("display") == -1)
         return(
         <Popup
             trigger={<button name ="deleteList" style={{display:"inline", fontSize:"15px"}} onClick={this.handleSubmit}>מחיקת קבוצה -</button>}
@@ -166,6 +173,8 @@ class MainWindow extends Component
             </div>
             )}
           </Popup>)
+          else
+              return(null)
     }
     render()
     {  

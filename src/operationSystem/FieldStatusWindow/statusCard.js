@@ -24,7 +24,7 @@ const StatusCard = ({title ,buttons, changeColor,cardID, listID, deleteButton, a
     const addAble =()=>
     {
         //CHECK IF EDITABLE
-        if(true)
+        if(window.location.pathname.search("display") == -1)
             return(
             <Popup
             trigger={ <Button style={{width:"auto",height:"auto", marginRight:"10px"}}>+</Button>}
@@ -38,15 +38,19 @@ const StatusCard = ({title ,buttons, changeColor,cardID, listID, deleteButton, a
                  <input type="submit" value="Submit" /> 
             </form>  
           </Popup>)
+        else 
+          return (null)
 
     }
     
 
     const deleteAble =(cardID,buttonID,listID)=>
     {
-        //CHECK IF EDITABLE
-        if(true)
-        return <div style={{float:"right",color:"red",cursor:"help", width:"2px",height:"auto",marginLeft:"5px"}} onClick={()=>deleteButton(cardID,buttonID,listID)}>x</div>
+        
+        if(window.location.pathname.search("display") == -1)
+            return <div style={{float:"right",color:"red",cursor:"help", width:"2px",height:"auto",marginLeft:"5px"}} onClick={()=>deleteButton(cardID,buttonID,listID)}>x</div>
+        else
+            return (null);
     }
 
     const showCardComments =()=>

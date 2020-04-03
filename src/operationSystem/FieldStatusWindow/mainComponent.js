@@ -84,7 +84,7 @@ class MainComponent extends Component
      addAble =()=>
     {
         //CHECK IF EDITABLE
-        if(true)
+        if(window.location.pathname.search("display") == -1)
             return(
             <Popup
             trigger={ <button style={{float:"right",width:"auto",height:"auto", marginLeft:"5px", marginRight:"5px"}}>הוספת רשימה</button>}
@@ -98,6 +98,8 @@ class MainComponent extends Component
                  <input type="submit" value="Submit" /> 
             </form>  
           </Popup>)
+        else
+            return (null)
 
     }
     
@@ -113,7 +115,7 @@ class MainComponent extends Component
    deleteAble =()=>
    {
        //CHECK IF EDITABLE
-       if(true)
+       if(window.location.pathname.search("display") == -1)
            return(
            <Popup
            trigger={ <button style={{float:"right",cursor:"help",display:"inline"}}>מחיקת רשימה</button>}
@@ -129,6 +131,8 @@ class MainComponent extends Component
                 <input type="submit" value="Submit" /> 
            </form>  
          </Popup>)
+         else
+            return (null);
    }
 
     render()

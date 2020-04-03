@@ -8,7 +8,7 @@ const  OperationList = ({listID,cards, deleteCard,handleChange,handleSubmit}) =>
 
     const addCard =(listID,handleChange,handleSubmit)=>
     {
-        if(true)
+      if(window.location.pathname.search("display") == -1)
         return(
         <Popup
         trigger={<div style={styles.listsContainer,{cursor:"help",fontSize:"40px",paddingTop:"35px",height:"150px"}}className="button">+</div>}
@@ -37,6 +37,8 @@ const  OperationList = ({listID,cards, deleteCard,handleChange,handleSubmit}) =>
              </a>
              </div>)}
       </Popup>)
+      else
+        return(null)
     }
 
 

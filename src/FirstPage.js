@@ -14,7 +14,7 @@ class FirstPage extends Component {
       return (
         <Router>
        
-        <div className="container">
+        <div>
           <Navbar />
             <br/>
             <Route path="/" exact component={Temp }/> 

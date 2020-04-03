@@ -56,7 +56,8 @@ class countDownAddEventButton extends Component
     render()
     {
 
-        let leftPlace=50+this.props.lists.length*140;       
+        let leftPlace=50+this.props.lists.length*140;
+        if(window.location.pathname.search("display") == -1)       
         return(
   
         <Popup
@@ -96,6 +97,8 @@ class countDownAddEventButton extends Component
              </div>)}
       </Popup>
         )
+        else
+        return null;
     }
 }
 

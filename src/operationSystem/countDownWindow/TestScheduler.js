@@ -29,10 +29,13 @@ class TestScheduler extends Component
         let divTable=[]
         for(let j=0;j<this.props.lists.length;j++)
         {
-            let leftPlace=50+j*140;       
-          divTable.push(<div key={'a'+j} style={{top:0,left:leftPlace, position:"absolute", height:"50px",width:"140px", border:"solid",textAlign:"center"}}>
-              <div name={this.props.lists[j].key} style={{float:"right",color:"red",cursor:"help", width:"10px",height:"auto"}} onClick={this.deleteColumn}>x</div>
-              {this.props.lists[j].title}</div>)
+            let leftPlace=50+j*140;     
+            if(window.location.pathname.search("display") == -1) 
+                divTable.push(<div key={'a'+j} style={{top:0,left:leftPlace, position:"absolute", height:"50px",width:"140px", border:"solid",textAlign:"center"}}>
+                <div name={this.props.lists[j].key} style={{float:"right",color:"red",cursor:"help", width:"10px",height:"auto"}} onClick={this.deleteColumn}>x</div>
+                {this.props.lists[j].title}</div>)
+            else
+               divTable.push(<div key={'a'+j} style={{top:0,left:leftPlace, position:"absolute", height:"50px",width:"140px", border:"solid",textAlign:"center"}}>{this.props.lists[j].title}</div>)
         for(let i=1;i<=7;i++)
         {   
             let placeOnScreenTop=i*50;
@@ -106,9 +109,6 @@ const mapStateToProps = (state)=> ({
          backgroundColor:"#ffe0b3",
          marginTop:"20%"
       },
-    
-    //   paddingLeft : 90,
-    //    backgroundColor:"#F5F5DC",
     b:{
         marginTop:"20%",
     paddingLeft : 30,

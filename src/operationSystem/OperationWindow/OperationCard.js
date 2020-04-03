@@ -43,9 +43,11 @@ const OperationCard = ({listID, cardID,title, checkBox, picture, deleteCard}) =>
     const deleteAble =(cardID,listID)=>
     {
         //CHECK IF EDITABLE
-        if(true)
-        return <div style={{float:"right",color:"red",cursor:"help",fontSize:"small",paddingTop:"15px"}}
-        onClick={()=>deleteCard(cardID,listID)} >x</div>
+        if(window.location.pathname.search("display") == -1)
+            return <div style={{float:"right",color:"red",cursor:"help",fontSize:"small",paddingTop:"15px"}}
+            onClick={()=>deleteCard(cardID,listID)} >x</div>
+        else
+            return(null);
     }
 
     
