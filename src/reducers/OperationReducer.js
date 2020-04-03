@@ -234,17 +234,19 @@ const OperationReducer = (state = initialState, action) =>{
 
         case CONSTANTS.DELETE_EVENT_COUNTDOWN:
         {
+            
             const deleteID = action.payload.id;
                const newEventsList = state.CountDownlists.events.filter( event=>
                 {
-                  if(event.id !== deleteID)      
-                   return event
+                  if(event.id != deleteID.id)      
+                    return event
                 }
                )
             const CountDownlistsNew = {
                 resources:[...state.CountDownlists.resources],
                 events:newEventsList
             } 
+            console.log(CountDownlistsNew);
             return {...state,CountDownlists: CountDownlistsNew };
         };
 

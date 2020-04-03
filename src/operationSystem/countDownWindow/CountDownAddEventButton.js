@@ -13,19 +13,15 @@ class countDownAddEventButton extends Component
         entity:"",
 
     }
-    convertTimeInput =(time)=>
-    {
-        let tempArr=time.split(":");
-        return parseInt(tempArr[0])+parseInt(tempArr[1])/100*(3/2);
-    }
+  
     handleChange=(event)=>
     {
         if(event.target.name === 'title')
         this.setState({title: event.target.value})
         else if(event.target.name === 'startHour')
-        this.setState({startHour: this.convertTimeInput(event.target.value)})
+        this.setState({startHour: event.target.value})
         else if(event.target.name === 'endHour')
-        this.setState({endHour: this.convertTimeInput(event.target.value)})
+        this.setState({endHour: event.target.value})
         else if(event.target.name === 'comments')
         this.setState({comments: event.target.value})
         else if(event.target.name === 'entity')
@@ -73,13 +69,14 @@ class countDownAddEventButton extends Component
             </label>
             <label style={{rightMargin:"10px"}}>
                 Starting Hour
-                <NumberFormat name="startHour" format="##:##" placeholder="HH:MM" mask={['M', 'M', 'Y', 'Y']} onChange={this.handleChange} style={{width:"100px"}}/>
-                {/* <input type="time" name="startHour"  pattern="[0-5][0-9]:[0-5][0-9]"/> */}
+                <input name="startHour" placeholder="(+|-)HH:MM" pattern="[+|-]{1}[0-9]{2}:[0-5]{1}[0-9]{1}"
+                     onChange={this.handleChange} style={{width:"100px"}} required></input>
+          
             </label>
             <label>
                Ending Hour
-               <NumberFormat name="endHour"  format="##:##" placeholder="HH:MM" mask={['M', 'M', 'Y', 'Y']} onChange={this.handleChange} style={{width:"100px"}}/>
-                {/* <input type="time" name="endHour" onChange={this.handleChange} style={{width:"auto"}}/> */}
+               <input name="endHour" placeholder="(+|-)HH:MM" pattern="[+|-]{1}[0-9]{2}:[0-5]{1}[0-9]{1}"
+                     onChange={this.handleChange} style={{width:"100px"}} required></input>
             </label>
             
             <label style={{display:"inline-block"}}>
