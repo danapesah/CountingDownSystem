@@ -42,7 +42,7 @@ const layout = [
       <div   style={{ backgroundColor: '#00b33c',  overflow: "auto"}} key="f"><TestScheduler/></div>
       <div   key="g">
       {curr_location=== "/display" ? null  :
-        curr_location==="/user"   ?  
+        curr_location==="/system"   ?  
         <button  onClick={()=>this.props.dispatch(save_new_table_state(-1) )} >save new table </button>:
         <button  onClick={()=>this.props.dispatch(save_new_table_state(curr_location.slice(6)) ) } >save edit table </button>
       }</div>   

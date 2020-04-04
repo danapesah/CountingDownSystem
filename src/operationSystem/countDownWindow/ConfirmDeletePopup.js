@@ -17,7 +17,7 @@ _delete_chosen_table(id){
       //db : this.state.DB_info.filter(el => el._id !== id),
       //data_length: this.state.data_length-1,
     }) 
-    window.location = '/';
+   // window.location = '/list';
   }
 render(){
 

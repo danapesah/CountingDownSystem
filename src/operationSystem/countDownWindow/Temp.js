@@ -96,7 +96,7 @@ class Temp extends Component {
           form_title={"שם המערכת החדשה"}
           placeholder_before={"HH:MM"}
           placeholder_after={"HH:MM"} 
-          path={"/user"}
+          path={"/system"}
           link_name={"צור טבלה חדשה "}
           color={"black"}
         />

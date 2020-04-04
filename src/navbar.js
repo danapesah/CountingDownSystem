@@ -6,14 +6,28 @@ class Navbar extends Component {
 
     render() {
       return (
-        <nav className="navbar navbar-dark bg-dark navbar-expand-lg"  
+        <nav style = {{width:"1500px"}} className="navbar navbar-dark bg-dark navbar-expand-lg"  
          >
-          <Link to="/" className="navbar-brand"> Tables List</Link>
+          {/* <Link to="/" className="navbar-brand"> Tables List</Link>
           <div className="collpase navbar-collapse">
           <ul className="navbar-nav mr-auto">
+          <li className="navbar-item"> */}
 
-          {/* <li className="navbar-item">
-          <Link to="/" className="nav-link">null</Link>
+          <Link to="/login" className="navbar-brand">Login </Link>
+          <div className="collpase navbar-collapse">
+          <ul className="navbar-nav mr-auto">
+          <li className="navbar-item">
+
+
+          <Link to="/" className="nav-link"> Tables List </Link>
+          </li>
+          
+          <li className="navbar-item">
+          <Link to="/user" className="nav-link">Create User-Only to admin </Link>
+          </li>
+{/* 
+          <li className="navbar-item">
+          <Link to="/" className="nav-link">users </Link>
           </li> */}
 {/* 
          <li className="navbar-item">

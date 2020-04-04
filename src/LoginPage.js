@@ -4,7 +4,7 @@ class LoginPage extends Component
 {
     render(){
    return(
-        <div class="container">
+        <div class="container" >
             <h1 class="teal-text">Count Down System</h1>
         <form class="col s12">
         <div class="row">
@@ -24,5 +24,4 @@ class LoginPage extends Component
         }
 }
 
-export default LoginPage
-
+export default LoginPage;

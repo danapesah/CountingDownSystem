@@ -5,6 +5,8 @@ import MainWindow from '../operationSystem/MainWindow'
 
 let listIDNew=3;
 const initialState = {
+    _user_info:{_name:"", _permissions:"", _logged:false},
+
     title: "This is the title of the state ",
     hours_before_target: '',
     hours_after_target: '',
@@ -94,7 +96,13 @@ const initialState = {
 const OperationReducer = (state = initialState, action) =>{
   //  let listID=3;
     switch(action.type){
-
+    case CONSTANTS.SAVE_USER_INFO:{ //save/delete the user info after login/logout
+      const _info={
+        _name: action.payload.name, 
+        _permissions:action.payload.permissions ,
+        _logged:action.payload.bool}
+    return{...state, _user_info:_info}
+    }
     case CONSTANTS.SET_NEW_TABLE:{
         //set a new "clean" state for a new table
         const StatusListNew=[]
@@ -104,6 +112,7 @@ const OperationReducer = (state = initialState, action) =>{
           }
          
         return {
+            ...state,
             title: action.payload.title, 
             hours_before_target: action.payload.down_count,
             hours_after_target:  action.payload.up_count ,
@@ -117,7 +126,7 @@ const OperationReducer = (state = initialState, action) =>{
         }
     }
     case CONSTANTS.SAVE_STATE:{
-        //save new/edit table 
+        //for the save new/edit table btn
         const count = {...state}
 
         if (action.payload.id === -1 )
@@ -125,7 +134,7 @@ const OperationReducer = (state = initialState, action) =>{
             console.log("count: SAVE_STATE " , count);
             axios.post('http://localhost:5000/counts/add', count)
             .then(res => console.log(res.data  ),  );//promise, after its posted well console our the res.data
-            window.location = '/';
+          //  window.location = '/list';
             return state;
         }
         else {
@@ -135,7 +144,7 @@ const OperationReducer = (state = initialState, action) =>{
             axios.post('http://localhost:5000/counts/edit/' + 
             action.payload.id, count)
             .then(res => console.log(res.data));
-            window.location = '/';
+        //    window.location = '/list';
             return state;
         }   
     }
@@ -217,6 +226,7 @@ const OperationReducer = (state = initialState, action) =>{
         //
         let chosen = action.payload.chosen_table_state
         return {
+            ...state,
             title: chosen.title, 
             hours_before_target: chosen.hours_before_target,
             hours_after_target:chosen.hours_after_target ,
@@ -229,8 +239,6 @@ const OperationReducer = (state = initialState, action) =>{
            
         }
     };
-
-
 
 
         case CONSTANTS.DELETE_EVENT_COUNTDOWN:

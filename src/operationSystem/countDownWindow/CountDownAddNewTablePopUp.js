@@ -16,7 +16,7 @@ constructor(props) {
       up_count: this.props.placeholder_after, //numbers of up hours
       down_count:this.props.placeholder_before,//numbers of down hours
     };
-    console.log("state:  " , this.state)
+   // console.log("state:  " , this.state)
 } 
 set_title(event){
     this.setState({title: event.target.value})
