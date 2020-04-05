@@ -3,7 +3,7 @@ import TextScroller from './TextScroller'
 import React from "react";
 import {connect } from 'react-redux'
 import Popup from "reactjs-popup";
-import { updateMessage } from "../../Actions";
+import { updateMessage } from '../../Actions'
 
 
 
