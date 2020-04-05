@@ -13,10 +13,10 @@ export const change_to_show_chosen_table_state = (chosen_table_state) => {
         payload:{chosen_table_state}
     };
   };
-  export const set_new_table = (title, down_count , up_count) => {
+  export const set_new_table = (title, down_count , up_count,message) => {
     return{
         type: CONSTANTS.SET_NEW_TABLE,
-        payload:{title, down_count , up_count}
+        payload:{title, down_count , up_count,message}
     };
   };
   

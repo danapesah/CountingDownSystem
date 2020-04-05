@@ -44,7 +44,7 @@ const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, 
                 <label style={{float:"center"}} >
                     Card Title:
                     <input  type="text" name="cardTitle" onChange={handleChange} />
-                    <textarea name="cardComments" onChange={handleChange} defaultValue="Extra Comments"/>
+                    <textarea name="cardComments" onChange={handleChange} placeholder="Extra Comments"/>
                 </label>
                  <input type="submit" value="Submit" /> 
             </form>  
