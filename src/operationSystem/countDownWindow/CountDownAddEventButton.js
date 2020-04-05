@@ -85,7 +85,7 @@ class countDownAddEventButton extends Component
                     {this.makeSelectInput()}
                 </select>
             </label>
-            <textarea name="comments" onChange={this.handleChange} defaultValue={"Extra Comments"}/>
+            <textarea name="comments" onChange={this.handleChange} placeholder={"Extra Comments"}/>
              <input type="submit" value="Submit" /> 
         </form>  
         <a className="close" onClick={close} style={styles.close}>

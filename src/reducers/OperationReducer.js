@@ -7,7 +7,7 @@ const initialState = {
     title: "This is the title of the state ",
     hours_before_target: '',
     hours_after_target: '',
-    
+    MessageWindow:"",
     OperationRows: ["אישור ירידה", "אישור המראה", "המראה"],
     OperationList: [
     //    {
@@ -86,7 +86,7 @@ const initialState = {
      }
     
     
-     
+    
      
 }
 
@@ -106,7 +106,7 @@ const OperationReducer = (state = initialState, action) =>{
             title: action.payload.title, 
             hours_before_target: action.payload.down_count,
             hours_after_target:  action.payload.up_count ,
-
+            MessageWindow:action.payload.message,
             OperationRows:state.OperationRows,
             OperationList:[] ,
             StatusList: [] ,
@@ -219,7 +219,7 @@ const OperationReducer = (state = initialState, action) =>{
             title: chosen.title, 
             hours_before_target: chosen.hours_before_target,
             hours_after_target:chosen.hours_after_target ,
-
+            MessageWindow:chosen.MessageWindow,
             OperationRows: chosen.OperationRows ,
             OperationList:chosen.OperationList ,
             StatusList: chosen.StatusList ,
@@ -485,6 +485,13 @@ const OperationReducer = (state = initialState, action) =>{
                     }
                     return {...state,OperationList:newOperationRows};
                 }
+                case CONSTANTS.UPDATE_MESSAGE_MESSAGEWINDOW:
+                    {       
+        
+                        let newMessageWindow = action.payload.message;
+                        return {...state,MessageWindow:newMessageWindow};
+                    }
+            
             
 
 
