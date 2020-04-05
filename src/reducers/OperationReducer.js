@@ -148,7 +148,7 @@ const OperationReducer = (state = initialState, action) =>{
             .then(res => console.log(res.data  ),  );//promise, after its posted well console our the res.data
 
            
-          //  window.location = '/list';
+            window.location = '/list';
             return state;
         }
         else {
@@ -159,7 +159,7 @@ const OperationReducer = (state = initialState, action) =>{
             action.payload.id, count)
             .then(res => console.log(res.data));
             
-        //    window.location = '/list';
+           window.location = '/list';
         return state;
         }
 

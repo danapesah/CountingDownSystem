@@ -45,11 +45,11 @@ const layout = [
       {curr_location=== "/display" ? null  :
         curr_location==="/system"   ?  
 
-        <Link style={{ backgroundColor: '#ffce99'}} onClick={()=>this.props.dispatch(save_new_table_state(-1) )}  to ="/list" >שמור טבלה חדשה </Link>:
-        <Link style={{ backgroundColor: '#ffce99'}} onClick={()=>this.props.dispatch(save_new_table_state(curr_location.slice(6)) ) } to ="/list" >שמור טבלה ערוכה</Link>
+        // <Link style={{ backgroundColor: '#ffce99'}} onClick={()=>this.props.dispatch(save_new_table_state(-1) )}  to ="/list" >שמור טבלה חדשה </Link>:
+        // <Link style={{ backgroundColor: '#ffce99'}} onClick={()=>this.props.dispatch(save_new_table_state(curr_location.slice(6)) ) } to ="/list" >שמור טבלה ערוכה</Link>
 
-        // <button  onClick={()=>this.props.dispatch(save_new_table_state(-1) )} >save new table </button>:
-        // <button  onClick={()=>this.props.dispatch(save_new_table_state(curr_location.slice(6)) ) } >save edit table </button>
+        <button  onClick={()=>this.props.dispatch(save_new_table_state(-1) )} >שמור טבלה חדשה  </button>:
+        <button  onClick={()=>this.props.dispatch(save_new_table_state(curr_location.slice(6)) ) } >שמור טבלה ערוכה </button>
       }</div>   
     </GridLayout>
 )

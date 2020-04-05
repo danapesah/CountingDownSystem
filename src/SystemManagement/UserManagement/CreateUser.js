@@ -52,12 +52,13 @@ onSubmit(e) {
   //that expects a jason object in the request body and we send it as a second arguement
   axios.post('http://localhost:5000/users/add', user)
   .then(res => console.log(res.data)); //promise, after its posted well console our the res.data
-
+  alert("user: "+ this.state.username + " added!")
   this.setState({
     username: '',
     password:'',
     permissions:''
   })
+  window.location="/"
   }
 
     render(){

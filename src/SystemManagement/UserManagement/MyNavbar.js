@@ -12,18 +12,18 @@ class MyNavbar extends Component {
 
     }
 
-    componentDidMount(){
-      let you = localStorage.getItem('my-state')
-      let w ={}
-      w=JSON.parse(you)
-    //  console.log("sdede", w.includes(true) )
-    if (w){
-            if( w.includes(true))
-        this.props.dispatch(save_user_info_after_login('sharon', 'admin',true))
-    }
-
-      
+  componentDidMount(){
+  let if_logged = localStorage.getItem('my-state')
+  let if_logged_parse ={}
+  if_logged_parse=JSON.parse(if_logged)
+  //  console.log("sdede", w.includes(true) )
+  if (if_logged_parse){
+    if( if_logged_parse.includes(true))
+      this.props.dispatch(save_user_info_after_login('sharon', 'admin',true))
   }
+
+    
+}
 render() {
  // console.log(this.props._logged)
     return (
@@ -37,7 +37,8 @@ render() {
       {this.props._logged ? 
       <div style={{ display:"flex"  }}>
       <Link  style={{color:"white", display:"flex",width : "60px" }} 
-      onClick={()=>{this.props.dispatch(save_user_info_after_login('', '',false))} }
+      onClick={()=>{this.props.dispatch(save_user_info_after_login('', '',false))
+      ;localStorage.clear() }}
       to ="/login">logout </Link>
       <Link  style={{color:"white", display:"flex",width : "100px"  }} to ="/list">Table List </Link>
       <Link  style={{color:"white", display:"flex",width : "100px"  }} to ="/user">Add user </Link>
@@ -58,6 +59,3 @@ const mapStateToProps = (state)=> ({
  _logged:state._user_info._logged
 })
 export default connect(mapStateToProps)(MyNavbar) ; 
-
-
-

@@ -69,7 +69,7 @@ for(let i =  0; i < this.state.DB_users_info.length ; i++){
       })
       console.log("user_permissions ", this.state.DB_users_info[i].user_info.permissions)
       this.props.dispatch(save_user_info_after_login(this.state.username, this.state.DB_users_info[i].user_info.permissions,true))
-      //window.location="/list"
+      window.location="/list"
   }
 }
 

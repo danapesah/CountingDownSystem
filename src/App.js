@@ -10,7 +10,3 @@ function App() {
   );
 }
 export default App;
-
-// React.useEffect(()=>{
-//   localStorage.setItem('my-state', JSON.stringify(this.props.state));
-// })
