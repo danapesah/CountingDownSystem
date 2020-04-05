@@ -4,7 +4,7 @@ import React, {Component} from 'react'
 import {connect } from 'react-redux'
 import Popup from "reactjs-popup";
 import NumberFormat from 'react-number-format';
-import {set_new_table, edit_title_hours, change_to_show_chosen_table_state} from "../../Actions";
+import {set_new_table, edit_title_hours, change_to_show_chosen_table_state} from "../Actions";
 import { Link } from 'react-router-dom'; //link to different routs
 
 class CountDownAddNewTablePopUp extends Component {

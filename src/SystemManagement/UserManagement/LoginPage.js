@@ -5,7 +5,7 @@ import axios from 'axios';
 //well use the import axios from 'axios' library to send HTTP reuest to the backend
 import { Link , withRouter  } from 'react-router-dom'; //link to different routs
 import {connect } from 'react-redux'
-import {save_user_info_after_login} from '../../src/Actions'
+import {save_user_info_after_login} from '../../Actions'
 import MyNavbar from './MyNavbar'
 
 

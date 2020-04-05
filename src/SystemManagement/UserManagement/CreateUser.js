@@ -6,59 +6,59 @@ import axios from 'axios';
 
 export default class CreateUser extends Component {
 
-    constructor(props) {
-        super(props);
-    
-        this.onChangeUsername = this.onChangeUsername.bind(this);
-        this.onChangePassword =this.onChangePassword.bind(this);
-        this.onChangePermissions =this.onChangePermissions.bind(this);
+constructor(props) {
+  super(props);
 
-        this.onSubmit = this.onSubmit.bind(this);
-        this.state = {
-          username: '',
-          password:'',
-          permissions:'',
-        }
-      }
-      onChangeUsername(e) {
-        this.setState({
-          username: e.target.value
-        })
-      }
-      onChangePassword(e) {
-        
-        this.setState({
-            password: e.target.value
-          })
-      }
-      onChangePermissions(e) {
-        
-        this.setState({
-            permissions: e.target.value
-          })
-      }
-      onSubmit(e) {
-        e.preventDefault();
-    
-        const user = {
-          username: this.state.username,
-          password: this.state.password,
-          permissions:this.state.permissions
-        }
-    
-        console.log(user);
-    
-        //send the use data to the backend, send HTTP POST REQUEST to this 'http://localhost:5000/users/add', backend endpoint 
-        //that expects a jason object in the request body and we send it as a second arguement
-        axios.post('http://localhost:5000/users/add', user)
-        .then(res => console.log(res.data)); //promise, after its posted well console our the res.data
+  this.onChangeUsername = this.onChangeUsername.bind(this);
+  this.onChangePassword =this.onChangePassword.bind(this);
+  this.onChangePermissions =this.onChangePermissions.bind(this);
 
-        this.setState({
-          username: '',
-          password:'',
-          permissions:''
-        })
-      }
+  this.onSubmit = this.onSubmit.bind(this);
+  this.state = {
+    username: '',
+    password:'',
+    permissions:'',
+  }
+}
+onChangeUsername(e) {
+  this.setState({
+    username: e.target.value
+  })
+}
+onChangePassword(e) {
+  
+  this.setState({
+      password: e.target.value
+    })
+}
+onChangePermissions(e) {
+  
+  this.setState({
+      permissions: e.target.value
+    })
+}
+onSubmit(e) {
+  e.preventDefault();
+
+  const user = {
+    username: this.state.username,
+    password: this.state.password,
+    permissions:this.state.permissions
+  }
+
+  console.log(user);
+
+  //send the use data to the backend, send HTTP POST REQUEST to this 'http://localhost:5000/users/add', backend endpoint 
+  //that expects a jason object in the request body and we send it as a second arguement
+  axios.post('http://localhost:5000/users/add', user)
+  .then(res => console.log(res.data)); //promise, after its posted well console our the res.data
+
+  this.setState({
+    username: '',
+    password:'',
+    permissions:''
+  })
+  }
 
     render(){
     return (

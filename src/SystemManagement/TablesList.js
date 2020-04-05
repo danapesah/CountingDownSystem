@@ -2,12 +2,12 @@ import React, {Component} from 'react'
 import {connect } from 'react-redux'
 import axios from 'axios';
 import { Link , BrowserRouter , useLocation  } from 'react-router-dom'; //link to different routs
-import TestScheduler from './TestScheduler';
-import { change_to_show_chosen_table_state , set_new_table, delete_chosen_table} from "../../Actions";
+import TestScheduler from '../operationSystem/countDownWindow/TestScheduler';
+import { change_to_show_chosen_table_state , set_new_table, delete_chosen_table} from "../Actions";
 import CountDownAddNewTablePopUp from './CountDownAddNewTablePopUp'; //the popup for create new table
 import ConfirmDeletePopup from './ConfirmDeletePopup'; //the popup for confirm delete
 
-class Temp extends Component {
+class TablesList extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -15,7 +15,7 @@ class Temp extends Component {
           data_length:0,
         };
       }
-  componentDidMount() {
+   componentDidMount() {
     axios.get('http://localhost:5000/counts/') //GET REQUEST
       .then(response => {
       if (response.data.length===0)return;
@@ -25,7 +25,7 @@ class Temp extends Component {
     .catch((error) => { //catch errors 
       console.log(error);
     })
-
+    
   }
 
 
@@ -72,7 +72,8 @@ class Temp extends Component {
     render(){
 
       return (
-        <div>
+        
+        <div style={{ width : "60%" , paddingLeft:"100px"}}>
             
         <h4 >Tables in the BD</h4>
         <table className="table">
@@ -110,5 +111,5 @@ const mapStateToProps = (state)=> ({
 //  CountDownlists:state.CountDownlists,
 
 })
-export default connect(mapStateToProps)(Temp) ;
+export default connect(mapStateToProps)(TablesList) ;
 
