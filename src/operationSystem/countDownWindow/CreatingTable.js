@@ -3,7 +3,6 @@
 import React, {Component} from 'react'
 import {connect } from 'react-redux'
 import axios from 'axios';
-
 import CountDownEvent from './CountDownEvent';
 import CountDownAddEventButton from './CountDownAddEventButton';
 import CountDownAddEntityButton from './CountDownAddEntityButton';

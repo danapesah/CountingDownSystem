@@ -9,11 +9,12 @@ import MainStatusWindow from './FieldStatusWindow/mainComponent'
 import MessageWindow from './MessageWindow/MessageWindow'
 import MainComponentTime from './TimeWindow/MainComponentTime'
 import TestScheduler from './countDownWindow/TestScheduler'
-import CreatingTable from './countDownWindow/CreatingTable'
-
+import { Link } from 'react-router-dom'; 
 import { save_new_table_state } from "../../src/Actions";
 import {connect } from 'react-redux'
-import { BrowserRouter as Router, Route , useLocation } from "react-router-dom"
+// import { BrowserRouter as Router, Route , useLocation } from "react-router-dom"
+
+import Update from '../SystemManagement/Update'
 class MainWindow extends React.Component {
   render() {
     const curr_location =window.location.pathname
@@ -42,9 +43,13 @@ const layout = [
       <div   style={{ backgroundColor: '#00b33c',  overflow: "auto"}} key="f"><TestScheduler/></div>
       <div   key="g">
       {curr_location=== "/display" ? null  :
-        curr_location==="/user"   ?  
-        <button  onClick={()=>this.props.dispatch(save_new_table_state(-1) )} >save new table </button>:
-        <button  onClick={()=>this.props.dispatch(save_new_table_state(curr_location.slice(6)) ) } >save edit table </button>
+        curr_location==="/system"   ?  
+
+        // <Link style={{ backgroundColor: '#ffce99'}} onClick={()=>this.props.dispatch(save_new_table_state(-1) )}  to ="/list" >שמור טבלה חדשה </Link>:
+        // <Link style={{ backgroundColor: '#ffce99'}} onClick={()=>this.props.dispatch(save_new_table_state(curr_location.slice(6)) ) } to ="/list" >שמור טבלה ערוכה</Link>
+
+        <button  onClick={()=>this.props.dispatch(save_new_table_state(-1) )} >שמור טבלה חדשה  </button>:
+        <button  onClick={()=>this.props.dispatch(save_new_table_state(curr_location.slice(6)) ) } >שמור טבלה ערוכה </button>
       }</div>   
     </GridLayout>
 )
