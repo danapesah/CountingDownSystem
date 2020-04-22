@@ -6,7 +6,6 @@ import TestScheduler from '../operationSystem/countDownWindow/TestScheduler';
 import { change_to_show_chosen_table_state , set_new_table, delete_chosen_table} from "../Actions";
 import CountDownAddNewTablePopUp from './CountDownAddNewTablePopUp'; //the popup for create new table
 import ConfirmDeletePopup from './ConfirmDeletePopup'; //the popup for confirm delete
-
 class TablesList extends Component {
     constructor(props) {
         super(props);

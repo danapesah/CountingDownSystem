@@ -12,7 +12,7 @@ class Logs extends Component {
         };
     } 
  render() {
-  console.log(this.state._chosen_tab)
+  //console.log(this.state._chosen_tab)
   return (
       <div>
     <Nav style={{backgroundColor: ""}}
@@ -21,22 +21,22 @@ class Logs extends Component {
     onSelect={(selectedKey) =>   this.setState({_chosen_tab: selectedKey}) }
   >
     <Nav.Item>
-        <Nav.Link href="#countdown" eventKey="#countdown">לשונית ספירה יורדת </Nav.Link>
+        <Nav.Link href="#countdown" eventKey="#countdown"style={{color:"white", backgroundColor: "green"}} >לשונית ספירה יורדת </Nav.Link>
     </Nav.Item>
     <Nav.Item>
-      <Nav.Link href="#evets" eventKey="#evets">לשונית לוג אירועים </Nav.Link>
+      <Nav.Link href="#evets" eventKey="#evets" style={{color:"white",backgroundColor: "orange"}} >לשונית לוג אירועים </Nav.Link>
     </Nav.Item>
     <Nav.Item>
-      <Nav.Link href="#sea" eventKey="#sea">לשונית סגירות ים</Nav.Link>
+      <Nav.Link href="#sea" eventKey="#sea" style={{color:"white",backgroundColor: "blue"}}>לשונית סגירות ים</Nav.Link>
     </Nav.Item>
     <Nav.Item>
-      <Nav.Link href="#air" eventKey="#air" >לשונית סגירות אוויר</Nav.Link>
+      <Nav.Link href="#air" eventKey="#air" style={{color:"white",backgroundColor: "lightblue"}} >לשונית סגירות אוויר</Nav.Link>
     </Nav.Item>
   </Nav>
 <div style={{position:"absolute", top:"50px"}}>
-{this.state._chosen_tab==="#evets" ? "events" :
-this.state._chosen_tab==="#sea" ? "sea"  :
-this.state._chosen_tab==="#air" ? <div style={{backgroundColor: "#66c2ff",position:"absolute", top:"50px", left:"20px"}}><UploadAirImg/> </div> :
+{this.state._chosen_tab==="#evets" ? "events and table" :
+this.state._chosen_tab==="#sea" ? "sea and table"  :
+this.state._chosen_tab==="#air img and table " ? <div style={{backgroundColor: "#66c2ff",position:"absolute", top:"50px", left:"20px"}}><UploadAirImg/> </div> :
 <TestScheduler/>
 }</div>
 

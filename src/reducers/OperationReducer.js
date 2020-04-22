@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 
 const initialState = {
-     _user_info:{_name:"" , _permissions:"", _logged:false  },
+     _user_info:{_name:"" , _permissions:"", _logged: false   },
    // _user_info:[{key:1 ,_name:'' }, {key:2 ,_permissions:'' } , {key:3 ,_logged:false }],
 
 
@@ -99,19 +99,12 @@ const initialState = {
 const OperationReducer = (state = initialState, action) =>{
   //  let listID=3;
     switch(action.type){
-
-        // case CONSTANTS.SAVE_USER_INFO:{ //save/delete the user info after login/logout
-        //     const _info=[{id:1 ,_name:action.payload.name },
-        //          {id:2 ,_permissions:action.payload.permissions } , 
-                
-        //         {id:3 ,_logged:action.payload.bool }]
-       
-        //   return{...state, _user_info:_info}
     case CONSTANTS.SAVE_USER_INFO:{ //save/delete the user info after login/logout
       const _info={
         _name: action.payload.name, 
         _permissions:action.payload.permissions ,
-        _logged:action.payload.bool}
+        _logged: action.payload.islogged}
+        console.log(action.payload.islogged)
     return{...state, _user_info:_info}
     }
     case CONSTANTS.SET_NEW_TABLE:{
@@ -164,10 +157,10 @@ const OperationReducer = (state = initialState, action) =>{
 
     }
     case CONSTANTS.SET_EDIT_TABLE:{
-        return{...state, title: action.payload.title ,
+        return{...state, 
+            title: action.payload.title ,
             hours_before_target:  action.payload.down_count,
-            hours_after_target: action.payload.up_count,
-            
+            hours_after_target: action.payload.up_count,     
         }
     }
 
@@ -238,7 +231,6 @@ const OperationReducer = (state = initialState, action) =>{
         
     case CONSTANTS.CHANGE_STATE:
     {
-        //
         let chosen = action.payload.chosen_table_state
         return {
             ...state,
@@ -249,7 +241,6 @@ const OperationReducer = (state = initialState, action) =>{
             OperationRows: chosen.OperationRows ,
             OperationList:chosen.OperationList ,
             StatusList: chosen.StatusList ,
-
             CountDownlists: chosen.CountDownlists, 
            
         }

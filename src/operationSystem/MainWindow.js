@@ -12,9 +12,15 @@ import { Link } from 'react-router-dom';
 import { save_new_table_state } from "../../src/Actions";
 import {connect } from 'react-redux'
 // import { BrowserRouter as Router, Route , useLocation } from "react-router-dom"
-
+import {do_nothing} from '../../"../../src/Actions'
 import Update from '../SystemManagement/Update'
 class MainWindow extends React.Component {
+  
+componentDidMount(){
+
+  this.props.dispatch(do_nothing(null))
+}
+
   render() {
     const curr_location =window.location.pathname
 

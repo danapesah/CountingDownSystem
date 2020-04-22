@@ -1,10 +1,10 @@
 import OperationReducer from './reducers/OperationReducer'
-import { createStore } from 'redux';
+import { createStore , combineReducers} from 'redux';
 
 function saveToLocalStorage(state){
     try{
     const serializedState = JSON.stringify(state)
-    localStorage.setItem('my-state', JSON.stringify(serializedState));
+    localStorage.setItem('system-state', JSON.stringify(serializedState));
     }  
     catch(e){
     console.log(e)
@@ -13,7 +13,7 @@ function saveToLocalStorage(state){
 
 function loadFromLocalStorage(state){
     try {
-        const serializedState = localStorage.getItem(); //''something 
+        const serializedState = localStorage.getItem(state); //''something 
         if (serializedState === null) {
           return undefined;
         }
@@ -23,18 +23,20 @@ function loadFromLocalStorage(state){
       }
 }
 
-const persistedState= loadFromLocalStorage()
+const persistedState= loadFromLocalStorage();
+
+const rootReducer = combineReducers({
+  reducers: OperationReducer,
+})
 const store = createStore(
-    OperationReducer , persistedState,
+  OperationReducer , persistedState,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 
-    store.subscribe(() => {
-        saveToLocalStorage({
-            user_info: store.getState()._user_info
-        });
-      });
-
-// store.subscribe(()=>saveToLocalStorage(store.getState()) )
-
+const unsubscribe =store.subscribe(() => {saveToLocalStorage({system_state: store.getState()});
+      }
+      ,
+      );
+     // unsubscribe()
+ //store.subscribe(()=>saveToLocalStorage(store.getState()) )
 export default store
