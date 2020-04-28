@@ -137,7 +137,22 @@ render(){
         <Link to={this.props.path} style={{backgroundColor:'lightblue'}}      
         onClick={() =>{ 
           this.props.dispatch(change_to_show_chosen_table_state(this.props.data));
-          this.props.dispatch(edit_title_hours(this.state.title,this.state.down_count,this.state.up_count,this.props.id) )  
+          this.props.dispatch(edit_title_hours(this.state.title,this.state.down_count,this.state.up_count,this.props.id) ) 
+       
+         try{
+             //create local storage of the chosen table when path is  '/edit'  that saves a copy of the table
+         let chosen_state = {...this.props.data}
+         chosen_state.title= this.state.title
+         chosen_state.hours_before_target= this.state.down_count
+         chosen_state.hours_after_target= this.state.up_count
+
+          const serializedState = JSON.stringify(chosen_state)
+          localStorage.setItem("chosen_state", JSON.stringify(serializedState));
+          console.log(JSON.stringify(serializedState))
+          }  
+          catch(e){
+          console.log(e)
+          }
 
         // this.props.dispatch(save_new_table_state(this.props.id) )  
         } } >
@@ -157,6 +172,7 @@ render(){
 }
 
 const mapStateToProps = (state)=> ({
+  //state:state,
     lists: state.CountDownlists.resources,
     events: state.CountDownlists.events
 })

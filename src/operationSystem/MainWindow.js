@@ -16,11 +16,6 @@ import {do_nothing} from '../../"../../src/Actions'
 import Update from '../SystemManagement/Update'
 class MainWindow extends React.Component {
   
-componentDidMount(){
-
-  this.props.dispatch(do_nothing(null))
-}
-
   render() {
     const curr_location =window.location.pathname
 

@@ -31,7 +31,7 @@ class Routes extends Component {
      
          
       
-        <Router  forceRefresh={false} >
+        <Router  forceRefresh={true} >
         <MyNavbar sharon={this.props._user_name}/>
         <Switch>
            <div >
@@ -54,6 +54,8 @@ class Routes extends Component {
           <Route path="/login" component={LoginPage} />       
            </div>
        </Switch>
+
+     
        </Router>
 
 

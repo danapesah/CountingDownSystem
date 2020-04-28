@@ -14,33 +14,30 @@ class MyNavbar extends Component {
       };
 
     }
+    componentDidMount(){
+      try {
+        const serializedState = localStorage.getItem("login_info"); //''something 
+        if (serializedState === null) {
+          return undefined;
+        }
+        else{
+          let _user_info_parse = JSON.parse(JSON.parse(serializedState ))
+          console.log(_user_info_parse)
+          this.setState({
+            _user_name:_user_info_parse.username, 
+            _user_permissions:_user_info_parse.permissions,
+            _user_logged: _user_info_parse.is_logged,
+          })
+          return JSON.parse(serializedState);
+        }
+      
+      } catch (err) {
+        return undefined;
+      }
 
-  componentDidMount(){
-  //save the data to the local storage and handke refresh/F5 action
-  let system_state = localStorage.getItem('system-state')
-  let system_state_parse = JSON.parse(JSON.parse(system_state ))
-
-
-   if(system_state!==null){
-//     console.log( system_state_parse.system_state._user_info._logged)
-     if (system_state_parse.system_state._user_info._logged){
-       this.setState({
-        _user_name:system_state_parse.system_state._user_info._name, 
-        _user_permissions:system_state_parse.system_state._user_info._permissions,
-        _user_logged: system_state_parse.system_state._user_info._logged,
-      })
-//     this.props.dispatch(save_user_info_after_login(
-//     system_state_parse.system_state._user_info._name, 
-//     system_state_parse.system_state._user_info._permissions,
-//     system_state_parse.system_state._user_info._logged,
-//     system_state_parse.system_state ))
-   }
- }
- 
-}
+ }   
 
 render() {
- // console.log(this.state._logged)
     return (
   
       <div style={{backgroundColor:"#343a40", width : "100%" , height:"80px", color:"white",paddingLeft:"50px"}}>
@@ -52,13 +49,19 @@ render() {
       {this.state._user_logged ===true ? 
       <div style={{ display:"flex"  }}>
       <Link  style={{color:"white", display:"flex",width : "60px" }} 
-      onClick={()=>{this.props.dispatch(save_user_info_after_login('', '','',false,''))
-      ;localStorage.clear() }}
-      to ="/login">logout </Link>
+      onClick={()=>{this.props.dispatch(save_user_info_after_login('', '',false,''))
+      ;localStorage.clear() ; 
+      this.setState({
+        _user_name:'', 
+        _user_permissions:'',
+        _user_logged: false,
+      })
+    }}
+      to ="/">logout </Link>
       <Link  style={{color:"white", display:"flex",width : "100px"  }} to ="/list">Table List </Link>
       <Link  style={{color:"white", display:"flex",width : "100px"  }} to ="/user">Add user </Link>
       </div>
-      :null } 
+       :null }  
 
       </div>
       </div>

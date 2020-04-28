@@ -3,13 +3,11 @@ import * as moment from 'moment';
 import axios from 'axios';
 import MainWindow from '../operationSystem/MainWindow' 
 import { Link } from "react-router-dom";
+import { Component } from "react";
 
 
-const initialState = {
-     _user_info:{_name:"" , _permissions:"", _logged: false   },
-   // _user_info:[{key:1 ,_name:'' }, {key:2 ,_permissions:'' } , {key:3 ,_logged:false }],
-
-
+let initialState = {
+    _user_info:{_name:"" , _permissions:"", _logged: false },
     title: "This is the title of the state ",
     hours_before_target: '',
     hours_after_target: '',
@@ -90,14 +88,28 @@ const initialState = {
             // {id:3,title:"lior",startHour:1,endHour:2, columID:4, comments: "Tooffee"}
         ]
      }
-    
-    
-    
-     
-}
 
+} 
+  try {
+     
+        const serializedState = localStorage.getItem("chosen_state"); //''something 
+        if (serializedState === null) {
+          //  do nothing
+        }
+        else{
+            let chosen_state = JSON.parse(JSON.parse(serializedState ))
+            console.log(chosen_state)
+           initialState={...chosen_state}
+        }
+        
+    } 
+        catch (err) 
+        {
+         console.log(err)
+        }
 const OperationReducer = (state = initialState, action) =>{
   //  let listID=3;
+ 
     switch(action.type){
     case CONSTANTS.SAVE_USER_INFO:{ //save/delete the user info after login/logout
       const _info={
@@ -109,24 +121,43 @@ const OperationReducer = (state = initialState, action) =>{
     }
     case CONSTANTS.SET_NEW_TABLE:{
         //set a new "clean" state for a new table
+    //  alert("SET_NEW_TABLE")
         const StatusListNew=[]
         const CountDownlistsNew = {
             events:  [],
             resources:[...state.CountDownlists.resources], //we will always need the default resources
           }
-         
+         const newState= {
+             ...state,
+            title: action.payload.title, 
+            hours_before_target: action.payload.down_count,
+            hours_after_target:  action.payload.up_count ,
+            MessageWindow:[],
+            OperationRows:[],
+            OperationList:[] ,
+            StatusList: [] ,
+            CountDownlists: CountDownlistsNew
+         }
+         try{
+            //create local storage of the chosen table when path is  '/edit'  that saves a copy of the table
+        let chosen_state = {...newState}
+         const serializedState = JSON.stringify(chosen_state)
+         localStorage.setItem("chosen_state", JSON.stringify(serializedState));
+         console.log(JSON.stringify(serializedState))
+         }  
+         catch(e){
+         console.log(e)
+         }
         return {
             ...state,
             title: action.payload.title, 
             hours_before_target: action.payload.down_count,
             hours_after_target:  action.payload.up_count ,
-            MessageWindow:action.payload.message,
-            OperationRows:state.OperationRows,
+            MessageWindow:[],
+            OperationRows:[],
             OperationList:[] ,
             StatusList: [] ,
-
             CountDownlists: CountDownlistsNew
-           
         }
     }
     case CONSTANTS.SAVE_STATE:{
@@ -157,6 +188,8 @@ const OperationReducer = (state = initialState, action) =>{
 
     }
     case CONSTANTS.SET_EDIT_TABLE:{
+        //edit the title ,hours_before_target,hours_after_target, 
+    //    alert("SET_EDIT_TABLE")    
         return{...state, 
             title: action.payload.title ,
             hours_before_target:  action.payload.down_count,
@@ -204,7 +237,9 @@ const OperationReducer = (state = initialState, action) =>{
                     console.log(newOperationList[i].cards)
                  }   
             }
+
         return {...state, OperationList: newOperationList};
+
     }
 
     case CONSTANTS.ADD_EVENT_COUNTDOWN:
@@ -231,7 +266,9 @@ const OperationReducer = (state = initialState, action) =>{
         
     case CONSTANTS.CHANGE_STATE:
     {
+      //  alert("CHANGE_STATE")
         let chosen = action.payload.chosen_table_state
+        alert(chosen.title)
         return {
             ...state,
             title: chosen.title, 
@@ -510,7 +547,29 @@ const OperationReducer = (state = initialState, action) =>{
             
 
 
-        default: return state;
+        default: 
+        {
+     //   console.log("aa")
+        return state
+        
+        // try {
+        //     const serializedState = localStorage.getItem("chosen_state"); //''something 
+        //     if (serializedState === null) {
+        //        // return {state}
+        //     }
+        //     else{
+        //         let chosen_state = JSON.parse(JSON.parse(serializedState ))
+        //         console.log(chosen_state)
+        //       //  return {state: chosen_state}
+                
+        
+        //     }
+            
+        //     } catch (err) {
+        //     return undefined;
+        //     }
+            
+         }
     }
     
 }

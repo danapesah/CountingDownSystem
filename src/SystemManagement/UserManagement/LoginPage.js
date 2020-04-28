@@ -67,7 +67,23 @@ for(let i =  0; i < this.state.DB_users_info.length ; i++){
           user_permissions: this.state.DB_users_info[i].user_info.permissions,   
       })
       this.props.dispatch(save_user_info_after_login(this.state.username, this.state.DB_users_info[i].user_info.permissions,true,null))
+     
+      const info = {username:this.state.username,permissions:this.state.DB_users_info[i].user_info.permissions,is_logged:true}
+    
+        try{
+        const serializedState = JSON.stringify(info)
+        localStorage.setItem("login_info", JSON.stringify(serializedState));
+       // console.log(JSON.stringify(serializedState))
+        }  
+        catch(e){
+        console.log(e)
+        }   
+    
+      //console.log(info)
+  
+     
       window.location="/list"
+      
   }
 }
 

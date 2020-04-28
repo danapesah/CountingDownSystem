@@ -250,6 +250,6 @@ const initialState = {
 
 export default combineReducers ({
     lists : listReducerCountDown,
-    operationReducer: OperationReducer
+    OperationReducer: OperationReducer
 
 });

@@ -1,19 +1,21 @@
 import OperationReducer from './reducers/OperationReducer'
+import initialState from './reducers/OperationReducer'
+
 import { createStore , combineReducers} from 'redux';
 
-function saveToLocalStorage(state){
+function saveToLocalStorage(state,state_name){
     try{
     const serializedState = JSON.stringify(state)
-    localStorage.setItem('system-state', JSON.stringify(serializedState));
+    localStorage.setItem(state_name, JSON.stringify(serializedState));
     }  
     catch(e){
     console.log(e)
     }   
 }
 
-function loadFromLocalStorage(state){
+function loadFromLocalStorage(state_name){
     try {
-        const serializedState = localStorage.getItem(state); //''something 
+        const serializedState = localStorage.getItem(state_name); //''something 
         if (serializedState === null) {
           return undefined;
         }
@@ -25,18 +27,22 @@ function loadFromLocalStorage(state){
 
 const persistedState= loadFromLocalStorage();
 
-const rootReducer = combineReducers({
-  reducers: OperationReducer,
-})
+// const rootReducer = combineReducers({
+//   initialState : OperationReducer,
+// })
 const store = createStore(
-  OperationReducer , persistedState,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+  OperationReducer,
+  persistedState,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
 
-
-const unsubscribe =store.subscribe(() => {saveToLocalStorage({system_state: store.getState()});
-      }
-      ,
-      );
+//   store.subscribe(() => {
+//     saveToLocalStorage( {system_state: store.getState()},'system_state');
+//     saveToLocalStorage({_user_info: store.getState()._user_info},'_user_info')
+// }
+      // ,
+      // );
      // unsubscribe()
- //store.subscribe(()=>saveToLocalStorage(store.getState()) )
+ //store.subscribe(()=>saveToLocalStorage(store.getState(),"chosen_state") )
 export default store
+//i need to save the user login info and the other state separately

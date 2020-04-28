@@ -11,7 +11,30 @@ class MainComponent extends Component
         deleteList:"",
         addListTitle:"",
     }
-  
+    // componentDidMount()
+    // {
+    // try {
+    //     const serializedState = localStorage.getItem("chosen_state"); //''something 
+    //     if (serializedState === null) {
+    //         if 
+    //         return undefined;
+    //     }
+    //     else{
+    //         let _user_info_parse = JSON.parse(JSON.parse(serializedState ))
+    //         console.log(_user_info_parse)
+    //         this.setState({
+    //         _user_name:_user_info_parse.username, 
+    //         _user_permissions:_user_info_parse.permissions,
+    //         _user_logged: _user_info_parse.is_logged,
+    //         })
+    //         return JSON.parse(serializedState);
+    //     }
+        
+    //     } catch (err) {
+    //     return undefined;
+    //     }
+
+    // }
     handleChange =(event)=>
     {
         if(event.target.name === "deleteList")
@@ -74,7 +97,8 @@ class MainComponent extends Component
 
     addCard = ( listID,cardTitle, cardComments ) =>
     {
-        this.props.dispatch(addCardFieldStatus(listID,cardTitle, cardComments));
+        this.props.dispatch(addCardFieldStatus(listID,cardTitle, cardComments)); 
+        console.log(this.props.state)             
     }
 
     deleteCard = (listID, cardID) =>
@@ -163,8 +187,29 @@ class MainComponent extends Component
 }
 const mapStateToProps = (state) =>{
     return {
-        lists: state.StatusList
+        lists: state.StatusList,
+     
     }
+    //if theres any table in the local storage 
+    // try {
+    //     const serializedState = localStorage.getItem("chosen_state"); //''something 
+    //     if (serializedState === null) {
+    //       return {lists: state.StatusList}
+    //     }
+    //     else{
+    //       let chosen_state = JSON.parse(JSON.parse(serializedState ))
+    //       console.log(chosen_state)
+    //         // if(chosen_state.StatusList.length < state.StatusList.length)
+    //         //     return {lists: state.StatusList}
+    //       return {lists: chosen_state.StatusList}
+          
+    
+    //     }
+      
+    //   } catch (err) {
+    //     return undefined;
+    //   }
+    
 }
 
 const styles = {

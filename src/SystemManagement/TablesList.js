@@ -24,7 +24,23 @@ class TablesList extends Component {
     .catch((error) => { //catch errors 
       console.log(error);
     })
+    //.removeItem("chosen_state") while exit edit/display
+    try {
+      const serializedState = localStorage.getItem("chosen_state"); //''something 
+      if (serializedState === null) {
+        return undefined;
+      }
+      else{
+        localStorage.removeItem("chosen_state") 
+        let chosen_state = JSON.parse(JSON.parse(serializedState ))
+        //console.log(chosen_state)
+
+        return undefined;
+      }
     
+    } catch (err) {
+      return undefined;
+    }
   }
 
 
@@ -36,8 +52,19 @@ class TablesList extends Component {
         <div style={{ display:"flex"}} >
          <Link to={"/display"}   onClick={()=>
           
-            {this.props.dispatch(change_to_show_chosen_table_state
-            (this.state.DB_info[i]._system_info_object))}}
+        {this.props.dispatch(change_to_show_chosen_table_state
+        (this.state.DB_info[i]._system_info_object));
+        //craete local storage of the chosen table when path is '/display'  chosen_state
+        try{
+          const serializedState = JSON.stringify(this.state.DB_info[i]._system_info_object)
+          localStorage.setItem("chosen_state", JSON.stringify(serializedState));
+           console.log(JSON.stringify(serializedState))
+          }  
+          catch(e){
+          console.log(e)
+          }   }
+            
+            }
           
           >display </Link>
 
@@ -54,6 +81,7 @@ class TablesList extends Component {
           color={"#007bff"}
           data = {this.state.DB_info[i]._system_info_object}
           id = {this.state.DB_info[i]._system_info_object._id}
+
 
         />
 
