@@ -66,9 +66,9 @@ class Routes extends Component {
 
  const mapStateToProps = (state)=> ({
    state: state,
-  _user_name: state._user_info._name,
-  _user_permissions: state._user_info._permissions,
-  _logged:state._user_info._logged
+  _user_name: state.MainWindowReducers._user_info._name,
+  _user_permissions: state.MainWindowReducers._user_info._permissions,
+  _logged:state.MainWindowReducers._user_info._logged
 })
 export default connect(mapStateToProps)(Routes) ; 
 

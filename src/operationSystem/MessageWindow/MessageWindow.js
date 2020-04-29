@@ -78,7 +78,7 @@ class  MessageWindow  extends React.Component  {
 }
 
 const mapStateToProps = (state)=> ({
-  messageValue: state.MessageWindow,
+  messageValue: state.MessageWindowReducer.MessageWindow,
 })
 
 export default  connect(mapStateToProps)(MessageWindow)

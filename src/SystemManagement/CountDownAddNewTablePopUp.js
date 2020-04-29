@@ -173,7 +173,7 @@ render(){
 
 const mapStateToProps = (state)=> ({
   //state:state,
-    lists: state.CountDownlists.resources,
-    events: state.CountDownlists.events
+    // lists: state.CountDownWindowReducers.CountDownlists.resources,
+    // events: state.CountDownWindowReducers.CountDownlists.events
 })
 export default connect(mapStateToProps)(CountDownAddNewTablePopUp) ;

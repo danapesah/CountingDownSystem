@@ -187,7 +187,7 @@ class MainComponent extends Component
 }
 const mapStateToProps = (state) =>{
     return {
-        lists: state.StatusList,
+        lists: state.FieldStatusReducers.StatusList,
      
     }
     //if theres any table in the local storage 

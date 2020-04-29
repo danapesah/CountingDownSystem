@@ -69,7 +69,7 @@ const styles = {
   }
 }
 const mapStateToProps = (state)=> ({
-  resources: state.CountDownlists.resources,
+  resources: state.CountDownWindowReducers.CountDownlists.resources,
 })
 
 export default connect(mapStateToProps)(CountDownAddEntityButton)

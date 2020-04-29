@@ -71,6 +71,6 @@ render() {
 }
 
 const mapStateToProps = (state)=> ({
-  state: state,
+  state: state.MainWindowReducers,
 })
 export default connect(mapStateToProps)(MyNavbar) ; 

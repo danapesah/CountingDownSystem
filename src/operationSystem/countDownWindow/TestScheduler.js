@@ -148,10 +148,10 @@ class TestScheduler extends Component
   
 }
 const mapStateToProps = (state)=> ({
-    lists: state.CountDownlists.resources,
-    events: state.CountDownlists.events,
-    hours_before_target: state.hours_before_target,
-    hours_after_target: state.hours_after_target
+    lists: state.CountDownWindowReducers.CountDownlists.resources,
+    events: state.CountDownWindowReducers.CountDownlists.events,
+    hours_before_target: state.MainWindowReducers.hours_before_target,
+    hours_after_target: state.MainWindowReducers.hours_after_target
   })
 
 

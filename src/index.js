@@ -5,7 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux'
-import OperationReducer from './reducers/OperationReducer'
+import MainWindowReducers from './reducers/MainWindowReducers'
 import { BrowserRouter } from 'react-router-dom';
 import store from './store'
 
@@ -35,7 +35,7 @@ import store from './store'
 // }
 
 // const persistedState= loadFromLocalStorage()
-// const store = createStore(OperationReducer , persistedState);
+// const store = createStore(MainWindowReducers , persistedState);
 // store.subscribe(()=>saveToLocalStorage(store.getState()) )
 
 const app =<Provider store={store}>

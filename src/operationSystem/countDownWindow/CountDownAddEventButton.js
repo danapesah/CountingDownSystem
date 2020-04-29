@@ -116,9 +116,9 @@ const styles = {
   }
 
 const mapStateToProps = (state)=> ({
-    lists: state.CountDownlists.resources,
-    events: state.CountDownlists.events,
-    CountDownlists:state.CountDownlists
+    lists: state.CountDownWindowReducers.CountDownlists.resources,
+    events: state.CountDownWindowReducers.CountDownlists.events,
+    CountDownlists:state.CountDownWindowReducers.CountDownlists
   })
 
 export default connect(mapStateToProps)(countDownAddEventButton)

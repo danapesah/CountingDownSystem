@@ -3,7 +3,7 @@ import {connect } from 'react-redux'
 import axios from 'axios';
 import { Link , BrowserRouter , useLocation  } from 'react-router-dom'; //link to different routs
 import TestScheduler from '../operationSystem/countDownWindow/TestScheduler';
-import { change_to_show_chosen_table_state , set_new_table, delete_chosen_table} from "../Actions";
+import { change_to_show_chosen_table_state , delete_chosen_table} from "../Actions";
 import CountDownAddNewTablePopUp from './CountDownAddNewTablePopUp'; //the popup for create new table
 import ConfirmDeletePopup from './ConfirmDeletePopup'; //the popup for confirm delete
 class TablesList extends Component {
@@ -133,8 +133,8 @@ class TablesList extends Component {
     }
 }
 const mapStateToProps = (state)=> ({
-  resources: state.CountDownlists.resources,
-  events: state.CountDownlists.events,
+  // resources: state.CountDownWindowReducers.CountDownlists.resources,
+  // events: state.CountDownWindowReducers.CountDownlists.events,
 //  CountDownlists:state.CountDownlists,
 
 })

@@ -204,8 +204,8 @@ class MainWindow extends Component
 }
 const mapStateToProps = (state) =>{
     return {
-        lists: state.OperationList,
-        operationRows: state.OperationRows
+        lists: state.OperationWindowReducers.OperationList,
+        operationRows: state.OperationWindowReducers.OperationRows
     }
 }
 

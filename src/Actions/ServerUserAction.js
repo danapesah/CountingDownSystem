@@ -6,10 +6,3 @@ export const save_user_info_after_login = (name, permissions, islogged , prevSta
         payload: {name, permissions, islogged,prevState}
     };
   };
-
-  export const do_nothing = (temp) => {
-    return{
-        type: CONSTANTS.NOTHING,
-        
-    };
-  };

@@ -1,32 +1,59 @@
 import React from 'react'
-import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Row'
-import Container from 'react-bootstrap/Container'
 import MainOperationWindow from './OperationWindow/MainComponent'
 import MainStatusWindow from './FieldStatusWindow/mainComponent'
 import MessageWindow from './MessageWindow/MessageWindow'
 import MainComponentTime from './TimeWindow/MainComponentTime'
-import TestScheduler from './countDownWindow/TestScheduler'
 import Logs from './countDownWindow/Logs'
-import { Link } from 'react-router-dom'; 
-import { save_new_table_state } from "../../src/Actions";
+import axios from 'axios';
 import {connect } from 'react-redux'
 // import { BrowserRouter as Router, Route , useLocation } from "react-router-dom"
-import {do_nothing} from '../../"../../src/Actions'
-import Update from '../SystemManagement/Update'
+
 class MainWindow extends React.Component {
-  
   render() {
     const curr_location =window.location.pathname
 
-  //console.log(window.location.pathname)
   return (
     
     <div >
        {curr_location=== "/display" ? null  :
         curr_location==="/system"   ?  
-        <button  onClick={()=>this.props.dispatch(save_new_table_state(-1) )} >שמור טבלה חדשה  </button>:
-        <button  onClick={()=>this.props.dispatch(save_new_table_state(curr_location.slice(6)) ) } >שמור טבלה ערוכה </button>
+        <button  onClick={()=>{
+
+        let newState ={
+          _user_info: this.props.MainWindowReducers._user_info,
+          title: this.props.MainWindowReducers.title,
+          hours_before_target: this.props.MainWindowReducers.hours_before_target,
+          hours_after_target: this.props.MainWindowReducers.hours_after_target,
+          MessageWindow:this.props.MessageWindowReducer.MessageWindow,
+          OperationRows:this.props.OperationWindowReducers.OperationRows,
+          OperationList:this.props.OperationWindowReducers.OperationList,
+          StatusList: this.props.FieldStatusReducers.StatusList,
+          CountDownlists: this.props.CountDownWindowReducers.CountDownlists
+        }
+          console.log("count: SAVE_STATE " , this.props.state);
+          axios.post('http://localhost:5000/counts/add',  newState)
+          .then(res => console.log(res.data  ),  );//promise, after its posted well console our the res.data
+          window.location = '/list';
+        }} >שמור טבלה חדשה  </button>:
+          
+        <button  onClick={()=>{
+          let newState ={
+            _user_info: this.props.MainWindowReducers._user_info,
+            title: this.props.MainWindowReducers.title,
+            hours_before_target: this.props.MainWindowReducers.hours_before_target,
+            hours_after_target: this.props.MainWindowReducers.hours_after_target,
+            MessageWindow:this.props.MessageWindowReducer.MessageWindow,
+            OperationRows:this.props.OperationWindowReducers.OperationRows,
+            OperationList:this.props.OperationWindowReducers.OperationList,
+            StatusList: this.props.FieldStatusReducers.StatusList,
+            CountDownlists: this.props.CountDownWindowReducers.CountDownlists
+          }
+          console.log(this.props.CountDownWindowReducers)
+          console.log("count edit: SAVE_STATE " , newState);
+            axios.post('http://localhost:5000/counts/edit/' + curr_location.slice(6), newState)
+            .then(res => console.log(res.data)); 
+           window.location = '/list';
+         }} >שמור טבלה ערוכה </button>
   } 
       <div class="row">
       <div style={{backgroundColor:'#66c2ff'}} class="col-sm-8"><MainOperationWindow /></div>
@@ -58,7 +85,11 @@ const styles = {
   
 }
 const mapStateToProps = (state)=> ({
-  state: state,
+  MainWindowReducers: state.MainWindowReducers,
+  MessageWindowReducer: state.MessageWindowReducer,
+  OperationWindowReducers: state.OperationWindowReducers,
+  FieldStatusReducers: state.FieldStatusReducers,
+  CountDownWindowReducers: state.CountDownWindowReducers,
 })
 export default connect(mapStateToProps)(MainWindow) ;
 //export default MainWindow;

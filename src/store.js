@@ -1,5 +1,5 @@
-import OperationReducer from './reducers/OperationReducer'
-import initialState from './reducers/OperationReducer'
+import IndexReducers from './reducers/indexReducers'
+import initialState from './reducers/MainWindowReducers'
 
 import { createStore , combineReducers} from 'redux';
 
@@ -28,10 +28,10 @@ function loadFromLocalStorage(state_name){
 const persistedState= loadFromLocalStorage();
 
 // const rootReducer = combineReducers({
-//   initialState : OperationReducer,
+//   initialState : MainWindowReducers,
 // })
 const store = createStore(
-  OperationReducer,
+  IndexReducers,
   persistedState,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
