@@ -33,7 +33,7 @@ catch (err)
 {
     console.log(err)
 }
-const OperationReducer = (state = initialState, action) =>{
+const MainWindowReducers = (state = initialState, action) =>{
   //  let listID=3;
  
     switch(action.type){
@@ -120,4 +120,4 @@ const OperationReducer = (state = initialState, action) =>{
     
 }
 
-export default OperationReducer;
+export default MainWindowReducers;
