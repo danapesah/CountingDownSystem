@@ -55,7 +55,7 @@ class MainWindow extends Component
     deleteRow =()=>
     {
         //CHECK IF EDITABLE
-        if(window.location.pathname.search("display") == -1)
+        if(window.location.pathname.search("display") == -1 && this.props.operationRows.length>0)
             return(
             <Popup
             trigger={ <div style={{float:"right",cursor:"help",color:"red",height:"auto",display:"inline", fontSize:"15px", paddingRight:"10px",fontWeight:'bold'}}> מחק שורה -</div>}
@@ -154,7 +154,7 @@ class MainWindow extends Component
 
     deleteList= () =>
     {
-      if(window.location.pathname.search("display") == -1)
+      if(window.location.pathname.search("display") == -1 && this.props.lists.length>0)
         return(
         <Popup
             trigger={<button name ="deleteList" style={{display:"inline", fontSize:"15px"}} onClick={this.handleSubmit}>מחיקת קבוצה -</button>}

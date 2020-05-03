@@ -53,7 +53,7 @@ class countDownAddEventButton extends Component
     {
 
         let leftPlace=50+this.props.lists.length*140;
-        if(window.location.pathname.search("display") == -1)       
+        if(window.location.pathname.search("display") == -1 && this.props.lists.length>0)       
         return(
   
         <Popup

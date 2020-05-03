@@ -124,7 +124,7 @@ class MainComponent extends Component
    deleteAble =()=>
    {
        //CHECK IF EDITABLE
-       if(window.location.pathname.search("display") == -1)
+       if(window.location.pathname.search("display") == -1 && this.props.lists.length>0)
            return(
            <Popup
            trigger={ <button style={{float:"right",cursor:"help",display:"inline"}}>מחיקת רשימה</button>}
