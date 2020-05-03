@@ -120,7 +120,7 @@ class TablesList extends Component {
         <CountDownAddNewTablePopUp 
           new_or_edit={"new"}
           chosen_table_title={''}
-          trigger_name={"CREAT NEW TABLE"}
+          trigger_name={"CREATE NEW TABLE"}
           form_title={"שם המערכת החדשה"}
           placeholder_before={"HH:MM"}
           placeholder_after={"HH:MM"} 

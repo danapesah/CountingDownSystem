@@ -3,10 +3,16 @@ import {connect } from 'react-redux'
 import CountDownEvent from './CountDownEvent';
 import CountDownAddEventButton from './CountDownAddEventButton';
 import CountDownAddEntityButton from './CountDownAddEntityButton';
-import {deleteEventCountDown,deleteEntityCountDown} from '../../Actions';
+import {deleteEventCountDown,deleteEntityCountDown,changeEventColorCountDown} from '../../Actions';
 
 class TestScheduler extends Component
 { 
+    changeEventColor =(id)=>
+    {
+        this.props.dispatch(changeEventColorCountDown(id))
+    }
+
+
     convertTimeInput =(time)=>
     {
         if(time[0] === '-' || time[0] === '+')
@@ -95,7 +101,7 @@ class TestScheduler extends Component
     {
         this.props.dispatch(deleteEventCountDown(key));
     }
-    createEvent =(title,startHour,endHour,columID,comments,key) =>
+    createEvent =(title,startHour,endHour,columID,comments,key,color) =>
     {
         let startHourArr = this.convertTimeInput(startHour);
         let endHourArr = this.convertTimeInput(endHour);
@@ -103,19 +109,19 @@ class TestScheduler extends Component
         {
             let startHourBytes = this.convertTimeInput(this.props.hours_before_target)*50 + 1*50+ 50*startHourArr[1];
             let eventDuration =(endHourArr[1]-startHourArr[1])*50;
-            return <CountDownEvent key={key+'a'} id={key} title={title} startHourBytes={startHourBytes} eventDuration={eventDuration} columID={columID} comments={comments} startHour={startHour} endHour={endHour} editEvent={this.editEvent}/>
+            return <CountDownEvent key={key+'a'} id={key} title={title} startHourBytes={startHourBytes} eventDuration={eventDuration} columID={columID} comments={comments} startHour={startHour} endHour={endHour} editEvent={this.editEvent} color={color} changeColor={this.changeEventColor}/>
         }
         else if(startHourArr[0] === '-' && endHourArr[0] == '-')
         {
             let startHourBytes =this.convertTimeInput(this.props.hours_before_target)*50 +1*50 - 50*startHourArr[1];
             let eventDuration =(startHourArr[1]-endHourArr[1])*50;
-            return <CountDownEvent key={key+'b'} id={key} title={title} startHourBytes={startHourBytes} eventDuration={eventDuration} columID={columID} comments={comments} startHour={startHour} endHour={endHour} editEvent={this.editEvent}/>
+            return <CountDownEvent key={key+'b'} id={key} title={title} startHourBytes={startHourBytes} eventDuration={eventDuration} columID={columID} comments={comments} startHour={startHour} endHour={endHour} editEvent={this.editEvent} color={color} changeColor={this.changeEventColor}/>
         }
         else if(startHourArr[0] === '-' && endHourArr[0] == '+')
         {
             let startHourBytes =this.convertTimeInput(this.props.hours_before_target)*50 +1*50 - 50*startHourArr[1];
             let eventDuration =(startHourArr[1]+endHourArr[1])*50;
-            return <CountDownEvent key={key+'c'} id={key} title={title} startHourBytes={startHourBytes} eventDuration={eventDuration} columID={columID} comments={comments} startHour={startHour} endHour={endHour} editEvent={this.editEvent}/>
+            return <CountDownEvent key={key+'c'} id={key} title={title} startHourBytes={startHourBytes} eventDuration={eventDuration} columID={columID} comments={comments} startHour={startHour} endHour={endHour} editEvent={this.editEvent} color={color} changeColor={this.changeEventColor}/>
         }
         
     }
@@ -124,7 +130,8 @@ class TestScheduler extends Component
     {
         let eventTable=[];
         for(let i=0;i<this.props.events.length; i++)
-            eventTable.push(this.createEvent(this.props.events[i].title,this.props.events[i].startHour,this.props.events[i].endHour,this.props.events[i].columID,this.props.events[i].comments, this.props.events[i].id));
+           eventTable.push(this.createEvent(this.props.events[i].title,this.props.events[i].startHour,this.props.events[i].endHour,this.props.events[i].columID,this.props.events[i].comments, this.props.events[i].id,this.props.events[i].color));
+    
         return eventTable;
     }
     

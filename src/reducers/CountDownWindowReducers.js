@@ -13,7 +13,7 @@ let initialState = {
             // {title: "משימה 6", key:"5"},
         ],
         events:[
-            // {id:1,title:"sharon",startHour:3,endHour:4, columID:0, comments:"Dana"},
+            // {id:1,title:"sharon",startHour:3,endHour:4, columID:0, comments:"Dana", color:"green"},
             // {id:2,title:"dana",startHour:5,endHour:7, columID:3, comments:"Shoky"},
             // {id:3,title:"lior",startHour:1,endHour:2, columID:4, comments: "Tooffee"}
         ]
@@ -119,12 +119,34 @@ const CountDownWindowReducers = (state = initialState, action) =>{
                     startHour:action.payload.startHour,
                     endHour:action.payload.endHour, 
                     columID:action.payload.entity,
-                    comments:action.payload.comments
+                    comments:action.payload.comments,
+                    color:"green"
                 }
             ]
     
             } 
             return {...state,CountDownlists: CountDownlistsNew };
+        }
+
+        case CONSTANTS.CHANGE_EVENT_COLOR_COUNTDOWN:
+        {    
+            let newEvents= [...state.CountDownlists.events]
+            for(let i=0;i<state.CountDownlists.events.length;i++)
+            {
+                if(newEvents[i].id == action.payload.id.id)
+                {
+                    if(newEvents[i].color == "green")
+                        newEvents[i].color = "orange"
+                    else if(newEvents[i].color == "orange")
+                        newEvents[i].color = "Red"
+                    else if(newEvents[i].color == "Red")
+                        newEvents[i].color = "black"
+                    else if(newEvents[i].color == "black")
+                        newEvents[i].color = "green"
+                }
+            }
+        
+            return {...state,CountDownlists:{resources:[...state.CountDownlists.resources], events:newEvents} };
         }
         default:return state;
     }

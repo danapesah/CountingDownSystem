@@ -36,3 +36,11 @@ export const addCardCountDown = (listID, text) => {
 };
 
 
+export const changeEventColorCountDown = (id) => {
+  return{
+      type: CONSTANTS.CHANGE_EVENT_COLOR_COUNTDOWN,
+      payload:{id}
+  };
+};
+
+
