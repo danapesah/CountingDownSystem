@@ -11,8 +11,6 @@ try {
     }
     else{
         let chosen_state = JSON.parse(JSON.parse(serializedState ))
-        console.log(chosen_state.MessageWindow)
-        console.log(chosen_state)
         initialState={...chosen_state}
     }
     
@@ -25,7 +23,6 @@ const FieldStatusReducers = (state = initialState, action) =>{
     switch(action.type){
         case CONSTANTS.DELETE_BUTTON_FIELDSTATUS:
         {
-            console.log("ADD_CARD_OPERATION")
             let list;
             let card;
 
@@ -68,6 +65,7 @@ const FieldStatusReducers = (state = initialState, action) =>{
             {
                 id: newID,
                 titleButton: action.payload.buttonTitle,
+                color: "green"
             }
 
             newStatusList[list].cards[card].buttons.push(newButton);
@@ -152,6 +150,40 @@ const FieldStatusReducers = (state = initialState, action) =>{
 
                 newStatusList.push(newList);
                 return {...state,StatusList:newStatusList};
+        }
+        case CONSTANTS.CHANGE_COLOR_BUTTON_FIELDSTATUS:
+        {
+            let list;
+            let card;
+            let button = -1;
+
+            for(let i=0;i<state.StatusList.length; i++)
+                if(state.StatusList[i].listID == action.payload.listID)
+                   list = i;
+            for(let i=0;i<state.StatusList[list].cards.length; i++)
+                if(state.StatusList[list].cards[i].cardID == action.payload.cardID)
+                   card = i;
+
+            for(let i=0;i<state.StatusList[list].cards[card].buttons.length; i++)
+                if(state.StatusList[list].cards[card].buttons[i].id == action.payload.buttonID)
+                    button = i;      
+                    
+            let newStatusList = [...state.StatusList];
+            // console.log(newStatusList[list].cards[card].buttons[button].color)
+            if(button !== -1)
+            {
+            if( newStatusList[list].cards[card].buttons[button].color === "green")
+                newStatusList[list].cards[card].buttons[button].color="orange";
+            else if( newStatusList[list].cards[card].buttons[button].color === "orange")
+                newStatusList[list].cards[card].buttons[button].color="red";
+            else if( newStatusList[list].cards[card].buttons[button].color === "red")
+                newStatusList[list].cards[card].buttons[button].color="black";
+            else if( newStatusList[list].cards[card].buttons[button].color === "black")
+                newStatusList[list].cards[card].buttons[button].color="green";
+            }
+            // console.log(newStatusList);
+            return {...state,StatusList:newStatusList};
+        
         }
         default:return state;
     }

@@ -34,7 +34,7 @@ const  CountDownEvent = ({id, title,startHourBytes,eventDuration, columID,commen
            {checkIfEditAble()}
           <Popup trigger={<div style={{cursor:"help", width:"15px",height:"auto"}} > ...</div>} position="right center" >
             <div>
-            <div style={{borderRadius:"50%", backgroundColor:nextColor,width:"20px",float:"right"}} onClick={()=>changeColor({id})}>=></div>
+            <div style={{borderRadius:"50%", backgroundColor:nextColor,width:"20px",float:"right",color:"black"}} onClick={()=>changeColor({id})}>=></div>
               <div style={{borderBottom:"solid",color:"black"}}>{startHour} - {endHour}</div>
               <div style={{color:"black"}}>{comments}</div>
             </div>

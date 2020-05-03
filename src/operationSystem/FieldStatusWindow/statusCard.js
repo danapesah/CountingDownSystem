@@ -70,7 +70,7 @@ const StatusCard = ({title ,buttons, changeColor,cardID, listID, deleteButton, a
         <div style={styles.cardContainer} >
          {showCardComments()}
         <div>
-        {buttons.map((button,i)=>(<Button key={i} style={{backgroundColor: "green", width:"auto"}} onClick={changeColor}>
+        {buttons.map((button,i)=>(<Button key={i} style={{backgroundColor: button.color, width:"auto"}} onClick={()=>changeColor(cardID,button.id,listID)}>
         {deleteAble(cardID,button.id,listID)}
         {button.titleButton} </Button>))}
         </div>

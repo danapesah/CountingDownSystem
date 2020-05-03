@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import { connect  } from 'react-redux'
 import StatusList from './StatusList'
 import Popup from "reactjs-popup";
-import { deleteButtonFieldStatus, addButtonFieldStatus ,addCardFieldStatus, deleteCardFieldStatus,deleteListFieldStatus, addListFieldStatus } from "../../Actions";
+import { deleteButtonFieldStatus, addButtonFieldStatus ,addCardFieldStatus, deleteCardFieldStatus,deleteListFieldStatus, addListFieldStatus,changeColorButtonFieldStatus } from "../../Actions";
 
 class MainComponent extends Component
 {
@@ -65,24 +65,9 @@ class MainComponent extends Component
    }   
 
 
-   changeColor =(e)=>
+   changeColor =(cardID,buttonid,listID)=>
    {    
-       if( e.target.style.backgroundColor === "green")
-          {
-              e.target.style.backgroundColor="orange";
-           }
-       else if( e.target.style.backgroundColor === "orange")
-         {
-              e.target.style.backgroundColor="Red";
-        }
-        else if( e.target.style.backgroundColor === "red")
-          {
-              e.target.style.backgroundColor="black";
-          }
-       else if( e.target.style.backgroundColor === "black")
-         { 
-             e.target.style.backgroundColor="green";
-        }
+       this.props.dispatch(changeColorButtonFieldStatus(cardID,buttonid,listID))
    }
    
     deleteButton = (cardID,buttonID,listID)=>
