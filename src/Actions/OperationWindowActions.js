@@ -43,3 +43,10 @@ export const deleteListOperation = (ListID) => {
       payload: {ListID},
   };
 };
+
+export const changeCheckBoxStateOperation = (cardID,listID,checkBoxID) => {
+  return{
+      type: CONSTANTS.CHANGE_CHECKBOX_STATE_OPERATION,
+      payload: {cardID,listID,checkBoxID},
+  };
+};

@@ -2,15 +2,12 @@ import React from 'react'
 import planePic from './Icons/plane.jpeg'
 import helicopterPic from './Icons/helicopter.jpeg'
 
-const OperationCard = ({listID, cardID,title, checkBox, picture, deleteCard}) =>
+const OperationCard = ({listID, cardID,title, checkBox, picture, deleteCard,changeCheckBoxState}) =>
 {
     const picArray=[
         planePic,
         helicopterPic
     ]
-
-    const onChangeTest =()=>{}
-    
     const checkBoxUtil =(checkBox)=>
     {
         let checkBoxDiv =[]
@@ -20,7 +17,7 @@ const OperationCard = ({listID, cardID,title, checkBox, picture, deleteCard}) =>
                 checkBoxDiv.push(
                     <div key={i}>
                     <label>
-                    <input type="checkbox" name={i} style={{width:"5px", height:"5px"}} onChange={onChangeTest}/>
+                    <input type="checkbox" name={i} style={{width:"5px", height:"5px"}} onChange={()=>changeCheckBoxState(cardID,listID,i)}/>
                     <span></span>
                     </label>
                     <br/> 
@@ -30,7 +27,7 @@ const OperationCard = ({listID, cardID,title, checkBox, picture, deleteCard}) =>
                 checkBoxDiv.push(
                     <div key={i}>
                     <label>
-                    <input type="checkbox" name={i} style={{width:"5px", height:"5px"}} onChange={onChangeTest} checked/>
+                    <input type="checkbox" name={i} style={{width:"5px", height:"5px"}} onChange={()=>changeCheckBoxState(cardID,listID,i)} checked/>
                     <span></span>
                     </label>
                     <br/> 

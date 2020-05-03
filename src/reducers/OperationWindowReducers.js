@@ -1,4 +1,4 @@
-import {CONSTANTS} from "../Actions";
+import {CONSTANTS, save_user_info_after_login} from "../Actions";
 
 let initialState = {
     OperationRows: ["אישור ירידה", "אישור המראה", "המראה"],
@@ -124,7 +124,29 @@ const OperationWindowReducers = (state = initialState, action) =>{
                         }
                     return {...state,OperationList:newOperationRows};
                      }
-
+                case CONSTANTS. CHANGE_CHECKBOX_STATE_OPERATION:
+                {       
+                    
+                    let newOperationRows = [...state.OperationList];
+                    for(let i=0; i<newOperationRows.length;i++)
+                    {
+                        if(newOperationRows[i].listID == action.payload.listID)
+                        {
+                            for(let j=0;j<newOperationRows[i].cards.length;j++)
+                            {
+                                if(newOperationRows[i].cards[j].id == action.payload.cardID)
+                                {
+                                    console.log(action.payload.checkBoxID);
+                                    if(newOperationRows[i].cards[j].checkBox[action.payload.checkBoxID] == "0")
+                                        newOperationRows[i].cards[j].checkBox[action.payload.checkBoxID] =1;
+                                    else
+                                        newOperationRows[i].cards[j].checkBox[action.payload.checkBoxID] =0;
+                                }
+                            }
+                        }
+                    }
+                return {...state,OperationList:newOperationRows};
+                }
         default:return state;
     }
 }

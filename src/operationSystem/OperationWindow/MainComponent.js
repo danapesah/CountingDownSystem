@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import { connect  } from 'react-redux'
 import OperationList from './OperationList'
-import { deleteCardOperation,addRowOperation,deleteRowOperation,addCardOperation, addListOperation,deleteListOperation } from '../../Actions';
+import { deleteCardOperation,addRowOperation,deleteRowOperation,addCardOperation, addListOperation,deleteListOperation,changeCheckBoxStateOperation } from '../../Actions';
 import Popup from "reactjs-popup";
 
 class MainWindow extends Component
@@ -14,6 +14,12 @@ class MainWindow extends Component
         cardType:0,
         newCardListID:0,
         deleteListID:0
+    }
+
+    changeCheckBoxState =(cardID,listID,checkBoxID)=>
+    {
+      console.log(checkBoxID);
+      this.props.dispatch(changeCheckBoxStateOperation(cardID,listID,checkBoxID));
     }
 
     addRow =()=>
@@ -193,7 +199,7 @@ class MainWindow extends Component
         <div style={styles.listsContainer}>
         {lists.map(list => 
           ( <OperationList key ={list.listID} listID={list.listID} cards = {list.cards} 
-                            deleteCard={this.deleteCard} handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>))}
+                            deleteCard={this.deleteCard} handleChange={this.handleChange} handleSubmit={this.handleSubmit} changeCheckBoxState={this.changeCheckBoxState}  />))}
           {this.addList()}<br/>
           {this.deleteList()}
           </div> 

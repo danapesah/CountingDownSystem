@@ -2,7 +2,7 @@ import React from 'react'
 import OperationCard from './OperationCard'
 import Popup from "reactjs-popup";
 
-const  OperationList = ({listID,cards, deleteCard,handleChange,handleSubmit}) => 
+const  OperationList = ({listID,cards, deleteCard,handleChange,handleSubmit,changeCheckBoxState}) => 
 {
 
 
@@ -47,7 +47,7 @@ const  OperationList = ({listID,cards, deleteCard,handleChange,handleSubmit}) =>
         <div style={styles.listsStyle} > 
         <div style={styles.listsContainer}>
        {cards.map(card => (<OperationCard key={card.id} cardID={card.id} listID={listID} title={card.title} 
-                                        checkBox={card.checkBox} picture={card.picture} deleteCard={deleteCard}/> ))} 
+                                        checkBox={card.checkBox} picture={card.picture} deleteCard={deleteCard} changeCheckBoxState={changeCheckBoxState}/> ))} 
         {addCard(listID,handleChange,handleSubmit)}
        </div>
         </div>
