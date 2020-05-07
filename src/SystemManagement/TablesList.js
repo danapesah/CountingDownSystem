@@ -12,6 +12,7 @@ class TablesList extends Component {
         this.state = {
           DB_info : {},
           data_length:0,
+          curr_permission:'', //the current user permission
         };
       }
    componentDidMount() {
@@ -26,20 +27,20 @@ class TablesList extends Component {
     })
     //.removeItem("chosen_state") while exit edit/display
     try {
-      const serializedState = localStorage.getItem("chosen_state"); //''something 
-      if (serializedState === null) {
-        return undefined;
-      }
-      else{
+      const serializedState = localStorage.getItem("chosen_state"); //''something
+      const login_info_state = localStorage.getItem("login_info"); //''something  
+      if (serializedState !== null ) {
         localStorage.removeItem("chosen_state") 
         let chosen_state = JSON.parse(JSON.parse(serializedState ))
-        //console.log(chosen_state)
-
-        return undefined;
+        return undefined
       }
-    
+      if(login_info_state !== null)
+      {
+        let chosen_info = JSON.parse(JSON.parse(login_info_state ))
+        this.setState({ curr_permission: chosen_info.permissions })
+      }
     } catch (err) {
-      return undefined;
+      return err;
     }
   }
 
@@ -50,7 +51,9 @@ class TablesList extends Component {
     {
       temp.push(<tr key={i}  ><th> {this.state.DB_info[i]._system_info_object.title} </th ><th >
         <div style={{ display:"flex"}} >
-         <Link to={"/display"}   onClick={()=>
+        {this.state.curr_permission === "admin" || this.state.curr_permission === "editor" ||this.state.curr_permission === "viewer " ?  
+         <div style={{ display:"flex"}} >
+        <Link to={"/display"}   onClick={()=>
           
         {this.props.dispatch(change_to_show_chosen_table_state
         (this.state.DB_info[i]._system_info_object));
@@ -67,8 +70,10 @@ class TablesList extends Component {
             }
           
           >display </Link>
-
-
+          </div>
+          : null }
+       {this.state.curr_permission === "admin" ||   this.state.curr_permission === "editor" ?
+       <div style={{ display:"flex"}} >
       | <CountDownAddNewTablePopUp 
           new_or_edit={"edit"}
           chosen_table_title={this.state.DB_info[i]._system_info_object.title}
@@ -81,13 +86,15 @@ class TablesList extends Component {
           color={"#007bff"}
           data = {this.state.DB_info[i]._system_info_object}
           id = {this.state.DB_info[i]._system_info_object._id}
-
-
         />
+        </div>
+            : null }
 
-
-        |<ConfirmDeletePopup id={this.state.DB_info[i]._id}/>
-
+      {this.state.curr_permission === "admin" ?
+        <div style={{ display:"flex"}} >
+          |<ConfirmDeletePopup id={this.state.DB_info[i]._id}/>
+        </div>
+      : null }
 
       </div>
          
