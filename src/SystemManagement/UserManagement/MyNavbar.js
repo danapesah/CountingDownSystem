@@ -22,7 +22,6 @@ class MyNavbar extends Component {
         }
         else{
           let _user_info_parse = JSON.parse(JSON.parse(serializedState ))
-          console.log(_user_info_parse)
           this.setState({
             _user_name:_user_info_parse.username, 
             _user_permissions:_user_info_parse.permissions,
@@ -61,7 +60,9 @@ render() {
     <Link  style={{color:"white", display:"flex",width : "100px"  }} to ="/list">Table List </Link>
    
     {this.state._user_permissions==="admin" ? 
-     <Link  style={{color:"white", display:"flex",width : "100px"  }} to ="/user">Add user </Link> : null} 
+     <div style={{ display:"flex"  }}>
+     <Link  style={{color:"white", display:"flex",width : "100px"  }} to ="/user">Add user </Link>  
+      <Link  style={{color:"white", display:"flex",width : "100px"  }} to ="/usersList">Users list </Link> </div>: null} 
     </div>
   :null }  
 

@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { BrowserRouter as Router, Route , Switch ,Link } from "react-router-dom"
 import CreateUser from './CreateUser'
+import UsersList from './UsersList'
 import TablesList from '../TablesList'
 import LoginPage from './LoginPage'
 import MainWindow from '../../operationSystem/MainWindow'
@@ -51,7 +52,8 @@ class Routes extends Component {
           <Route path="/system" component={MainWindow} /> {/*add /user to the address*/ } 
           <Route path="/display"  component={MainWindow} /> {/*add /display to the address*/ }
           <Route path="/user" component={CreateUser} /> 
-          <Route path="/login" component={LoginPage} />       
+          <Route path="/login" component={LoginPage} />
+          <Route path="/usersList" component={UsersList} />          
            </div>
        </Switch>
 
