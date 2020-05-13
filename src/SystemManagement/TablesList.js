@@ -72,7 +72,7 @@ class TablesList extends Component {
           >display </Link>
           </div>
           {/* : null } */}
-       {this.state.curr_permission === "admin" ||   this.state.curr_permission === "Editor" ?
+       {this.state.curr_permission === "Admin" ||   this.state.curr_permission === "Editor" ?
        <div style={{ display:"flex"}} >
       | <CountDownAddNewTablePopUp 
           new_or_edit={"edit"}
@@ -90,9 +90,21 @@ class TablesList extends Component {
         </div>
             : null }
 
-      {this.state.curr_permission === "admin" ?
+      {this.state.curr_permission === "Admin" ?
         <div style={{ display:"flex"}} >
-          |<ConfirmDeletePopup id={this.state.DB_info[i]._id}/>
+      
+          |<Link to={"/list"}   onClick={()=>
+            { 
+              let newTable = this.state.DB_info[i]._system_info_object
+              newTable.title = "copy "+  this.state.DB_info[i]._system_info_object.title
+              // console.log(this.state.DB_info[i]._system_info_object)
+              axios.post('http://localhost:5000/counts/add',  this.state.DB_info[i]._system_info_object)
+              .then(res => console.log(res.data  )  )//promise, after its posted well console our the res.data
+              alert("new table added: " +"\""+ newTable.title+"\"")
+            }
+          }
+        >copy </Link>
+      |<ConfirmDeletePopup id={this.state.DB_info[i]._id}/>
         </div>
       : null }
 

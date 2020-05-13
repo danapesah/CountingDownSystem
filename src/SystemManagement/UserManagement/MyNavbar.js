@@ -59,7 +59,7 @@ render() {
     to ="/">logout </Link>
     <Link  style={{color:"white", display:"flex",width : "100px"  }} to ="/list">Table List </Link>
    
-    {this.state._user_permissions==="admin" ? 
+    {this.state._user_permissions==="Admin" ? 
      <div style={{ display:"flex"  }}>
      <Link  style={{color:"white", display:"flex",width : "100px"  }} to ="/user">Add user </Link>  
       <Link  style={{color:"white", display:"flex",width : "100px"  }} to ="/usersList">Users list </Link> </div>: null} 
