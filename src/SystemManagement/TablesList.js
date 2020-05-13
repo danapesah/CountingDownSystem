@@ -51,7 +51,7 @@ class TablesList extends Component {
     {
       temp.push(<tr key={i}  ><th> {this.state.DB_info[i]._system_info_object.title} </th ><th >
         <div style={{ display:"flex"}} >
-        {this.state.curr_permission === "admin" || this.state.curr_permission === "Editor" ||this.state.curr_permission === "Viewer " ?  
+        {/* {this.state.curr_permission === "Admin" || this.state.curr_permission === "Editor" ||this.state.curr_permission === "Viewer " ?   */}
          <div style={{ display:"flex"}} >
         <Link to={"/display"}   onClick={()=>
           
@@ -71,7 +71,7 @@ class TablesList extends Component {
           
           >display </Link>
           </div>
-          : null }
+          {/* : null } */}
        {this.state.curr_permission === "admin" ||   this.state.curr_permission === "Editor" ?
        <div style={{ display:"flex"}} >
       | <CountDownAddNewTablePopUp 
