@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import {connect } from 'react-redux'
 import { Link } from 'react-router-dom'; //link to different routs
 import {save_user_info_after_login} from '../../Actions'
+// import Navbar from 'react-bootstrap/Navbar'
+// import { Button,Form, FormControl, Nav, Tab} from 'react-bootstrap';
 
 class MyNavbar extends Component {
   constructor(props) {
@@ -38,36 +40,42 @@ class MyNavbar extends Component {
 
 render() {
     return (
-  
-  <div style={{backgroundColor:"#343a40", width : "100%" , height:"80px", color:"white",paddingLeft:"50px"}}>
-  <div > 
-    <h4 > CountDown System</h4> 
-  <div>{this.state._user_logged===true ? 
-    "logged as: " +this.state._user_name+" "+this.state._user_permissions : "please login"} 
-  </div>
-  {this.state._user_logged ===true ? 
-    <div style={{ display:"flex"  }}>
-    <Link  style={{color:"white", display:"flex",width : "60px" }} 
-      onClick={()=>{this.props.dispatch(save_user_info_after_login('', '',false,''))
-      ;localStorage.clear() ; 
-        this.setState({
-        _user_name:'', 
-        _user_permissions:'',
-        _user_logged: false,
-        })
-      }}
-    to ="/">logout </Link>
-    <Link  style={{color:"white", display:"flex",width : "100px"  }} to ="/list">Table List </Link>
-   
-    {this.state._user_permissions==="Admin" ? 
-     <div style={{ display:"flex"  }}>
-     <Link  style={{color:"white", display:"flex",width : "100px"  }} to ="/user">Add user </Link>  
-      <Link  style={{color:"white", display:"flex",width : "100px"  }} to ="/usersList">Users list </Link> </div>: null} 
-    </div>
-  :null }  
 
-  </div>
-  </div>
+<div style={{backgroundColor:"#343a40", width : "100%" , height:"80px", color:"white",}}>
+  <div  style={{textAlign:"center"}}> 
+    <h4  > מערכת ניהול לספירה יורדת</h4> 
+      <div>{this.state._user_logged===true ? 
+      this.state._user_name+" "+this.state._user_permissions+ " :שלום  " : "התחברות"} 
+      </div >
+  <div style={{display:"block",alignItems:"center" ,paddingRight:"20px"}}>
+      {this.state._user_logged ===true ? 
+      <>
+      <Link  style={{color:"white" }} 
+          onClick={()=>{this.props.dispatch(save_user_info_after_login('', '',false,''))
+          ;localStorage.clear() ; 
+          this.setState({
+          _user_name:'', 
+          _user_permissions:'',
+          _user_logged: false,
+          })
+        }}
+        to ="/">      התנתק    </Link>
+        
+        <Link  style={{color:"white"  }} to ="/list">רשימת מערכות   </Link>
+        
+        </>:null }  
+
+    {this.state._user_logged ===true  && this.state._user_permissions==="Admin" ? 
+       <> 
+        <Link  style={{color:"white"  }}  to ="/user">    {"  "}     {'  הוספת משתמש  '}  {"  "}</Link>  
+        <Link  style={{color:"white"  }} to ="/usersList">רשימת משתמשים </Link>
+        </> : null}  
+  </div >
+
+
+     </div>
+     
+    </div> 
 
     );
 }

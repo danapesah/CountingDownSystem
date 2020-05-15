@@ -49,7 +49,7 @@ class TablesList extends Component {
     let temp=[]
     for (let i=0 ; i <  this.state.DB_info.length ; i++)
     {
-      temp.push(<tr key={i}  ><th> {this.state.DB_info[i]._system_info_object.title} </th ><th >
+      temp.push(<tr key={i}  ><th >
         <div style={{ display:"flex"}} >
         {/* {this.state.curr_permission === "Admin" || this.state.curr_permission === "Editor" ||this.state.curr_permission === "Viewer " ?   */}
          <div style={{ display:"flex"}} >
@@ -110,7 +110,8 @@ class TablesList extends Component {
 
       </div>
          
-    </th></tr>)
+    </th>
+    <th> {this.state.DB_info[i]._system_info_object.title} </th ></tr>)
     }
     return temp
   }
@@ -119,14 +120,15 @@ class TablesList extends Component {
 
       return (
         
-        <div style={{ width : "60%" , paddingLeft:"100px"}}>
+        <div >
             
-        <h4 >Tables in the BD</h4>
-        <table className="table">
+        <h4 style={{textAlign:"center"}}>רשימת כל המערכות </h4>
+        <div style={{ width : "60%" , paddingLeft:"100px"}} >
+        <table className="table" style={{textAlign:"center"}}>
           <thead className="thead-light">
             <tr>
-              <th  >Table title</th>
-              <th >Actions</th>
+              <th >פעולה</th>
+              <th  >שם מערכת</th>
             </tr>
           </thead>
           <tbody >
@@ -147,6 +149,7 @@ class TablesList extends Component {
           link_name={"צור טבלה חדשה "}
           color={"black"}
         />
+      </div>
       </div>
       );
     }
