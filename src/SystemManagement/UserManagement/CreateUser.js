@@ -4,13 +4,6 @@ import axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Popup from "reactjs-popup"
-import AlertPopup from "./AlertPopup" 
-import ConfirmDeletePopup from '../ConfirmDeletePopup'
-// import Alert from "../Alert" 
-import Alert from 'react-bootstrap/Alert'
-
-// import Spinner from "../Spinner" 
-
 // Admin - All types of permissions.
 // Editor - display and edit permissions.
 // Viewer - display permissions

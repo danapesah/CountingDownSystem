@@ -6,8 +6,7 @@ import axios from 'axios';
 import { Link , withRouter  } from 'react-router-dom'; //link to different routs
 import {connect } from 'react-redux'
 import {save_user_info_after_login} from '../../Actions'
-import MyNavbar from './MyNavbar'
-
+import MyNavbar from './MyNavbar' 
 //add tests and checks 
  class LoginPage extends Component {
 
@@ -24,6 +23,7 @@ import MyNavbar from './MyNavbar'
     DB_users_info : {},
     isLogged:0,
     user_permissions:'',
+    spinner:"none",
   }
 }
 componentDidMount() {
@@ -64,7 +64,8 @@ for(let i =  0; i < this.state.DB_users_info.length ; i++){
         //  console.log(this.state.DB_users_info[i].user_info.permissions)
           this.setState({
             isLogged:1,
-          user_permissions: this.state.DB_users_info[i].user_info.permissions,   
+          user_permissions: this.state.DB_users_info[i].user_info.permissions,
+          spinner: "up"   
       })
       this.props.dispatch(save_user_info_after_login(this.state.username, this.state.DB_users_info[i].user_info.permissions,true,null))
      
@@ -76,6 +77,7 @@ for(let i =  0; i < this.state.DB_users_info.length ; i++){
        // console.log(JSON.stringify(serializedState))
         }  
         catch(e){
+        alert(e)
         console.log(e)
         }   
     
@@ -86,51 +88,55 @@ for(let i =  0; i < this.state.DB_users_info.length ; i++){
       
   }
 }
-
-
 }
+
+
+
 
 render(){
 return (
 
   <div>
+
     <div style={{paddingLeft:"400px", width : "900px"}} >
       <br></br>
-    <h3>Enter your username and password</h3>
+    <h3 style={{textAlign:"center"}} >התחברות</h3>
     <form >
+    <div style={{textAlign:"right"}} >
       <div className="form-group"> 
-        <label>Username: </label>
+        <label>:שם משתמש </label>
         <input  type="text"
             required
             className="form-control"
             value={this.state.username}
             onChange={this.onChangeUsername}
+            style={{textAlign:"right"}} 
             />
       </div>
       <div className="form-group"> 
-        <label>Password: </label>
+        <label>:סיסמא </label>
         <input  type="password" name="password"
             required
             className="form-control"
             value={this.state.password}
             onChange={this.onChangePassword}
+            style={{textAlign:"right"}} 
             />
       </div>
+      </div>
+      <br></br>
+      <br></br>
+    <div  style={{textAlign:"center"}} >
+  
+   <Link  className="btn btn-primary"
+       onClick={this.onSubmit}
+     >התחבר </Link>  
 
-
-    <div style={{paddingLeft:"190px", width : "100px"}} >
-      <Link  className="btn btn-primary"
-       // to={"/temp"} 
-    
-        onClick={this.onSubmit}
-          > LOGIN </Link>  
-    </div>
-    </form>
-
-
-          {/* <Button/> */}
+     
+      </div>
+      </form>
       </div>    
-  </div>
+    </div>
     );
   }
  }
