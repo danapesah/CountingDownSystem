@@ -1,7 +1,7 @@
 import React from 'react';
 import Popup from "reactjs-popup";
 
-const  CountDownEvent = ({id, title,startHourBytes,eventDuration, columID,comments,startHour,endHour, editEvent,color, changeColor})=>
+const  CountDownEvent = ({id, title,startHourBytes,eventDuration, columID,comments,startHour,endHour, editEvent,color, changeColor,validMission})=>
 {
   const checkIfEditAble=()=>
   {
@@ -26,21 +26,29 @@ const  CountDownEvent = ({id, title,startHourBytes,eventDuration, columID,commen
   else if(color == "black")
     nextColor = "green"
 
-
   let leftPlace=50+columID*140; 
-  return(
-        
-        <div style={{top:startHourBytes,left:leftPlace, position:"absolute", height:eventDuration,width:"140px",backgroundColor:color, border:"solid", color:textColor}} >
-           {checkIfEditAble()}
-          <Popup trigger={<div style={{cursor:"help", width:"15px",height:"auto"}} > ...</div>} position="right center" >
-            <div>
-            <div style={{borderRadius:"50%", backgroundColor:nextColor,width:"20px",float:"right",color:"black"}} onClick={()=>changeColor({id})}>=></div>
-              <div style={{borderBottom:"solid",color:"black"}}>{startHour} - {endHour}</div>
-              <div style={{color:"black"}}>{comments}</div>
+  if(validMission)
+  {
+    return(
+          
+          <div style={{top:startHourBytes,left:leftPlace, position:"absolute", height:eventDuration,width:"140px",backgroundColor:color, border:"solid", color:textColor}} >
+            {checkIfEditAble()}
+            <Popup trigger={<div style={{cursor:"help", width:"15px",height:"auto"}} > ...</div>} position="right center" >
+              <div>
+              <div style={{borderRadius:"50%", backgroundColor:nextColor,width:"20px",float:"right",color:"black"}} onClick={()=>changeColor({id})}>=></div>
+                <div style={{borderBottom:"solid",color:"black"}}>{startHour} - {endHour}</div>
+                <div style={{color:"black"}}>{comments}</div>
+              </div>
+            </Popup>
+            <div  style={{textAlign:"right"}}>{title}</div>
             </div>
-          </Popup>
-          <div  style={{textAlign:"right"}}>{title}</div>
-          </div>
-  );
+    );
+  }
+  else
+  {
+    alert("נמחקה  "+title+"  המשימה ")
+    editEvent({id})
+      return null;
+  }
 }
 export default CountDownEvent
