@@ -98,7 +98,6 @@ const MainWindowReducers = (state = initialState, action) =>{
     case CONSTANTS.CHANGE_STATE:
     {
         let chosen = action.payload.chosen_table_state
-        //alert(chosen.title)
         return {
             ...state,
             title: chosen.title, 

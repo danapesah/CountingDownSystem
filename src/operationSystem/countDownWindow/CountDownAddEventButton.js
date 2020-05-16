@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {connect } from 'react-redux'
 import Popup from "reactjs-popup";
-import NumberFormat from 'react-number-format';
 import { addEventCountDown } from "../../Actions";
 class countDownAddEventButton extends Component
 {
@@ -13,7 +12,32 @@ class countDownAddEventButton extends Component
         entity:"",
 
     }
+
+    timeValidator =(inputTime) =>
+    {
+        let hourInput = parseInt(inputTime.substring(1,3));
+        let minInput = parseInt(inputTime.substring(4));
+        if(inputTime[0] == "-")
+        {
+            let hourBefore = parseInt(this.props.hours_before_target.substring(0,2));
+            let minBefore  = parseInt(this.props.hours_before_target.substring(3));
+             return (hourInput<hourBefore)
+
+        }
+        if(inputTime[0] == "+")
+        {
+            let hourafter = parseInt(this.props.hours_after_target.substring(0,2));
+            let minafter  = parseInt(this.props.hours_after_target.substring(3));
+             return (hourInput<hourafter)
+        }
+    }
   
+    InputValidation =()=>
+    {
+        if(this.timeValidator(this.state.startHour) && this.timeValidator(this.state.endHour) && this.state.title !="") 
+             return <input type="submit" value="Submit" />  
+    }    
+
     handleChange=(event)=>
     {
         if(event.target.name === 'title')
@@ -53,11 +77,11 @@ class countDownAddEventButton extends Component
     {
 
         let leftPlace=50+this.props.lists.length*140;
-        if(window.location.pathname.search("display") == -1)       
+        if(window.location.pathname.search("display") == -1 && this.props.lists.length>0)       
         return(
   
         <Popup
-        trigger={<button style={{position:"absolute", width:"50px", height:"50px"}}className="button">+</button>}
+        trigger={<button style={{position:"absolute", width:"50px", height:"50px",textAlign:"center",fontSize:"13px"}}className="button">הוספת אירוע  </button>}
         modal
         closeOnDocumentClick>
           {close =>(
@@ -86,7 +110,8 @@ class countDownAddEventButton extends Component
                 </select>
             </label>
             <textarea name="comments" onChange={this.handleChange} placeholder={"Extra Comments"}/>
-             <input type="submit" value="Submit" /> 
+             {/* <input type="submit" value="Submit" />  */}
+            {this.InputValidation()}
         </form>  
         <a className="close" onClick={close} style={styles.close}>
             &times;
@@ -118,7 +143,9 @@ const styles = {
 const mapStateToProps = (state)=> ({
     lists: state.CountDownWindowReducers.CountDownlists.resources,
     events: state.CountDownWindowReducers.CountDownlists.events,
-    CountDownlists:state.CountDownWindowReducers.CountDownlists
+    CountDownlists:state.CountDownWindowReducers.CountDownlists,
+    hours_before_target: state.MainWindowReducers.hours_before_target,
+    hours_after_target: state.MainWindowReducers.hours_after_target
   })
 
 export default connect(mapStateToProps)(countDownAddEventButton)

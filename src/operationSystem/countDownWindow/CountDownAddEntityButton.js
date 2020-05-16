@@ -8,6 +8,13 @@ class CountDownAddEntityButton extends Component
   state={
     title:"",
   }
+
+  inputValidtion =()=>
+  {
+    if(this.state.title != "")
+      return  <input type="submit" value="Submit" /> 
+  }
+
   handleChange=(event)=>
   {
 
@@ -27,7 +34,7 @@ class CountDownAddEntityButton extends Component
       if(window.location.pathname.search("display") == -1)
         return(
             <Popup
-            trigger={<button style={{position:"absolute",left:(this.props.resources.length*140+50)}}className="button">+</button>}
+            trigger={<button style={{position:"absolute",left:(this.props.resources.length*140+50)}}className="button">הוספת עמודה</button>}
             modal
             closeOnEscape
             repositionOnResize
@@ -39,7 +46,7 @@ class CountDownAddEntityButton extends Component
                     Entity Title:
                     <input type="text" name="title" onChange={this.handleChange} />
                 </label>
-                 <input type="submit" value="Submit" /> 
+                {this.inputValidtion()}
             </form> 
             <a className="close" onClick={close} style={styles.close}>
             &times;
