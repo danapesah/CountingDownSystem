@@ -1,5 +1,5 @@
 import {CONSTANTS} from "../Actions";
-
+import axios from 'axios';
 let initialState = {
     StatusList: []
 }
@@ -153,37 +153,69 @@ const FieldStatusReducers = (state = initialState, action) =>{
         }
         case CONSTANTS.CHANGE_COLOR_BUTTON_FIELDSTATUS:
         {
-            let list;
-            let card;
-            let button = -1;
+            if(window.location.pathname ==='/display')
+            { //able to change color only at this pathname
 
-            for(let i=0;i<state.StatusList.length; i++)
-                if(state.StatusList[i].listID == action.payload.listID)
-                   list = i;
-            for(let i=0;i<state.StatusList[list].cards.length; i++)
-                if(state.StatusList[list].cards[i].cardID == action.payload.cardID)
-                   card = i;
+                let list;
+                let card;
+                let button = -1;
 
-            for(let i=0;i<state.StatusList[list].cards[card].buttons.length; i++)
-                if(state.StatusList[list].cards[card].buttons[i].id == action.payload.buttonID)
-                    button = i;      
+                for(let i=0;i<state.StatusList.length; i++)
+                    if(state.StatusList[i].listID == action.payload.listID)
+                    list = i;
+                for(let i=0;i<state.StatusList[list].cards.length; i++)
+                    if(state.StatusList[list].cards[i].cardID == action.payload.cardID)
+                    card = i;
+
+                for(let i=0;i<state.StatusList[list].cards[card].buttons.length; i++)
+                    if(state.StatusList[list].cards[card].buttons[i].id == action.payload.buttonID)
+                        button = i;      
+                        
+                let newStatusList = [...state.StatusList];
+                // console.log(newStatusList[list].cards[card].buttons[button].color)
+                if(button !== -1)
+                {
+                if( newStatusList[list].cards[card].buttons[button].color === "green")
+                    newStatusList[list].cards[card].buttons[button].color="orange";
+                else if( newStatusList[list].cards[card].buttons[button].color === "orange")
+                    newStatusList[list].cards[card].buttons[button].color="red";
+                else if( newStatusList[list].cards[card].buttons[button].color === "red")
+                    newStatusList[list].cards[card].buttons[button].color="black";
+                else if( newStatusList[list].cards[card].buttons[button].color === "black")
+                    newStatusList[list].cards[card].buttons[button].color="green";
+                }
+                // console.log(newStatusList);
+                //alert( newStatusList[list].cards[card].buttons[button].color)
+
+                /////for every change of color in 'display' /////
+                // the local storage should be cleared and the new state need to save to it and to the DB
+                try {
+                    const serializedState = localStorage.getItem("chosen_state"); //''something 
                     
-            let newStatusList = [...state.StatusList];
-            // console.log(newStatusList[list].cards[card].buttons[button].color)
-            if(button !== -1)
-            {
-            if( newStatusList[list].cards[card].buttons[button].color === "green")
-                newStatusList[list].cards[card].buttons[button].color="orange";
-            else if( newStatusList[list].cards[card].buttons[button].color === "orange")
-                newStatusList[list].cards[card].buttons[button].color="red";
-            else if( newStatusList[list].cards[card].buttons[button].color === "red")
-                newStatusList[list].cards[card].buttons[button].color="black";
-            else if( newStatusList[list].cards[card].buttons[button].color === "black")
-                newStatusList[list].cards[card].buttons[button].color="green";
-            }
-            // console.log(newStatusList);
-            return {...state,StatusList:newStatusList};
-        
+                    if (serializedState === null) {
+                        //  do nothing
+                    }
+                    else{
+                        let chosen_state = JSON.parse(JSON.parse(serializedState ))
+                        let newState={...chosen_state}
+                        newState.StatusList={...newStatusList}
+                        localStorage.removeItem("chosen_state") 
+
+                        const serializedState2 = JSON.stringify(newState)
+                        localStorage.setItem("chosen_state", JSON.stringify(serializedState2));
+                        //alert( newState.StatusList[list].cards[card].buttons[button].color)
+                    }
+                    
+                } 
+                catch (err) 
+                {
+                    console.log(err)
+                }
+
+                // axios.post('http://localhost:5000/counts/add',  newState)
+                // .then(res => console.log(res.data  ),  );//
+                return {...state,StatusList:newStatusList};
+            } 
         }
         default:return state;
     }
