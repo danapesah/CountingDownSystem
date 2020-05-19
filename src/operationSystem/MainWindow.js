@@ -9,6 +9,27 @@ import {connect } from 'react-redux'
 // import { BrowserRouter as Router, Route , useLocation } from "react-router-dom"
 
 class MainWindow extends React.Component {
+  //ask dana 
+//   componentDidMount() {
+//   try {
+//     const login_info = localStorage.getItem("login_info");
+//     if ( login_info !==null)  {
+      
+//         let user_permission_state = JSON.parse(JSON.parse(login_info ))
+  
+    
+    
+//         if(user_permission_state.permissions==="Viewer"){
+//        //   setInterval(window.location.reload() ,1000)
+//         }
+//     }
+
+// } 
+// catch (err) 
+// {
+//     console.log(err)
+// }
+//   }
   render() {
     const curr_location =window.location.pathname
 

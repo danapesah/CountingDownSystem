@@ -3,22 +3,66 @@ import axios from 'axios';
 let initialState = {
     StatusList: []
 }
+
+if(window.location.pathname ==='/display')
+{
+    // setInterval(window.location.reload() ,3000)
+    let chosen_state_id=null
+    let DB_info = null
+    let data_len = null 
+    try {
+        const serializedStateID = localStorage.getItem("chosen_state_id"); 
+        if (serializedStateID !== null) {
+             chosen_state_id = JSON.parse(JSON.parse(serializedStateID ))
+        }
+    } 
+    catch (err) 
+    {
+        console.log(err)
+    }
+    axios.get('http://localhost:5000/counts/') //GET REQUEST
+    .then(response => {
+    if (response.data.length===0) return;
+    data_len= response.data.length
+    DB_info={...response.data}
+    if(DB_info!== null &&  chosen_state_id!==null )
+    {   
+        for(let i = 0 ; i <data_len ; i++)
+        {
+            if( DB_info[i]._id===chosen_state_id ) 
+            {
+                localStorage.removeItem("chosen_state") 
+                const serializedState2 = JSON.stringify(DB_info[i]._system_info_object)
+                localStorage.setItem("chosen_state", JSON.stringify(serializedState2));
+            }
+        }
+     }
+
+    })
+}
+
 try {
-    const serializedState = localStorage.getItem("chosen_state"); //''something 
-    
-    if (serializedState === null) {
-        //  do nothing
-    }
-    else{
+    const serializedState = localStorage.getItem("chosen_state");
+    const login_info = localStorage.getItem("login_info");
+    if (serializedState !== null && login_info !==null)  {
         let chosen_state = JSON.parse(JSON.parse(serializedState ))
-        initialState={...chosen_state}
-    }
+        let user_permission_state = JSON.parse(JSON.parse(login_info ))
+  
     
+        initialState={...chosen_state}
+        if(user_permission_state.permissions==="Viewer"){
+          //  setInterval(window.location.reload() ,2000)
+        }
+    }
+    if (serializedState === null) {
+        //  alert("null value")
+    }
 } 
 catch (err) 
 {
     console.log(err)
 }
+
 const FieldStatusReducers = (state = initialState, action) =>{
     switch(action.type){
         case CONSTANTS.DELETE_BUTTON_FIELDSTATUS:
@@ -184,27 +228,40 @@ const FieldStatusReducers = (state = initialState, action) =>{
                 else if( newStatusList[list].cards[card].buttons[button].color === "black")
                     newStatusList[list].cards[card].buttons[button].color="green";
                 }
-                // console.log(newStatusList);
-                //alert( newStatusList[list].cards[card].buttons[button].color)
 
                 /////for every change of color in 'display' /////
                 // the local storage should be cleared and the new state need to save to it and to the DB
+                let chosen_state_id=null
                 try {
-                    const serializedState = localStorage.getItem("chosen_state"); //''something 
+                    const serializedStateID = localStorage.getItem("chosen_state_id"); 
+                    if (serializedStateID !== null) {
+                         chosen_state_id = JSON.parse(JSON.parse(serializedStateID ))
+                    }
+                } 
+                catch (err) 
+                {
+                    console.log(err)
+                }
+                //alert(chosen_state_id)
+                if(chosen_state_id!==null)
+                {
+                try {
+                    const serializedState = localStorage.getItem("chosen_state"); 
                     
-                    if (serializedState === null) {
-                        //  do nothing
-                    }
-                    else{
+                    if (serializedState !== null) {
                         let chosen_state = JSON.parse(JSON.parse(serializedState ))
-                        let newState={...chosen_state}
-                        newState.StatusList={...newStatusList}
-                        localStorage.removeItem("chosen_state") 
+                        let newState={...chosen_state , StatusList:newStatusList}
+                      
+                        //localStorage.removeItem("chosen_state") 
+                        // const serializedState2 = JSON.stringify(newState)
+                        // localStorage.setItem("chosen_state", JSON.stringify(serializedState2));
+                        // console.log(chosen_state.StatusList[list].cards[card].buttons[button].color)
 
-                        const serializedState2 = JSON.stringify(newState)
-                        localStorage.setItem("chosen_state", JSON.stringify(serializedState2));
-                        //alert( newState.StatusList[list].cards[card].buttons[button].color)
+                axios.post('http://localhost:5000/counts/edit/' + chosen_state_id, newState)
+                .then(res => console.log(res.data)); 
+                // window.location.reload(false);
                     }
+
                     
                 } 
                 catch (err) 
@@ -212,11 +269,12 @@ const FieldStatusReducers = (state = initialState, action) =>{
                     console.log(err)
                 }
 
-                // axios.post('http://localhost:5000/counts/add',  newState)
-                // .then(res => console.log(res.data  ),  );//
+                }
+
                 return {...state,StatusList:newStatusList};
             } 
         }
+      
         default:return state;
     }
 }
