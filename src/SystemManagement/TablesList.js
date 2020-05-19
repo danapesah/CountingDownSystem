@@ -27,12 +27,15 @@ class TablesList extends Component {
     })
     //.removeItem("chosen_state") while exit edit/display
     try {
-      const serializedState = localStorage.getItem("chosen_state"); //''something
-      const login_info_state = localStorage.getItem("login_info"); //''something  
+      const serializedState = localStorage.getItem("chosen_state"); 
+      const login_info_state = localStorage.getItem("login_info");
+      const chosen_state_id = localStorage.getItem("chosen_state_id"); 
       if (serializedState !== null ) {
         localStorage.removeItem("chosen_state") 
-        let chosen_state = JSON.parse(JSON.parse(serializedState ))
-        return undefined
+        //let chosen_state = JSON.parse(JSON.parse(serializedState ))
+      }
+      if (chosen_state_id !== null ) {
+        localStorage.removeItem("chosen_state_id") 
       }
       if(login_info_state !== null)
       {
@@ -58,16 +61,19 @@ class TablesList extends Component {
         {this.props.dispatch(change_to_show_chosen_table_state
         (this.state.DB_info[i]._system_info_object));
         //craete local storage of the chosen table when path is '/display'  chosen_state
-        try{
-          const serializedState = JSON.stringify(this.state.DB_info[i]._system_info_object)
-          localStorage.setItem("chosen_state", JSON.stringify(serializedState));
-           console.log(JSON.stringify(serializedState))
-          }  
-          catch(e){
-          console.log(e)
-          }   }
-            
-            }
+          try{
+            const serializedState = JSON.stringify(this.state.DB_info[i]._system_info_object)
+            const serializedStateID = JSON.stringify(this.state.DB_info[i]._id)
+
+            localStorage.setItem("chosen_state", JSON.stringify(serializedState));
+            localStorage.setItem("chosen_state_id", JSON.stringify(serializedStateID));
+            //console.log(JSON.stringify(serializedState))
+            }  
+            catch(e){
+            console.log(e)
+            }   
+          }
+        }
           
           >display </Link>
           </div>
