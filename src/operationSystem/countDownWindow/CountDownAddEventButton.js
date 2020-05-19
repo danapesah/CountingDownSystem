@@ -21,14 +21,14 @@ class countDownAddEventButton extends Component
         {
             let hourBefore = parseInt(this.props.hours_before_target.substring(0,2));
             let minBefore  = parseInt(this.props.hours_before_target.substring(3));
-             return (hourInput<hourBefore)
+             return (hourInput<=hourBefore)
 
         }
         if(inputTime[0] == "+")
         {
             let hourafter = parseInt(this.props.hours_after_target.substring(0,2));
             let minafter  = parseInt(this.props.hours_after_target.substring(3));
-             return (hourInput<hourafter)
+             return (hourInput<=hourafter)
         }
     }
   
