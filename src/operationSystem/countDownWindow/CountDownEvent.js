@@ -1,7 +1,7 @@
 import React from 'react';
 import Popup from "reactjs-popup";
 
-const  CountDownEvent = ({id, title,startHourBytes,eventDuration, columID,comments,startHour,endHour, editEvent,color, changeColor,validMission})=>
+const  CountDownEvent = ({id, title,startHourBytes,eventDuration, columID,comments,startHour,endHour, editEvent,color, changeColor,validMission,multipleEvent})=>
 {
   const checkIfEditAble=()=>
   {
@@ -26,12 +26,30 @@ const  CountDownEvent = ({id, title,startHourBytes,eventDuration, columID,commen
   else if(color == "black")
     nextColor = "green"
 
-  let leftPlace=50+columID*140; 
+  let leftPlace;
+  let eventWidth;  
+  if (multipleEvent === -1)  
+  {
+    leftPlace=50+columID*140; 
+    eventWidth="140px"
+  }
+  else if(multipleEvent === 1)
+  {
+    leftPlace=50+columID*140;
+    eventWidth ="70px";
+  }
+  else if(multipleEvent === 2)
+  {
+    leftPlace=50+columID*140+70;
+    eventWidth ="70px";
+  }
+
   if(validMission)
   {
+    
     return(
           
-          <div style={{top:startHourBytes,left:leftPlace, position:"absolute", height:eventDuration,width:"140px",backgroundColor:color, border:"solid", color:textColor}} >
+          <div style={{top:startHourBytes,left:leftPlace, position:"absolute", height:eventDuration,width:eventWidth,backgroundColor:color, border:"solid", color:textColor}} >
             {checkIfEditAble()}
             <Popup trigger={<div style={{cursor:"help", width:"15px",height:"auto"}} > ...</div>} position="right center" >
               <div>
