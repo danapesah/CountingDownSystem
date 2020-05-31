@@ -6,6 +6,10 @@ import TestScheduler from '../operationSystem/countDownWindow/TestScheduler';
 import { change_to_show_chosen_table_state , delete_chosen_table} from "../Actions";
 import CountDownAddNewTablePopUp from './CountDownAddNewTablePopUp'; //the popup for create new table
 import ConfirmDeletePopup from './ConfirmDeletePopup'; //the popup for confirm delete
+import openSocket from 'socket.io-client';
+import io from "socket.io-client";
+
+
 class TablesList extends Component {
     constructor(props) {
         super(props);
@@ -27,12 +31,15 @@ class TablesList extends Component {
     })
     //.removeItem("chosen_state") while exit edit/display
     try {
-      const serializedState = localStorage.getItem("chosen_state"); //''something
-      const login_info_state = localStorage.getItem("login_info"); //''something  
+      const serializedState = localStorage.getItem("chosen_state"); 
+      const login_info_state = localStorage.getItem("login_info");
+      const chosen_state_id = localStorage.getItem("chosen_state_id"); 
       if (serializedState !== null ) {
         localStorage.removeItem("chosen_state") 
-        let chosen_state = JSON.parse(JSON.parse(serializedState ))
-        return undefined
+        //let chosen_state = JSON.parse(JSON.parse(serializedState ))
+      }
+      if (chosen_state_id !== null ) {
+        localStorage.removeItem("chosen_state_id") 
       }
       if(login_info_state !== null)
       {
@@ -42,6 +49,7 @@ class TablesList extends Component {
     } catch (err) {
       return err;
     }
+
   }
 
 
@@ -60,8 +68,10 @@ class TablesList extends Component {
         //craete local storage of the chosen table when path is '/display'  chosen_state
         try{
           const serializedState = JSON.stringify(this.state.DB_info[i]._system_info_object)
+          const serializedStateID = JSON.stringify(this.state.DB_info[i]._id)
           localStorage.setItem("chosen_state", JSON.stringify(serializedState));
-           console.log(JSON.stringify(serializedState))
+          localStorage.setItem("chosen_state_id", JSON.stringify(serializedStateID));
+          // console.log(JSON.stringify(serializedState))
           }  
           catch(e){
           console.log(e)

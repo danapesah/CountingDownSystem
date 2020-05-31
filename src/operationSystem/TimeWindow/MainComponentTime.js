@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 
 class MainComponentTime extends Component
 {
+   
     render(){
         return(
             <div>

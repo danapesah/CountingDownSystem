@@ -39,7 +39,7 @@ class MainWindow extends React.Component {
         <button  onClick={()=>{
           let newState ={
             _user_info: this.props.MainWindowReducers._user_info,
-            title: this.props.MainWindowReducers.title,
+            title: this.props.MainWindowReducers.title, 
             hours_before_target: this.props.MainWindowReducers.hours_before_target,
             hours_after_target: this.props.MainWindowReducers.hours_after_target,
             MessageWindow:this.props.MessageWindowReducer.MessageWindow,
