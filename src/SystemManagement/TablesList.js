@@ -65,7 +65,7 @@ class TablesList extends Component {
           
         {this.props.dispatch(change_to_show_chosen_table_state
         (this.state.DB_info[i]._system_info_object));
-        //craete local storage of the chosen table when path is '/display'  chosen_state
+        //create local storage of the chosen table when path is '/display'  chosen_state
         try{
           const serializedState = JSON.stringify(this.state.DB_info[i]._system_info_object)
           const serializedStateID = JSON.stringify(this.state.DB_info[i]._id)

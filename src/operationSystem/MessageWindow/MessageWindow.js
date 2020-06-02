@@ -6,77 +6,26 @@ import Popup from "reactjs-popup";
 import { updateMessage } from '../../Actions'
 import io from "socket.io-client";
 import axios from 'axios';
- const socket = io.connect('http://localhost:4000')
+
 
 class  MessageWindow  extends React.Component  {
   state= 
   {
     message:this.props.messageValue
   }
-  componentDidMount() {
-   if(window.location.pathname ==='/display')
-   {
-
-    
-    
-      socket.on("message", data => {
-        //on display: the whole object should load automatically from the DB
-        //this.props.dispatch(updateMessage(data))
-        alert("got it")
-        let chosen_state_id=null
-        let DB_info = null
-        let data_len = null 
-        try {
-            const serializedStateID = localStorage.getItem("chosen_state_id"); 
-            if (serializedStateID !== null) {
-                 chosen_state_id = JSON.parse(JSON.parse(serializedStateID ))
-            }
-        } 
-        catch (err) 
-        {
-            console.log(err)
-        }
-        axios.get('http://localhost:5000/counts/') //GET REQUEST
-        .then(response => {
-        if (response.data.length===0) return;
-        data_len= response.data.length
-        DB_info={...response.data}
-        if(DB_info!== null &&  chosen_state_id!==null )
-        {  
-            for(let i = 0 ; i <data_len ; i++)
-            { 
-                if( DB_info[i]._id===chosen_state_id ) 
-                {
-                  alert("founss")
-                    localStorage.removeItem("chosen_state") 
-                    const serializedState2 = JSON.stringify(DB_info[i]._system_info_object)
-                    console.log("aaaaaaaaaaaaaaaaaaaaa")
-                    localStorage.setItem("chosen_state", JSON.stringify(serializedState2));
-                  //  window.location.reload()
-                }
-            }
-         }
-    
-        })
-      //this.props.dispatch(updateMessage(data))
-      })
-   }
-   
-}
-
   handleChange=(event)=>
    {
      console.log(event.target.value)
      this.setState({message: event.target.value})
    }
 
-   handleSubmit =(event)=>
-     {
-        event.preventDefault();
-        this.props.dispatch(updateMessage(this.state.message))
-        if(window.location.pathname ==='/display')
-        {
-          //on display: the message should save automatically to the DB
+  handleSubmit =(event)=>
+  {
+    event.preventDefault();
+    this.props.dispatch(updateMessage(this.state.message))
+    if(window.location.pathname ==='/display')
+    {
+      //on display: the message should save automatically to the DB
         try {
           let chosen_state_id=null
           const serializedStateID = localStorage.getItem("chosen_state_id");
@@ -87,26 +36,27 @@ class  MessageWindow  extends React.Component  {
             let copyState = JSON.parse(JSON.parse(serializedState ))
             let copy_state={...copyState}
             copy_state.MessageWindow =this.state.message
-            this.setState({message:''})
+          
             localStorage.removeItem("chosen_state") 
             localStorage.setItem("chosen_state", JSON.stringify(copy_state));
 
            // alert(chosen_state_id)
             axios.post('http://localhost:5000/counts/edit/' + chosen_state_id, copy_state)
             .then(res => console.log(res.data)); 
-
-                socket.emit("message" ,this.state.message)
-               
+            const socket = io.connect('http://localhost:4000')
+            socket.emit("message" ,this.state.message)
+         //   socket.emit("disconnectThatSoc")
+        // window.location.reload()
           }
         }
         catch (err) 
-          {
-              console.log(err)
-          }
+        {
+          console.log(err)
+        }
 
-          }
-        
-     }   
+    }
+   // this.setState({message:''})  
+  }   
    editMessage=()=>
    { //CHECK IF EDITABLE
      if(true)

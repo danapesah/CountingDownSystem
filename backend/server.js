@@ -36,22 +36,21 @@ app.use('/counts', countsRouter);
 
 
 io.on('connection', (socket) => {
-    socket.on('my other event', (data) => {
-        console.log('socketData: '+JSON.stringify(data)); // reads the data a  
-        io.sockets.emit("socketData", data);
-      });
+    // socket.on('my other event', (data) => {
+    //     console.log('socketData: '+JSON.stringify(data)); // reads the data a  
+    //     io.sockets.emit("socketData", data);
+    //   });
 
     console.log('made socket connection', socket.id)
 
-     io.sockets.emit("Output from backend",socket.id);
-    
+    //  io.sockets.emit("Output from backend",socket.id);
+  //   socket.on('disconnectThatSoc', function(){
+  //     socket.disconnect();
+  // });
 
      socket.on("message", (message)=>{
        console.log("Received: "+ message);
-     // io.sockets.emit("chat", message);
-      socket.broadcast.emit('message', message);
-      //console.log("chat" +JSON.stringify(message)); 
-
+       io.sockets.emit('message', message);
     })
 });
 

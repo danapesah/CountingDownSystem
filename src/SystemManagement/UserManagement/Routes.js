@@ -23,15 +23,10 @@ class Routes extends Component {
 
 
     render(){
-      // let y=store.getState()
-      // console.log(store.getState())
-   
     return (
        
         <div>
-     
-         
-      
+    
         <Router  forceRefresh={true} >
         <MyNavbar sharon={this.props._user_name}/>
         <Switch>
