@@ -50,3 +50,10 @@ export const changeCheckBoxStateOperation = (cardID,listID,checkBoxID) => {
       payload: {cardID,listID,checkBoxID},
   };
 };
+
+export const updateRealTimeClock = (cdrcClock, todClock) =>{
+    return{
+      type: CONSTANTS.UPDATE_REAL_TIME_CLOCK,
+      payload: {cdrcClock, todClock},
+  };
+};
