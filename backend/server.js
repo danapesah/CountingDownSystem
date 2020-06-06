@@ -8,11 +8,28 @@ require('dotenv').config(); //dotenv file
 const app=express();
 const port = process.env.PORT ||5000;
 
+/////io
+const serverSharon = require("http").createServer(app);
+const io = require("socket.io")(serverSharon);
+
+io.on('connection', (socket) => {
+  console.log('made socket connection', socket.id)
+   socket.on("message1", (message1)=>{
+     console.log("Received: "+ message1);
+     io.sockets.emit('message1', message1);
+  })
+});
+
+const port1 = 4000;
+serverSharon.listen(port1, () => {
+    console.log(`io Server Running at port ${port1}`)
+  });
+///////
 app.use(cors());
 app.use(express.json()); //parse jason
 
 const uri = process.env.LOCAL_URI; //where our db is stored 
-mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true });
+mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true,   useUnifiedTopology: true });
                       
 const connection= mongoose.connection; 
 connection.once('open', ()=>{
@@ -27,9 +44,12 @@ app.use('/users', usersRouter);
 app.use('/counts', countsRouter);
 
 
+
+
 app.listen(port ,()=> {
     console.log('Server is running on port:',  {port} ); //start the server
 });
+
 
 //////UDP PACKETS
 
