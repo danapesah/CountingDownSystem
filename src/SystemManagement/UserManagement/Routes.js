@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import { BrowserRouter as Router, Route , Switch ,Link } from "react-router-dom"
 import CreateUser from './CreateUser'
-import UsersList from './UsersList'
 import TablesList from '../TablesList'
 import LoginPage from './LoginPage'
 import MainWindow from '../../operationSystem/MainWindow'
@@ -23,10 +22,15 @@ class Routes extends Component {
 
 
     render(){
+      // let y=store.getState()
+      // console.log(store.getState())
+   
     return (
        
         <div>
-    
+     
+         
+      
         <Router  forceRefresh={true} >
         <MyNavbar sharon={this.props._user_name}/>
         <Switch>
@@ -47,8 +51,7 @@ class Routes extends Component {
           <Route path="/system" component={MainWindow} /> {/*add /user to the address*/ } 
           <Route path="/display"  component={MainWindow} /> {/*add /display to the address*/ }
           <Route path="/user" component={CreateUser} /> 
-          <Route path="/login" component={LoginPage} />
-          <Route path="/usersList" component={UsersList} />          
+          <Route path="/login" component={LoginPage} />       
            </div>
        </Switch>
 
@@ -63,9 +66,9 @@ class Routes extends Component {
 
  const mapStateToProps = (state)=> ({
    state: state,
-  _user_name: state.MainWindowReducers._user_info._name,
-  _user_permissions: state.MainWindowReducers._user_info._permissions,
-  _logged:state.MainWindowReducers._user_info._logged
+  _user_name: state._user_info._name,
+  _user_permissions: state._user_info._permissions,
+  _logged:state._user_info._logged
 })
 export default connect(mapStateToProps)(Routes) ; 
 

@@ -8,13 +8,6 @@ class CountDownAddEntityButton extends Component
   state={
     title:"",
   }
-
-  inputValidtion =()=>
-  {
-    if(this.state.title != "")
-      return  <input type="submit" value="Submit" /> 
-  }
-
   handleChange=(event)=>
   {
 
@@ -34,7 +27,7 @@ class CountDownAddEntityButton extends Component
       if(window.location.pathname.search("display") == -1)
         return(
             <Popup
-            trigger={<button style={{position:"absolute",left:(this.props.resources.length*140+50)}}className="button">הוספת עמודה</button>}
+            trigger={<button style={{position:"absolute",left:(this.props.resources.length*140+50)}}className="button">+</button>}
             modal
             closeOnEscape
             repositionOnResize
@@ -46,7 +39,7 @@ class CountDownAddEntityButton extends Component
                     Entity Title:
                     <input type="text" name="title" onChange={this.handleChange} />
                 </label>
-                {this.inputValidtion()}
+                 <input type="submit" value="Submit" /> 
             </form> 
             <a className="close" onClick={close} style={styles.close}>
             &times;
@@ -76,7 +69,7 @@ const styles = {
   }
 }
 const mapStateToProps = (state)=> ({
-  resources: state.CountDownWindowReducers.CountDownlists.resources,
+  resources: state.CountDownlists.resources,
 })
 
 export default connect(mapStateToProps)(CountDownAddEntityButton)

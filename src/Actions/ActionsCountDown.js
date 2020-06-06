@@ -27,20 +27,3 @@ export const addEntityCountDown = (title) => {
       payload:{title}
   };
 };
-
-export const addCardCountDown = (listID, text) => {
-  return{
-      type: CONSTANTS.ADD_CARD_COUNTDOWN,
-      payload:{text, listID} //the data we want to add
-  };
-};
-
-
-export const changeEventColorCountDown = (id) => {
-  return{
-      type: CONSTANTS.CHANGE_EVENT_COLOR_COUNTDOWN,
-      payload:{id}
-  };
-};
-
-

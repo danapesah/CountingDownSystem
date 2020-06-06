@@ -7,12 +7,6 @@ router.route('/').get((req, res) => { //if theres a / at the end
     .catch(err => res.status(400).json('Error: ' + err)); //if theres error
 });
 
-router.route('/:id').delete((req, res) => { //DELETE the wanted id
-  User.findByIdAndDelete(req.params.id)
-    .then(() => res.json('User deleted.'))
-    .catch(err => res.status(400).json('Error: ' + err));
-});
-
 router.route('/add').post((req, res) => { 
   
   const username =req.body.username;

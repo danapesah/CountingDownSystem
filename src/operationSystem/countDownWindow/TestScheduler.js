@@ -3,35 +3,10 @@ import {connect } from 'react-redux'
 import CountDownEvent from './CountDownEvent';
 import CountDownAddEventButton from './CountDownAddEventButton';
 import CountDownAddEntityButton from './CountDownAddEntityButton';
-import {deleteEventCountDown,deleteEntityCountDown,changeEventColorCountDown} from '../../Actions';
+import {deleteEventCountDown,deleteEntityCountDown} from '../../Actions';
 
 class TestScheduler extends Component
 { 
-    changeEventColor =(id)=>
-    {
-        this.props.dispatch(changeEventColorCountDown(id))
-    }
-
-    timeValidator =(inputTime) =>
-    {
-        let hourInput = parseInt(inputTime.substring(1,3));
-        let minInput = parseInt(inputTime.substring(4));
-        if(inputTime[0] == "-")
-        {
-            let hourBefore = parseInt(this.props.hours_before_target.substring(0,2));
-            let minBefore  = parseInt(this.props.hours_before_target.substring(3));
-            return(hourInput<=hourBefore)
-
-
-        }
-        if(inputTime[0] == "+")
-        {
-            let hourafter = parseInt(this.props.hours_after_target.substring(0,2));
-            let minafter  = parseInt(this.props.hours_after_target.substring(3));
-             return (hourInput<=hourafter)
-        }
-    }
-
     convertTimeInput =(time)=>
     {
         if(time[0] === '-' || time[0] === '+')
@@ -120,54 +95,47 @@ class TestScheduler extends Component
     {
         this.props.dispatch(deleteEventCountDown(key));
     }
-    createEvent =(title,startHour,endHour,columID,comments,key,color) =>
+    createEvent =(title,startHour,endHour,columID,comments,key) =>
     {
-            let startHourArr = this.convertTimeInput(startHour);
-            let endHourArr = this.convertTimeInput(endHour);
-            let validMission= true;
-            if(this.timeValidator(startHour) == false || this.timeValidator(endHour) == false)
-            {
-                validMission = false;
-            }
-                
-            if(startHourArr[0] === '+' && endHourArr[0] == '+')
-            {
-                let startHourBytes = this.convertTimeInput(this.props.hours_before_target)*50 + 1*50+ 50*startHourArr[1];
-                let eventDuration =(endHourArr[1]-startHourArr[1])*50;
-                return <CountDownEvent key={key+'a'} id={key} title={title} startHourBytes={startHourBytes} eventDuration={eventDuration} columID={columID} comments={comments} startHour={startHour} endHour={endHour} editEvent={this.editEvent} color={color} changeColor={this.changeEventColor} validMission={validMission}/>
-            }
-            else if(startHourArr[0] === '-' && endHourArr[0] == '-')
-            {
-                let startHourBytes =this.convertTimeInput(this.props.hours_before_target)*50 +1*50 - 50*startHourArr[1];
-                let eventDuration =(startHourArr[1]-endHourArr[1])*50;
-                return <CountDownEvent key={key+'b'} id={key} title={title} startHourBytes={startHourBytes} eventDuration={eventDuration} columID={columID} comments={comments} startHour={startHour} endHour={endHour} editEvent={this.editEvent} color={color} changeColor={this.changeEventColor} validMission={validMission}/>
-            }
-            else if(startHourArr[0] === '-' && endHourArr[0] == '+')
-            {
-                let startHourBytes =this.convertTimeInput(this.props.hours_before_target)*50 +1*50 - 50*startHourArr[1];
-                let eventDuration =(startHourArr[1]+endHourArr[1])*50;
-                return <CountDownEvent key={key+'c'} id={key} title={title} startHourBytes={startHourBytes} eventDuration={eventDuration} columID={columID} comments={comments} startHour={startHour} endHour={endHour} editEvent={this.editEvent} color={color} changeColor={this.changeEventColor} validMission={validMission}/>
-            }
+        let startHourArr = this.convertTimeInput(startHour);
+        let endHourArr = this.convertTimeInput(endHour);
+        if(startHourArr[0] === '+' && endHourArr[0] == '+')
+        {
+            let startHourBytes = this.convertTimeInput(this.props.hours_before_target)*50 + 1*50+ 50*startHourArr[1];
+            let eventDuration =(endHourArr[1]-startHourArr[1])*50;
+            return <CountDownEvent key={key+'a'} id={key} title={title} startHourBytes={startHourBytes} eventDuration={eventDuration} columID={columID} comments={comments} startHour={startHour} endHour={endHour} editEvent={this.editEvent}/>
+        }
+        else if(startHourArr[0] === '-' && endHourArr[0] == '-')
+        {
+            let startHourBytes =this.convertTimeInput(this.props.hours_before_target)*50 +1*50 - 50*startHourArr[1];
+            let eventDuration =(startHourArr[1]-endHourArr[1])*50;
+            return <CountDownEvent key={key+'b'} id={key} title={title} startHourBytes={startHourBytes} eventDuration={eventDuration} columID={columID} comments={comments} startHour={startHour} endHour={endHour} editEvent={this.editEvent}/>
+        }
+        else if(startHourArr[0] === '-' && endHourArr[0] == '+')
+        {
+            let startHourBytes =this.convertTimeInput(this.props.hours_before_target)*50 +1*50 - 50*startHourArr[1];
+            let eventDuration =(startHourArr[1]+endHourArr[1])*50;
+            return <CountDownEvent key={key+'c'} id={key} title={title} startHourBytes={startHourBytes} eventDuration={eventDuration} columID={columID} comments={comments} startHour={startHour} endHour={endHour} editEvent={this.editEvent}/>
+        }
+        
     }
 
     createAllEvents = () =>
     {
-        
         let eventTable=[];
         for(let i=0;i<this.props.events.length; i++)
-           eventTable.push(this.createEvent(this.props.events[i].title,this.props.events[i].startHour,this.props.events[i].endHour,this.props.events[i].columID,this.props.events[i].comments, this.props.events[i].id,this.props.events[i].color));
-
+            eventTable.push(this.createEvent(this.props.events[i].title,this.props.events[i].startHour,this.props.events[i].endHour,this.props.events[i].columID,this.props.events[i].comments, this.props.events[i].id));
         return eventTable;
     }
-
+    
     render(){
     return (
 
-        <div>  
+        <div>
+           
         {this.createTimeColumn()}
         {this.createMissionColumn()}
         {this.createAllEvents()}
-        
        
         <CountDownAddEventButton />
         <CountDownAddEntityButton/>
@@ -180,10 +148,10 @@ class TestScheduler extends Component
   
 }
 const mapStateToProps = (state)=> ({
-    lists: state.CountDownWindowReducers.CountDownlists.resources,
-    events: state.CountDownWindowReducers.CountDownlists.events,
-    hours_before_target: state.MainWindowReducers.hours_before_target,
-    hours_after_target: state.MainWindowReducers.hours_after_target
+    lists: state.CountDownlists.resources,
+    events: state.CountDownlists.events,
+    hours_before_target: state.hours_before_target,
+    hours_after_target: state.hours_after_target
   })
 
 

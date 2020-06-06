@@ -41,11 +41,3 @@ export const addListFieldStatus = (listTitle) => {
       payload: {listTitle}
   };
 };
-
-
-export const changeColorButtonFieldStatus = (cardID,buttonID,listID) => {
-  return{
-      type: CONSTANTS.CHANGE_COLOR_BUTTON_FIELDSTATUS,
-      payload: {cardID,buttonID,listID}
-  };
-};
