@@ -26,6 +26,35 @@ const usersRouter = require('./routes/users');
 app.use('/users', usersRouter);
 app.use('/counts', countsRouter);
 
+// app.get('/', (req, res) => {
+//   res.send('<h1>Hello world</h1>');
+// });
+
+
+
+io.on('connection', (socket) => {
+    // socket.on('my other event', (data) => {
+    //     console.log('socketData: '+JSON.stringify(data)); // reads the data a  
+    //     io.sockets.emit("socketData", data);
+    //   });
+
+    console.log('made socket connection', socket.id)
+
+    //  io.sockets.emit("Output from backend",socket.id);
+  //   socket.on('disconnectThatSoc', function(){
+  //     socket.disconnect();
+  // });
+
+     socket.on("message", (message)=>{
+       console.log("Received: "+ message);
+       io.sockets.emit('message', message);
+    })
+});
+
+const port1 = 4000;
+server.listen(port1, () => {
+    console.log(`io Server Running at port ${port1}`)
+  });
 
 app.listen(port ,()=> {
     console.log('Server is running on port:',  {port} ); //start the server

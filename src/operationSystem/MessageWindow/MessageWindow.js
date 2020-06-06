@@ -4,8 +4,8 @@ import React from "react";
 import {connect } from 'react-redux'
 import Popup from "reactjs-popup";
 import { updateMessage } from '../../Actions'
-
-
+import axios from 'axios';
+import io from "socket.io-client";
 
 class  MessageWindow  extends React.Component  {
   state= 
@@ -19,12 +19,44 @@ class  MessageWindow  extends React.Component  {
      this.setState({message: event.target.value})
    }
 
-   handleSubmit =(event)=>
-     {
-        event.preventDefault();
-        this.props.dispatch(updateMessage(this.state.message));
+  handleSubmit =(event)=>
+  {
+    event.preventDefault();
+    this.props.dispatch(updateMessage(this.state.message))
+    if(window.location.pathname ==='/display')
+    {
+      //on display: the message should save automatically to the DB
+        try {
+          let chosen_state_id=null
+          const serializedStateID = localStorage.getItem("chosen_state_id");
+          const serializedState = localStorage.getItem("chosen_state"); 
+          if (serializedStateID !== null ) 
+          {
+            chosen_state_id = JSON.parse(JSON.parse(serializedStateID ))
+            let copyState = JSON.parse(JSON.parse(serializedState ))
+            let copy_state={...copyState}
+            copy_state.MessageWindow =this.state.message
+          
+            localStorage.removeItem("chosen_state") 
+            localStorage.setItem("chosen_state", JSON.stringify(copy_state));
 
-     }   
+           // alert(chosen_state_id)
+            axios.post('http://localhost:5000/counts/edit/' + chosen_state_id, copy_state)
+            .then(res => console.log(res.data)); 
+            const socket = io.connect('http://localhost:4000')
+            socket.emit("message" ,this.state.message)
+         //   socket.emit("disconnectThatSoc")
+        // window.location.reload()
+          }
+        }
+        catch (err) 
+        {
+          console.log(err)
+        }
+
+    }
+   // this.setState({message:''})  
+  }   
    editMessage=()=>
    { //CHECK IF EDITABLE
      if(true)

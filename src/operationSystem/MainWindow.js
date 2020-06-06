@@ -11,11 +11,73 @@ import Logs from './countDownWindow/Logs'
 import { Link } from 'react-router-dom'; 
 import { save_new_table_state } from "../../src/Actions";
 import {connect } from 'react-redux'
-// import { BrowserRouter as Router, Route , useLocation } from "react-router-dom"
-import {do_nothing} from '../../"../../src/Actions'
-import Update from '../SystemManagement/Update'
+import { change_to_show_chosen_table_state } from "../Actions";
+import io from "socket.io-client";
+import axios from 'axios';
+
 class MainWindow extends React.Component {
+componentDidMount() 
+{
+  try {
+    if(window.location.pathname ==='/display')
+    {
+      const socket = io.connect('http://localhost:4000')
+      // for (let i = 0 ; i < 9 ; i ++ )
+      // {
+        socket.on("message", data => {
+            alert("1")
+        let chosen_state_id=null
+        let DB_info = null
+        let data_len = null 
+        try {
+            const serializedStateID = localStorage.getItem("chosen_state_id"); 
+            if (serializedStateID !== null) {
+              chosen_state_id = JSON.parse(JSON.parse(serializedStateID ))
+            }
+        } 
+        catch (err) 
+        {
+          console.log(err)
+        }
+        axios.get('http://localhost:5000/counts/') //GET REQUEST
+        .then(response => {
+        if (response.data.length===0) return;
+        data_len= response.data.length
+        DB_info={...response.data}
+        if(DB_info!== null &&  chosen_state_id!==null )
+         {  
+            for(let i = 0 ; i <data_len ; i++)
+            {   
+                if( DB_info[i]._id===chosen_state_id ) 
+                {
+                  localStorage.removeItem("chosen_state") 
+                  let serializedState1 = JSON.stringify(DB_info[i]._system_info_object)
+                  localStorage.setItem("chosen_state", JSON.stringify(serializedState1));
+                  console.log("local storage has changed")
+                  // this.props.dispatch(change_to_show_chosen_table_state
+                  //       (DB_info[i]._system_info_object))
+                 //   console.log(JSON.parse(JSON.parseserializedState1).MessageWindow)
+                    window.location.reload()
+                 // window.location = '/display'
+             
+                }
+            }
+          
+          }
+   
+        })
   
+    })
+   }
+}
+
+//} 
+catch (err) 
+{
+    console.log(err)
+}
+}
+        
   render() {
     const curr_location =window.location.pathname
 
