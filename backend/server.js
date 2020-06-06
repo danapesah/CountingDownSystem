@@ -43,15 +43,21 @@ io.on('connection', (socket) => {
 
     console.log('made socket connection', socket.id)
 
-    //  io.sockets.emit("Output from backend",socket.id);
+  //    io.sockets.emit("Output from backend",socket.id);
   //   socket.on('disconnectThatSoc', function(){
+  //     console.log("disconnectThatSoc: "+ socket.id);
   //     socket.disconnect();
   // });
 
      socket.on("message", (message)=>{
        console.log("Received: "+ message);
-       io.sockets.emit('message', message);
+       socket.broadcast.emit('message', message);
     })
+
+    socket.on("table saved to the DB", (chosen_state_id)=>{
+      console.log("saved: "+ chosen_state_id);
+      socket.broadcast.emit('table saved to the DB', chosen_state_id);
+   })
 });
 
 const port1 = 4000;

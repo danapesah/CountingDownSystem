@@ -18,45 +18,72 @@ class  MessageWindow  extends React.Component  {
      console.log(event.target.value)
      this.setState({message: event.target.value})
    }
+save_local(){
+if(window.location.pathname ==='/display')
+{
+  console.log("save_local()")
+    try {
+      let chosen_state_id=null
+      const serializedStateID = localStorage.getItem("chosen_state_id");
+      const serializedState = localStorage.getItem("chosen_state"); 
+      if (serializedStateID !== null ) 
+      {
+        chosen_state_id = JSON.parse(JSON.parse(serializedStateID ))
+        let copyState = JSON.parse(JSON.parse(serializedState ))
+        let copy_state={...copyState}
+        copy_state.MessageWindow =this.state.message
+        // localStorage.removeItem("chosen_state") 
+        // localStorage.setItem("chosen_state", JSON.stringify(copy_state));
+        
+
+        axios.post('http://localhost:5000/counts/edit/' + chosen_state_id, copy_state)
+           .then(res => console.log(res.data))
+        //    console.log("save_local()")
+           const socket = io.connect('http://localhost:4000')
+           socket.emit("message" ,copy_state)
+        return 0
+      }
+     
+    }
+    catch (err) 
+    {
+      console.log(err)
+      return -1
+    }
+  }
+}
 
   handleSubmit =(event)=>
   {
+   
     event.preventDefault();
     this.props.dispatch(updateMessage(this.state.message))
-    if(window.location.pathname ==='/display')
-    {
-      //on display: the message should save automatically to the DB
-        try {
-          let chosen_state_id=null
-          const serializedStateID = localStorage.getItem("chosen_state_id");
-          const serializedState = localStorage.getItem("chosen_state"); 
-          if (serializedStateID !== null ) 
-          {
-            chosen_state_id = JSON.parse(JSON.parse(serializedStateID ))
-            let copyState = JSON.parse(JSON.parse(serializedState ))
-            let copy_state={...copyState}
-            copy_state.MessageWindow =this.state.message
-          
-            localStorage.removeItem("chosen_state") 
-            localStorage.setItem("chosen_state", JSON.stringify(copy_state));
+    let success = this.save_local()
+   // alert(success)
+  //  if(success===0)
+  //  {
+  //  // const socket = io.connect('http://localhost:4000')
+  //   //socket.emit("message" ,this.state.message)
+  //  }
+      // try{
+      //   const socket = io.connect('http://localhost:4000')
+      //   axios.post('http://localhost:5000/counts/edit/' + chosen_state_id, copy_state)
+      //   .then(res => console.log(res.data))
+      // // localStorage.setItem("chosen_state", JSON.stringify(copy_state));
 
-           // alert(chosen_state_id)
-            axios.post('http://localhost:5000/counts/edit/' + chosen_state_id, copy_state)
-            .then(res => console.log(res.data)); 
-            const socket = io.connect('http://localhost:4000')
-            socket.emit("message" ,this.state.message)
-         //   socket.emit("disconnectThatSoc")
-        // window.location.reload()
-          }
-        }
-        catch (err) 
-        {
-          console.log(err)
-        }
+      //   socket.emit("table saved to the DB" ,chosen_state_id)
+      //   socket.on("table saved to the DB", chosen_state_id => {
+      //     localStorage.setItem("chosen_state", JSON.stringify(copy_state));
+      //   //   socket.emit("message" ,this.state.message)
+      //   })
+      //   socket.emit("message" ,this.state.message)
+      // }
+      // catch (err) 
+      // {
+      //   console.log(err)
+      // }
 
-    }
-   // this.setState({message:''})  
-  }   
+  }
    editMessage=()=>
    { //CHECK IF EDITABLE
      if(true)

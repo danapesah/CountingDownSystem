@@ -8,61 +8,76 @@ import axios from 'axios';
 import {connect } from 'react-redux'
 import { change_to_show_chosen_table_state } from "../Actions";
 import io from "socket.io-client";
-
+import Alert from 'react-bootstrap/Alert'
 class MainWindow extends React.Component {
+
 componentDidMount() 
-{
+{  
+  //
   try {
     if(window.location.pathname ==='/display')
     {
+     
       const socket = io.connect('http://localhost:4000')
-      // for (let i = 0 ; i < 9 ; i ++ )
-      // {
-        socket.on("message", data => {
-            alert("1")
+      socket.on("message", data => {
+        console.log(data) 
+       //alert("some changes")
         let chosen_state_id=null
         let DB_info = null
         let data_len = null 
         try {
             const serializedStateID = localStorage.getItem("chosen_state_id"); 
             if (serializedStateID !== null) {
+       
               chosen_state_id = JSON.parse(JSON.parse(serializedStateID ))
+              
+              axios.post('http://localhost:5000/counts/edit/' + chosen_state_id, data  )
+              .then(res => console.log(res.data),
+              socket.emit("table saved to the DB" ,chosen_state_id))
+            
+            
+
+
             }
         } 
         catch (err) 
         {
           console.log(err)
         }
-        axios.get('http://localhost:5000/counts/') //GET REQUEST
-        .then(response => {
-        if (response.data.length===0) return;
-        data_len= response.data.length
-        DB_info={...response.data}
-        if(DB_info!== null &&  chosen_state_id!==null )
-         {  
-            for(let i = 0 ; i <data_len ; i++)
-            {   
-                if( DB_info[i]._id===chosen_state_id ) 
-                {
-                  localStorage.removeItem("chosen_state") 
-                  let serializedState1 = JSON.stringify(DB_info[i]._system_info_object)
-                  localStorage.setItem("chosen_state", JSON.stringify(serializedState1));
-                  console.log("local storage has changed")
-                  // this.props.dispatch(change_to_show_chosen_table_state
-                  //       (DB_info[i]._system_info_object))
-                 //   console.log(JSON.parse(JSON.parseserializedState1).MessageWindow)
-                    window.location.reload()
-                 // window.location = '/display'
-             
-                }
-            }
-          
-          }
+    })//socket
+    const socket1 = io.connect('http://localhost:4000')
+    socket1.on("table saved to the DB", chosen_state_id => {
+
+      console.log("table saved to the DB") 
+   //   setTimeout(function(){ 
+    axios.get('http://localhost:5000/counts/') //GET REQUEST
+    .then(response => {
    
-        })
-  
-    })
-   }
+      let DB_info = null
+      let data_len = null
+    if (response.data.length===0) return;
+    data_len= response.data.length
+    DB_info={...response.data}
+    if(DB_info!== null &&  chosen_state_id!==null )
+     {  
+        for(let i = 0 ; i <data_len ; i++)
+        {   
+          if( DB_info[i]._id===chosen_state_id ) 
+          { alert("ששש")
+            localStorage.removeItem("chosen_state") 
+            let serializedState1 = JSON.stringify(DB_info[i]._system_info_object)
+            localStorage.setItem("chosen_state", JSON.stringify(serializedState1));
+            console.log("local storage has changed") 
+          }
+        }
+
+      }
+
+    })//axios
+ // }, 3000);
+  })//socket
+  }
+
 }
 
 //} 
