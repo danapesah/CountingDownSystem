@@ -1,6 +1,8 @@
 import {CONSTANTS} from "../Actions";
 
 let initialState = {
+    cdrcClock:"",
+    todClock:"",
     CountDownlists:  
      {
        
@@ -149,8 +151,16 @@ const CountDownWindowReducers = (state = initialState, action) =>{
         
             return {...state,CountDownlists:{resources:[...state.CountDownlists.resources], events:newEvents} };
         }
+        case CONSTANTS.UPDATE_REAL_TIME_CLOCK:
+        {    
+           return {...state,cdrcClock:action.payload.cdrcClock, todClock:action.payload.todClock };
+        }
+
         default:return state;
     }
+
+    
+
 }
 
 export default CountDownWindowReducers;

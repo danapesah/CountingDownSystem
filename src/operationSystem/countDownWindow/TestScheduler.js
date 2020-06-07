@@ -3,9 +3,10 @@ import {connect } from 'react-redux'
 import CountDownEvent from './CountDownEvent';
 import CountDownAddEventButton from './CountDownAddEventButton';
 import CountDownAddEntityButton from './CountDownAddEntityButton';
-import {deleteEventCountDown,deleteEntityCountDown,changeEventColorCountDown, addListFieldStatus} from '../../Actions';
 import io from "socket.io-client"
 import axios from 'axios'
+import CountDownBar from './CountDownBar';
+import {deleteEventCountDown,deleteEntityCountDown,changeEventColorCountDown} from '../../Actions';
 
 class TestScheduler extends Component
 { 
@@ -293,6 +294,7 @@ if(window.location.pathname ==='/display')
        
         <CountDownAddEventButton />
         <CountDownAddEntityButton/>
+        <CountDownBar/>
       
 
         </div>

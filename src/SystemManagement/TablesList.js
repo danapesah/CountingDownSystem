@@ -6,6 +6,10 @@ import TestScheduler from '../operationSystem/countDownWindow/TestScheduler';
 import { change_to_show_chosen_table_state , delete_chosen_table} from "../Actions";
 import CountDownAddNewTablePopUp from './CountDownAddNewTablePopUp'; //the popup for create new table
 import ConfirmDeletePopup from './ConfirmDeletePopup'; //the popup for confirm delete
+import openSocket from 'socket.io-client';
+import io from "socket.io-client";
+
+
 class TablesList extends Component {
     constructor(props) {
         super(props);
@@ -35,8 +39,10 @@ class TablesList extends Component {
       }
       if (serializedState !== null ) {
         localStorage.removeItem("chosen_state") 
-        let chosen_state = JSON.parse(JSON.parse(serializedState ))
-        return undefined
+        //let chosen_state = JSON.parse(JSON.parse(serializedState ))
+      }
+      if (chosen_state_id !== null ) {
+        localStorage.removeItem("chosen_state_id") 
       }
       if(login_info_state !== null)
       {
@@ -46,6 +52,7 @@ class TablesList extends Component {
     } catch (err) {
       return err;
     }
+
   }
 
 
@@ -64,6 +71,7 @@ class TablesList extends Component {
         //craete local storage of the chosen table when path is '/display'  chosen_state
         try{
           const serializedState = JSON.stringify(this.state.DB_info[i]._system_info_object)
+          const serializedStateID = JSON.stringify(this.state.DB_info[i]._id)
           localStorage.setItem("chosen_state", JSON.stringify(serializedState));
           const serializedStateID =  JSON.stringify(this.state.DB_info[i]._id)
           localStorage.setItem("chosen_state_id",  JSON.stringify(serializedStateID));
