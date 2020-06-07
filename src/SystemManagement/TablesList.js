@@ -41,9 +41,9 @@ class TablesList extends Component {
         localStorage.removeItem("chosen_state") 
         //let chosen_state = JSON.parse(JSON.parse(serializedState ))
       }
-      if (chosen_state_id !== null ) {
-        localStorage.removeItem("chosen_state_id") 
-      }
+      // if (chosen_state_id !== null ) {
+      //   localStorage.removeItem("chosen_state_id") 
+      // }
       if(login_info_state !== null)
       {
         let chosen_info = JSON.parse(JSON.parse(login_info_state ))
@@ -73,7 +73,6 @@ class TablesList extends Component {
           const serializedState = JSON.stringify(this.state.DB_info[i]._system_info_object)
           const serializedStateID = JSON.stringify(this.state.DB_info[i]._id)
           localStorage.setItem("chosen_state", JSON.stringify(serializedState));
-          const serializedStateID =  JSON.stringify(this.state.DB_info[i]._id)
           localStorage.setItem("chosen_state_id",  JSON.stringify(serializedStateID));
 
          //  console.log(JSON.stringify(serializedStateID))
