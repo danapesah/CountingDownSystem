@@ -29,6 +29,10 @@ class TablesList extends Component {
     try {
       const serializedState = localStorage.getItem("chosen_state"); //''something
       const login_info_state = localStorage.getItem("login_info"); //''something  
+      const serializedStateID = localStorage.getItem("chosen_state_id");
+      if (serializedStateID !== null ) {
+        localStorage.removeItem("chosen_state_id") 
+      }
       if (serializedState !== null ) {
         localStorage.removeItem("chosen_state") 
         let chosen_state = JSON.parse(JSON.parse(serializedState ))
@@ -61,7 +65,10 @@ class TablesList extends Component {
         try{
           const serializedState = JSON.stringify(this.state.DB_info[i]._system_info_object)
           localStorage.setItem("chosen_state", JSON.stringify(serializedState));
-           console.log(JSON.stringify(serializedState))
+          const serializedStateID =  JSON.stringify(this.state.DB_info[i]._id)
+          localStorage.setItem("chosen_state_id",  JSON.stringify(serializedStateID));
+
+         //  console.log(JSON.stringify(serializedStateID))
           }  
           catch(e){
           console.log(e)
@@ -85,7 +92,7 @@ class TablesList extends Component {
           link_name={" לחץ כאן לעריכה "}
           color={"#007bff"}
           data = {this.state.DB_info[i]._system_info_object}
-          id = {this.state.DB_info[i]._system_info_object._id}
+          id = {this.state.DB_info[i]._id} //checkkkkkkkkkkkkkkk
         />
         </div>
             : null }

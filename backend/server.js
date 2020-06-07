@@ -18,6 +18,13 @@ io.on('connection', (socket) => {
      console.log("Received: "+ message1);
      io.sockets.emit('message1', message1);
   })
+
+  socket.on("table saved to the DB", (chosen_state_id)=>{
+    console.log("saved: "+ chosen_state_id);
+    io.sockets.emit('table saved to the DB', chosen_state_id);
+ })
+
+
 });
 
 const port1 = 4000;
