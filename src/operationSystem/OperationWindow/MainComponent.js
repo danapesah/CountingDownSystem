@@ -24,7 +24,7 @@ class MainWindow extends Component
       this.props.dispatch(changeCheckBoxStateOperation(cardID,listID,checkBoxID));
       this.save_to_db()
     }
-    
+
 save_to_db(){
 //save to the db after the state changed
 if(window.location.pathname ==='/display')
@@ -46,7 +46,7 @@ if(window.location.pathname ==='/display')
         .then(res => console.log(res.data)).
         finally (function (){
         let socket = io.connect('http://localhost:4000')
-        socket.emit("message1" ,copy_state)
+        socket.emit("update_message" ,copy_state)
           })
             
 

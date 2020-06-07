@@ -14,9 +14,9 @@ const io = require("socket.io")(serverSharon);
 
 io.on('connection', (socket) => {
   console.log('made socket connection', socket.id)
-   socket.on("message1", (message1)=>{
-     console.log("Received: "+ message1);
-     io.sockets.emit('message1', message1);
+   socket.on("update_message", (update_message)=>{
+     console.log("Received: "+ update_message);
+     io.sockets.emit('update_message', update_message);
   })
 
   socket.on("table saved to the DB", (chosen_state_id)=>{
