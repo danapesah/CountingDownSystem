@@ -70,10 +70,10 @@ const serverSharon = require("http").createServer(app);
 const io = require("socket.io")(serverSharon);
 
 io.on('connection', (socket) => {
-  console.log('made socket connection', socket.id)
-   socket.on("update_message", (update_message)=>{
+  console.log('made socket connection', socket.id )
+   socket.on("update_message", (update_message, id)=>{
      console.log("Received: "+ update_message);
-     io.sockets.emit('update_message', update_message);
+     io.sockets.emit('update_message', update_message, id);
   })
 
   socket.on("table saved to the DB", (chosen_state_id)=>{

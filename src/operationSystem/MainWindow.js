@@ -19,7 +19,7 @@ update_data_io()
     {
      
       const socket = io.connect('http://localhost:4000')
-      socket.on("update_message", data => {
+      socket.on("update_message",( data ,id) => {
         //console.log(data) 
        //alert("some changes")
         let chosen_state_id=null
@@ -31,9 +31,9 @@ update_data_io()
        
               chosen_state_id = JSON.parse(JSON.parse(serializedStateID ))
               
-              axios.post('http://localhost:5000/counts/edit/' + chosen_state_id, data  )
+              axios.post('http://localhost:5000/counts/edit/' + id , data  )
               .then(res => console.log(res.data),
-              socket.emit("table saved to the DB" ,chosen_state_id))
+              socket.emit("table saved to the DB" ,id))
             
             
 
@@ -47,36 +47,50 @@ update_data_io()
     })//socket
     const socket1 = io.connect('http://localhost:4000')
     socket1.on("table saved to the DB", chosen_state_id => {
+      let  curr_chosen_state_id =null
+      try {
+        const serializedStateID = localStorage.getItem("chosen_state_id"); 
+       
+        if (serializedStateID !== null) {
 
+          curr_chosen_state_id = JSON.parse(JSON.parse(serializedStateID ))
+        }
+    } 
+    catch (err) 
+    {
+      console.log(err)
+    }
+    if(curr_chosen_state_id!==null && curr_chosen_state_id===chosen_state_id )
+    {
       console.log("table saved to the DB") 
-   //   setTimeout(function(){ 
-    axios.get('http://localhost:5000/counts/') //GET REQUEST
-    .then(response => {
-   
-      let DB_info = null
-      let data_len = null
-    if (response.data.length===0) return;
-    data_len= response.data.length
-    DB_info={...response.data}
-    if(DB_info!== null &&  chosen_state_id!==null )
-     {  
-        for(let i = 0 ; i <data_len ; i++)
-        {   
-          if( DB_info[i]._id===chosen_state_id ) 
-          { 
-            localStorage.removeItem("chosen_state") 
-            let serializedState1 = JSON.stringify(DB_info[i]._system_info_object)
-            localStorage.setItem("chosen_state", JSON.stringify(serializedState1));
-          //  console.log("local storage has changed") 
+      axios.get('http://localhost:5000/counts/') //GET REQUEST
+      .then(response => {
+      
+        let DB_info = null
+        let data_len = null
+      if (response.data.length===0) return;
+      data_len= response.data.length
+      DB_info={...response.data}
+      if(DB_info!== null &&  chosen_state_id!==null  )
+      {  
+          for(let i = 0 ; i <data_len ; i++)
+          {   
+            if( DB_info[i]._id===chosen_state_id ) 
+            { 
+              localStorage.removeItem("chosen_state") 
+              let serializedState1 = JSON.stringify(DB_info[i]._system_info_object)
+              localStorage.setItem("chosen_state", JSON.stringify(serializedState1));
+            //  console.log("local storage has changed") 
 
-              window.location.reload()
+                window.location.reload()
+            }
           }
+
         }
 
-      }
+      })//axios
+    }
 
-    })//axios
- // }, 3000);
   })//socket
   }
 

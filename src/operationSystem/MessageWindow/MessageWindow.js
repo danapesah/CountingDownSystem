@@ -34,7 +34,7 @@ class  MessageWindow  extends React.Component  {
           .then(res => console.log(res.data)).
           finally (function (){
           let socket = io.connect('http://localhost:4000')
-          socket.emit("update_message" ,copy_state)
+          socket.emit("update_message" ,copy_state,chosen_state_id)
             })
               
 
