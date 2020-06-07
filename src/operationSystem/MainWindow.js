@@ -20,8 +20,6 @@ update_data_io()
      
       const socket = io.connect('http://localhost:4000')
       socket.on("update_message",( data ,id) => {
-        //console.log(data) 
-       //alert("some changes")
         let chosen_state_id=null
         let DB_info = null
         let data_len = null 
