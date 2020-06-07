@@ -20,6 +20,9 @@ class MainComponentTime extends Component
             this.setState({TodClock:message})
           })
     }
+  
+
+
     render(){
         return(
             <div>
