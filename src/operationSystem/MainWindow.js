@@ -146,6 +146,7 @@ catch (err)
       <div class="row">
       <div  class="col-sm-8"  ><Logs /></div>
       <div style={{backgroundColor:'#d1d1e0'}} class="col-sm-4"><MainStatusWindow /></div>
+      
       </div>
     </div>
 

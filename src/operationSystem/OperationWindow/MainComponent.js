@@ -3,6 +3,8 @@ import { connect  } from 'react-redux'
 import OperationList from './OperationList'
 import { deleteCardOperation,addRowOperation,deleteRowOperation,addCardOperation, addListOperation,deleteListOperation,changeCheckBoxStateOperation } from '../../Actions';
 import Popup from "reactjs-popup";
+import io from "socket.io-client"
+import axios from 'axios'
 
 class MainWindow extends Component
 {
@@ -20,8 +22,46 @@ class MainWindow extends Component
     {
       console.log(checkBoxID);
       this.props.dispatch(changeCheckBoxStateOperation(cardID,listID,checkBoxID));
+      this.save_to_db()
     }
+    
+save_to_db(){
+//save to the db after the state changed
+if(window.location.pathname ==='/display')
+{
 
+    try {
+      let chosen_state_id=null
+      const serializedStateID = localStorage.getItem("chosen_state_id");
+      const serializedState = localStorage.getItem("chosen_state"); 
+      if (serializedStateID !== null ) 
+      {
+
+        chosen_state_id = JSON.parse(JSON.parse(serializedStateID ))
+        let copyState = JSON.parse(JSON.parse(serializedState ))
+        let copy_state={...copyState}
+        copy_state.OperationList=this.props.lists
+        copy_state.OperationRows=this.props.operationRows
+        axios.post('http://localhost:5000/counts/edit/' + chosen_state_id, copy_state)
+        .then(res => console.log(res.data)).
+        finally (function (){
+        let socket = io.connect('http://localhost:4000')
+        socket.emit("message1" ,copy_state)
+          })
+            
+
+        
+        return 0
+      }
+      
+    }
+    catch (err) 
+    {
+      console.log(err)
+      return -1
+    }
+  }
+}
     addRow =()=>
     {
         //CHECK IF EDITABLE
@@ -211,7 +251,7 @@ class MainWindow extends Component
 const mapStateToProps = (state) =>{
     return {
         lists: state.OperationWindowReducers.OperationList,
-        operationRows: state.OperationWindowReducers.OperationRows
+        operationRows: state.OperationWindowReducers.OperationRows,
     }
 }
 

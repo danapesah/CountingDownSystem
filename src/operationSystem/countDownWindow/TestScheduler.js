@@ -4,6 +4,8 @@ import CountDownEvent from './CountDownEvent';
 import CountDownAddEventButton from './CountDownAddEventButton';
 import CountDownAddEntityButton from './CountDownAddEntityButton';
 import {deleteEventCountDown,deleteEntityCountDown,changeEventColorCountDown, addListFieldStatus} from '../../Actions';
+import io from "socket.io-client"
+import axios from 'axios'
 
 class TestScheduler extends Component
 { 
@@ -69,8 +71,45 @@ class TestScheduler extends Component
     changeEventColor =(id)=>
     {
         this.props.dispatch(changeEventColorCountDown(id))
+        this.save_to_db()
     }
+save_to_db(){
+//save to the db after the state changed
+if(window.location.pathname ==='/display')
+{
 
+    try {
+        let chosen_state_id=null
+        const serializedStateID = localStorage.getItem("chosen_state_id");
+        const serializedState = localStorage.getItem("chosen_state"); 
+        if (serializedStateID !== null ) 
+        {
+
+        chosen_state_id = JSON.parse(JSON.parse(serializedStateID ))
+        let copyState = JSON.parse(JSON.parse(serializedState ))
+        let copy_state={...copyState}
+        copy_state.CountDownlists.events=this.props.events
+        // copy_state.OperationRows=this.props.operationRows
+        axios.post('http://localhost:5000/counts/edit/' + chosen_state_id, copy_state)
+        .then(res => console.log(res.data)).
+        finally (function (){
+        let socket = io.connect('http://localhost:4000')
+        socket.emit("message1" ,copy_state)
+        })
+            
+
+        
+        return 0
+        }
+        
+    }
+    catch (err) 
+    {
+        console.log(err)
+        return -1
+    }
+    }
+}
     timeValidator =(inputTime) =>
     {
         let hourInput = parseInt(inputTime.substring(1,3));

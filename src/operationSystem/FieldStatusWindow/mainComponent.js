@@ -3,7 +3,8 @@ import { connect  } from 'react-redux'
 import StatusList from './StatusList'
 import Popup from "reactjs-popup";
 import { deleteButtonFieldStatus, addButtonFieldStatus ,addCardFieldStatus, deleteCardFieldStatus,deleteListFieldStatus, addListFieldStatus,changeColorButtonFieldStatus } from "../../Actions";
-
+import io from "socket.io-client"
+import axios from 'axios'
 class MainComponent extends Component
 {
     state=
@@ -11,30 +12,44 @@ class MainComponent extends Component
         deleteList:"",
         addListTitle:"",
     }
-    // componentDidMount()
-    // {
-    // try {
-    //     const serializedState = localStorage.getItem("chosen_state"); //''something 
-    //     if (serializedState === null) {
-    //         if 
-    //         return undefined;
-    //     }
-    //     else{
-    //         let _user_info_parse = JSON.parse(JSON.parse(serializedState ))
-    //         console.log(_user_info_parse)
-    //         this.setState({
-    //         _user_name:_user_info_parse.username, 
-    //         _user_permissions:_user_info_parse.permissions,
-    //         _user_logged: _user_info_parse.is_logged,
-    //         })
-    //         return JSON.parse(serializedState);
-    //     }
-        
-    //     } catch (err) {
-    //     return undefined;
-    //     }
+    
+save_to_db(){
+    //save to the db after the state changed
+    if(window.location.pathname ==='/display')
+    {
+    
+        try {
+          let chosen_state_id=null
+          const serializedStateID = localStorage.getItem("chosen_state_id");
+          const serializedState = localStorage.getItem("chosen_state"); 
+          if (serializedStateID !== null ) 
+          {
+    
+            chosen_state_id = JSON.parse(JSON.parse(serializedStateID ))
+            let copyState = JSON.parse(JSON.parse(serializedState ))
+            let copy_state={...copyState}
+            copy_state.StatusList=this.props.lists
+            axios.post('http://localhost:5000/counts/edit/' + chosen_state_id, copy_state)
+            .then(res => console.log(res.data)).
+            finally (function (){
+            let socket = io.connect('http://localhost:4000')
+            socket.emit("message1" ,copy_state)
+            })
+                
+    
+            
+            return 0
+          }
+          
+        }
+        catch (err) 
+        {
+          console.log(err)
+          return -1
+        }
+      }
+    }
 
-    // }
     handleChange =(event)=>
     {
         if(event.target.name === "deleteList")
@@ -68,6 +83,7 @@ class MainComponent extends Component
    changeColor =(cardID,buttonid,listID)=>
    {    
        this.props.dispatch(changeColorButtonFieldStatus(cardID,buttonid,listID))
+    this.save_to_db()
    }
    
     deleteButton = (cardID,buttonID,listID)=>
@@ -175,26 +191,6 @@ const mapStateToProps = (state) =>{
         lists: state.FieldStatusReducers.StatusList,
      
     }
-    //if theres any table in the local storage 
-    // try {
-    //     const serializedState = localStorage.getItem("chosen_state"); //''something 
-    //     if (serializedState === null) {
-    //       return {lists: state.StatusList}
-    //     }
-    //     else{
-    //       let chosen_state = JSON.parse(JSON.parse(serializedState ))
-    //       console.log(chosen_state)
-    //         // if(chosen_state.StatusList.length < state.StatusList.length)
-    //         //     return {lists: state.StatusList}
-    //       return {lists: chosen_state.StatusList}
-          
-    
-    //     }
-      
-    //   } catch (err) {
-    //     return undefined;
-    //   }
-    
 }
 
 const styles = {

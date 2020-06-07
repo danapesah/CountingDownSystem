@@ -12,7 +12,9 @@ class  MessageWindow  extends React.Component  {
   {
     message:this.props.messageValue
   }
-  save_local(){
+  save_to_db()
+  {
+    //save to the db after the state changed
   if(window.location.pathname ==='/display')
   {
   
@@ -58,7 +60,7 @@ class  MessageWindow  extends React.Component  {
      {
         event.preventDefault();
         this.props.dispatch(updateMessage(this.state.message));
-        let success = this.save_local()
+        let success = this.save_to_db()
      }   
    editMessage=()=>
    { //CHECK IF EDITABLE
