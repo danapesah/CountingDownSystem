@@ -81,7 +81,7 @@ createEventsLogTable1()
 render(){
 
  return (
-    <div>hello TableForEventsLog
+    <div>
     {this.createEventsLogTable1()}
 
 </div>)

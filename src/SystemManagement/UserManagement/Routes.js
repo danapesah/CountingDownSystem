@@ -16,9 +16,25 @@ class Routes extends Component {
     constructor(props) {
         super(props)
         this.state={
-          log:''
+        user_already_logged: false,
         }
       }
+
+
+componentDidMount() {
+try {
+  const login_info_state = localStorage.getItem("login_info");  
+
+  if(login_info_state !== null)
+  {
+    this.setState({user_already_logged:true})
+  }
+  } catch (err) {
+  return err;
+  }
+
+  }
+
     render(){
     return (
        
@@ -31,7 +47,7 @@ class Routes extends Component {
         <React.Fragment>
         <br/>
 
-         { this.props._logged === false ? 
+         { this.state.user_already_logged === false ? 
              <Route path="/" exact component={LoginPage}   /> 
            :  <Route path="/" exact component={TablesList}/>
             
@@ -47,7 +63,7 @@ class Routes extends Component {
           <Route path="/user" component={CreateUser} /> 
           <Route path="/login" component={LoginPage} />
           <Route path="/usersList" component={UsersList} />          
-          //</React.Fragment>
+         </React.Fragment>
        </Switch>
        </div>
      
