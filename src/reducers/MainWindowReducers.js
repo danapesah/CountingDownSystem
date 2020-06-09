@@ -24,7 +24,7 @@ try {
     else{
         let chosen_state = JSON.parse(JSON.parse(serializedState ))
        // console.log(chosen_state.MessageWindow)
-        console.log(chosen_state)
+      //  console.log(chosen_state)
         initialState={...chosen_state}
     }
     

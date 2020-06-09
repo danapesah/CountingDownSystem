@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
 import TestScheduler from '../countDownWindow/TestScheduler'
 import UploadAirImg from '../countDownWindow/UploadAirImg'
+import TableForEventsLog from '../countDownWindow/TableForEventsLog'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import Nav from 'react-bootstrap/Nav'
+
 class Logs extends Component {
     constructor(props) {
         super(props);
@@ -34,12 +36,13 @@ class Logs extends Component {
     </Nav.Item>
   </Nav>
 <div style={{position:"absolute", top:"50px"}}>
-{this.state._chosen_tab==="#evets" ? "events and table" :
+{this.state._chosen_tab==="#evets" ? <div>"טבלה קבועה. שינוי תוכן במהלך הריצה "<TableForEventsLog/> </div>:
 this.state._chosen_tab==="#sea" ? "sea and table"  :
-this.state._chosen_tab==="#air img and table " ? <div style={{backgroundColor: "#66c2ff",position:"absolute", top:"50px", left:"20px"}}><UploadAirImg/> </div> :
+this.state._chosen_tab==="#air" ?
+ <UploadAirImg/>  :
 <TestScheduler/>
 }</div>
-
+{/* <div style={{backgroundColor: "#66c2ff",position:"absolute", top:"50px", left:"20px"}}> */}
   </div>
 
     )

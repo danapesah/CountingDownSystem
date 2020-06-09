@@ -19,24 +19,17 @@ class Routes extends Component {
           log:''
         }
       }
-
-
-
     render(){
-      // let y=store.getState()
-      // console.log(store.getState())
-   
     return (
        
         <div>
-     
-         
-      
         <Router  forceRefresh={true} >
-        <MyNavbar sharon={this.props._user_name}/>
+        <div>
+        <MyNavbar sharon={this.props._user_name}/></div>
+        <div>
         <Switch>
-           <div >
-           <br/>
+        <React.Fragment>
+        <br/>
 
          { this.props._logged === false ? 
              <Route path="/" exact component={LoginPage}   /> 
@@ -54,9 +47,9 @@ class Routes extends Component {
           <Route path="/user" component={CreateUser} /> 
           <Route path="/login" component={LoginPage} />
           <Route path="/usersList" component={UsersList} />          
-           </div>
+          //</React.Fragment>
        </Switch>
-
+       </div>
      
        </Router>
 

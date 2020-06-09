@@ -148,16 +148,16 @@ catch (err)
            window.location = '/list';
          }} >שמור טבלה ערוכה </button>
   } 
-      <div class="row">
-      <div style={{backgroundColor:'#66c2ff'}} class="col-sm-8"><MainOperationWindow /></div>
-      <div style={{backgroundColor:'#ffce99'}} class="col-sm-4"><MainComponentTime /></div>
+      <div className="row">
+      <div style={{backgroundColor:'#66c2ff'}} className="col-sm-8"><MainOperationWindow /></div>
+      <div style={{backgroundColor:'#ffce99'}} className="col-sm-4"><MainComponentTime /></div>
       </div>
-      <div class="row">
-      <div  style={{backgroundColor:'#ffe0b3',width:"20px"}} class="col"><MessageWindow /></div>
+      <div className="row">
+      <div  style={{backgroundColor:'#ffe0b3',width:"20px"}} className="col"><MessageWindow /></div>
       </div>
-      <div class="row">
-      <div  class="col-sm-8"  ><Logs /></div>
-      <div style={{backgroundColor:'#d1d1e0'}} class="col-sm-4"><MainStatusWindow /></div>
+      <div className="row">
+      <div  className="col-sm-8"  ><Logs /></div>
+      <div style={{backgroundColor:'#d1d1e0'}} className="col-sm-4"><MainStatusWindow /></div>
       
       </div>
     </div>
