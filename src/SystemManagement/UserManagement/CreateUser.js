@@ -1,5 +1,4 @@
-
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component} from 'react';
 import axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
@@ -23,10 +22,8 @@ constructor(props) {
     password:'',
     permissions:'',
     title: 'לחץ כאן לבחירת הרשאה',
-    user_added: "no_user_added",
     DB_users_info : {},
     data_length:0,
-    valid_user_input: false,
     popup_message:"יש למלא את השדה החסר" ,
 
   }
@@ -36,7 +33,7 @@ componentDidMount() {
     .then(response => {
     if (response.data.length===0)return;
     this.setState({ DB_users_info :response.data, data_length:response.data.length })
-    console.log(this.state.DB_users_info)
+    //console.log(this.state.DB_users_info)
   })
 
   .catch((error) => { //catch errors 
@@ -98,16 +95,17 @@ check_input_and_save(_user_name , _password ,_permissions )
     .then(res => console.log(res.data)) //promise, after its posted well console our the res.data
     // .catch(e=>  console.log(e))
     .finally(
-    console.log(user),
-    this.setState({popup_message: "משתמש חדש נוסף למערכת " ,})
+    //console.log(user),
+    this.setState({popup_message: "משתמש חדש נוסף למערכת " })
     )
-      }
+  }
 
 
 }
 
 add_user_inputs()
 {
+  //Enter username, password and permission, create pop-up after clicking 'Create User'
   let arr_add_user_inputs = []
   arr_add_user_inputs.push(
     <div key={1} style={{paddingLeft:"400px", width : "900px"}}>
@@ -181,7 +179,6 @@ render(){
     return (
       <div>
         {this.add_user_inputs()}
-   
       </div>
 
     );
