@@ -20,7 +20,7 @@ user_info:{
     type: String,
     required: true,
     trim: true, //trim spaces at the end 
-    minlength: 8 //at least 3 characters long 
+    minlength: 8 //at least 8 characters long 
   },
   permissions:{
     type: String,
