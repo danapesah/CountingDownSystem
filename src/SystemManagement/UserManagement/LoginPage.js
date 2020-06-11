@@ -7,6 +7,7 @@ import { Link , withRouter  } from 'react-router-dom'; //link to different routs
 import {connect } from 'react-redux'
 import {save_user_info_after_login} from '../../Actions'
 import MyNavbar from './MyNavbar' 
+import Spinner from "../Spinner"
 //add tests and checks 
  class LoginPage extends Component {
 
@@ -127,11 +128,11 @@ return (
       <br></br>
       <br></br>
     <div  style={{textAlign:"center"}} >
-  
+    {this.state.spinner!=="none" ? <Spinner/> :
    <Link  className="btn btn-primary"
        onClick={this.onSubmit}
      >התחבר </Link>  
-
+}
      
       </div>
       </form>
