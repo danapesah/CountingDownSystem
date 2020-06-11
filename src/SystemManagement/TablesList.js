@@ -60,7 +60,7 @@ class TablesList extends Component {
     let temp=[]
     for (let i=0 ; i <  this.state.DB_info.length ; i++)
     {
-      temp.push(<tr key={i}  ><th> {this.state.DB_info[i]._system_info_object.title} </th ><th >
+      temp.push(<tr key={i}><th >
         <div style={{ display:"flex"}} >
         {/* {this.state.curr_permission === "Admin" || this.state.curr_permission === "Editor" ||this.state.curr_permission === "Viewer " ?   */}
          <div style={{ display:"flex"}} >
@@ -68,7 +68,7 @@ class TablesList extends Component {
           
         {this.props.dispatch(change_to_show_chosen_table_state
         (this.state.DB_info[i]._system_info_object));
-        //craete local storage of the chosen table when path is '/display'  chosen_state
+        //create local storage of the chosen table when path is '/display'  chosen_state
         try{
           const serializedState = JSON.stringify(this.state.DB_info[i]._system_info_object)
           const serializedStateID = JSON.stringify(this.state.DB_info[i]._id)
@@ -123,8 +123,8 @@ class TablesList extends Component {
       : null }
 
       </div>
-         
-    </th></tr>)
+     
+    </th><th>{this.state.DB_info[i]._system_info_object.title}</th></tr>)
     }
     return temp
   }
@@ -133,14 +133,14 @@ class TablesList extends Component {
 
       return (
         
-        <div style={{ width : "60%" , paddingLeft:"100px"}}>
+        <div style={{ width : "60%", marginLeft:"25%"}}>
             
-        <h4 >Tables in the BD</h4>
-        <table className="table">
+        <h4  style={{textAlign:"center"}} >רשימת כל המערכות</h4>
+        <table  className="table">
           <thead className="thead-light">
             <tr>
-              <th  >Table title</th>
-              <th >Actions</th>
+              <th>פעולה</th>
+              <th>שם המערכת</th>
             </tr>
           </thead>
           <tbody >
