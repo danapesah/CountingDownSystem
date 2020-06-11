@@ -16,29 +16,35 @@ class Routes extends Component {
     constructor(props) {
         super(props)
         this.state={
-          log:''
+          _user_already_logged : false,
         }
       }
+  componentDidMount() {
+      try {
+        const login_curr = localStorage.getItem("login_info");
 
+        if (login_curr !== null ) {
+          this.setState({_user_already_logged:true})
+        }
+      } catch (err) {
+        return err;
+      }
+  
+  }
 
 
     render(){
-      // let y=store.getState()
-      // console.log(store.getState())
-   
     return (
        
         <div>
      
-         
-      
         <Router  forceRefresh={true} >
         <MyNavbar sharon={this.props._user_name}/>
         <Switch>
            <div >
            <br/>
 
-         { this.props._logged === false ? 
+         { this.state._user_already_logged === false ? 
              <Route path="/" exact component={LoginPage}   /> 
            :  <Route path="/" exact component={TablesList}/>
             
@@ -46,7 +52,7 @@ class Routes extends Component {
 
         <Route path="/delete/:id" exact component={TablesList} />
         <Route path="/done" exact component={TablesList} />
-        {/* <Route path="/" exact component={TablesList} /> */}
+
           <Route path="/list"  component={TablesList}/>
           <Route path="/edit/:id" component={MainWindow}  />{/*add /edit/:id to the address */}
           <Route path="/system" component={MainWindow} /> {/*add /user to the address*/ } 
