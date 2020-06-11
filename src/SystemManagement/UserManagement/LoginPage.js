@@ -6,7 +6,8 @@ import axios from 'axios';
 import { Link , withRouter  } from 'react-router-dom'; //link to different routs
 import {connect } from 'react-redux'
 import {save_user_info_after_login} from '../../Actions'
-import MyNavbar from './MyNavbar' 
+import MyNavbar from './MyNavbar'
+import Spinner from '../Spinner'
 //add tests and checks 
  class LoginPage extends Component {
 
@@ -23,7 +24,7 @@ import MyNavbar from './MyNavbar'
     DB_users_info : {},
     isLogged:0,
     user_permissions:'',
-    spinner:"none",
+    _spinner:"none",
   }
 }
 componentDidMount() {
@@ -61,12 +62,13 @@ for(let i =  0; i < this.state.DB_users_info.length ; i++){
       {
         temp_permissions= this.state.DB_users_info[i].user_info.permissions 
       
-        //  console.log(this.state.DB_users_info[i].user_info.permissions)
           this.setState({
+            _spinner: "up", 
             isLogged:1,
           user_permissions: this.state.DB_users_info[i].user_info.permissions,
-          spinner: "up"   
+           
       })
+     
       this.props.dispatch(save_user_info_after_login(this.state.username, this.state.DB_users_info[i].user_info.permissions,true,null))
      
       const info = {username:this.state.username,permissions:this.state.DB_users_info[i].user_info.permissions,is_logged:true}
@@ -74,16 +76,10 @@ for(let i =  0; i < this.state.DB_users_info.length ; i++){
         try{
         const serializedState = JSON.stringify(info)
         localStorage.setItem("login_info", JSON.stringify(serializedState));
-       // console.log(JSON.stringify(serializedState))
         }  
         catch(e){
-        alert(e)
-        console.log(e)
+          console.log(e)
         }   
-    
-      //console.log(info)
-  
-     
       window.location="/list"
       
   }
@@ -126,14 +122,17 @@ return (
       </div>
       <br></br>
       <br></br>
-    <div  style={{textAlign:"center"}} >
+
+  <div  style={{textAlign:"center"}} >
+  {this.state._spinner ==="none" ?
   
    <Link  className="btn btn-primary"
        onClick={this.onSubmit}
      >התחבר </Link>  
-
-     
-      </div>
+  
+     :
+     <Spinner/>} 
+   </div>
       </form>
       </div>    
     </div>
