@@ -39,11 +39,7 @@ class TablesList extends Component {
       }
       if (serializedState !== null ) {
         localStorage.removeItem("chosen_state") 
-        //let chosen_state = JSON.parse(JSON.parse(serializedState ))
       }
-      // if (chosen_state_id !== null ) {
-      //   localStorage.removeItem("chosen_state_id") 
-      // }
       if(login_info_state !== null)
       {
         let chosen_info = JSON.parse(JSON.parse(login_info_state ))
