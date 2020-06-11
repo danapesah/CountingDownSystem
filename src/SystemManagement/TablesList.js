@@ -3,20 +3,15 @@ import {connect } from 'react-redux'
 import axios from 'axios';
 import { Link , BrowserRouter , useLocation  } from 'react-router-dom'; //link to different routs
 import TestScheduler from '../operationSystem/countDownWindow/TestScheduler';
-import { change_to_show_chosen_table_state , delete_chosen_table} from "../Actions";
+import { change_to_show_chosen_table_state , set_new_table, delete_chosen_table} from "../Actions";
 import CountDownAddNewTablePopUp from './CountDownAddNewTablePopUp'; //the popup for create new table
 import ConfirmDeletePopup from './ConfirmDeletePopup'; //the popup for confirm delete
-import openSocket from 'socket.io-client';
-import io from "socket.io-client";
-
-
 class TablesList extends Component {
     constructor(props) {
         super(props);
         this.state = {
           DB_info : {},
           data_length:0,
-          curr_permission:'', //the current user permission
         };
       }
    componentDidMount() {
@@ -31,24 +26,21 @@ class TablesList extends Component {
     })
     //.removeItem("chosen_state") while exit edit/display
     try {
-      const serializedState = localStorage.getItem("chosen_state"); //''something
-      const login_info_state = localStorage.getItem("login_info"); //''something  
-      const serializedStateID = localStorage.getItem("chosen_state_id");
-      if (serializedStateID !== null ) {
-        localStorage.removeItem("chosen_state_id") 
+      const serializedState = localStorage.getItem("chosen_state"); //''something 
+      if (serializedState === null) {
+        return undefined;
       }
-      if (serializedState !== null ) {
+      else{
         localStorage.removeItem("chosen_state") 
-      }
-      if(login_info_state !== null)
-      {
-        let chosen_info = JSON.parse(JSON.parse(login_info_state ))
-        this.setState({ curr_permission: chosen_info.permissions })
-      }
-    } catch (err) {
-      return err;
-    }
+        let chosen_state = JSON.parse(JSON.parse(serializedState ))
+        //console.log(chosen_state)
 
+        return undefined;
+      }
+    
+    } catch (err) {
+      return undefined;
+    }
   }
 
 
@@ -58,20 +50,15 @@ class TablesList extends Component {
     {
       temp.push(<tr key={i}  ><th> {this.state.DB_info[i]._system_info_object.title} </th ><th >
         <div style={{ display:"flex"}} >
-        {/* {this.state.curr_permission === "Admin" || this.state.curr_permission === "Editor" ||this.state.curr_permission === "Viewer " ?   */}
-         <div style={{ display:"flex"}} >
-        <Link to={"/display"}   onClick={()=>
+         <Link to={"/display"}   onClick={()=>
           
         {this.props.dispatch(change_to_show_chosen_table_state
         (this.state.DB_info[i]._system_info_object));
         //craete local storage of the chosen table when path is '/display'  chosen_state
         try{
           const serializedState = JSON.stringify(this.state.DB_info[i]._system_info_object)
-          const serializedStateID = JSON.stringify(this.state.DB_info[i]._id)
           localStorage.setItem("chosen_state", JSON.stringify(serializedState));
-          localStorage.setItem("chosen_state_id",  JSON.stringify(serializedStateID));
-
-         //  console.log(JSON.stringify(serializedStateID))
+           console.log(JSON.stringify(serializedState))
           }  
           catch(e){
           console.log(e)
@@ -80,10 +67,8 @@ class TablesList extends Component {
             }
           
           >display </Link>
-          </div>
-          {/* : null } */}
-       {this.state.curr_permission === "Admin" ||   this.state.curr_permission === "Editor" ?
-       <div style={{ display:"flex"}} >
+
+
       | <CountDownAddNewTablePopUp 
           new_or_edit={"edit"}
           chosen_table_title={this.state.DB_info[i]._system_info_object.title}
@@ -95,28 +80,14 @@ class TablesList extends Component {
           link_name={" לחץ כאן לעריכה "}
           color={"#007bff"}
           data = {this.state.DB_info[i]._system_info_object}
-          id = {this.state.DB_info[i]._id} //checkkkkkkkkkkkkkkk
-        />
-        </div>
-            : null }
+          id = {this.state.DB_info[i]._system_info_object._id}
 
-      {this.state.curr_permission === "Admin" ?
-        <div style={{ display:"flex"}} >
-      
-          |<Link to={"/list"}   onClick={()=>
-            { 
-              let newTable = this.state.DB_info[i]._system_info_object
-              newTable.title = "copy "+  this.state.DB_info[i]._system_info_object.title
-              // console.log(this.state.DB_info[i]._system_info_object)
-              axios.post('http://localhost:5000/counts/add',  this.state.DB_info[i]._system_info_object)
-              .then(res => console.log(res.data  )  )//promise, after its posted well console our the res.data
-              alert("new table added: " +"\""+ newTable.title+"\"")
-            }
-          }
-        >copy </Link>
-      |<ConfirmDeletePopup id={this.state.DB_info[i]._id}/>
-        </div>
-      : null }
+
+        />
+
+
+        |<ConfirmDeletePopup id={this.state.DB_info[i]._id}/>
+
 
       </div>
          
@@ -149,7 +120,7 @@ class TablesList extends Component {
         <CountDownAddNewTablePopUp 
           new_or_edit={"new"}
           chosen_table_title={''}
-          trigger_name={"CREATE NEW TABLE"}
+          trigger_name={"CREAT NEW TABLE"}
           form_title={"שם המערכת החדשה"}
           placeholder_before={"HH:MM"}
           placeholder_after={"HH:MM"} 
@@ -162,8 +133,8 @@ class TablesList extends Component {
     }
 }
 const mapStateToProps = (state)=> ({
-  // resources: state.CountDownWindowReducers.CountDownlists.resources,
-  // events: state.CountDownWindowReducers.CountDownlists.events,
+  resources: state.CountDownlists.resources,
+  events: state.CountDownlists.events,
 //  CountDownlists:state.CountDownlists,
 
 })

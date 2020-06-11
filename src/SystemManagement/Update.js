@@ -11,6 +11,15 @@ class Update extends Component {
 constructor(props) {
     super(props);
 } 
+// _delete_chosen_table(id){
+//     axios.delete('http://localhost:5000/counts/'+id)
+//     .then(response => { console.log(response.data)});
+//     this.setState({ 
+//       //db : this.state.DB_info.filter(el => el._id !== id),
+//       //data_length: this.state.data_length-1,
+//     }) 
+//    // window.location = '/list';
+//   }
 render(){
 
   return (

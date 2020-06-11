@@ -1,10 +1,8 @@
 import React,{Component} from 'react'
 import { connect  } from 'react-redux'
 import OperationList from './OperationList'
-import { deleteCardOperation,addRowOperation,deleteRowOperation,addCardOperation, addListOperation,deleteListOperation,changeCheckBoxStateOperation } from '../../Actions';
+import { deleteCardOperation,addRowOperation,deleteRowOperation,addCardOperation, addListOperation,deleteListOperation } from '../../Actions';
 import Popup from "reactjs-popup";
-import io from "socket.io-client"
-import axios from 'axios'
 
 class MainWindow extends Component
 {
@@ -18,50 +16,6 @@ class MainWindow extends Component
         deleteListID:0
     }
 
-    changeCheckBoxState =(cardID,listID,checkBoxID)=>
-    {
-      console.log(checkBoxID);
-      this.props.dispatch(changeCheckBoxStateOperation(cardID,listID,checkBoxID));
-      this.save_to_db()
-    }
-
-save_to_db(){
-//save to the db after the state changed
-if(window.location.pathname ==='/display')
-{
-
-    try {
-      let chosen_state_id=null
-      const serializedStateID = localStorage.getItem("chosen_state_id");
-      const serializedState = localStorage.getItem("chosen_state"); 
-      if (serializedStateID !== null ) 
-      {
-
-        chosen_state_id = JSON.parse(JSON.parse(serializedStateID ))
-        let copyState = JSON.parse(JSON.parse(serializedState ))
-        let copy_state={...copyState}
-        copy_state.OperationList=this.props.lists
-        copy_state.OperationRows=this.props.operationRows
-        axios.post('http://localhost:5000/counts/edit/' + chosen_state_id, copy_state)
-        .then(res => console.log(res.data)).
-        finally (function (){
-        let socket = io.connect('http://localhost:4000')
-        socket.emit("update_message" ,copy_state,chosen_state_id)
-          })
-            
-
-        
-        return 0
-      }
-      
-    }
-    catch (err) 
-    {
-      console.log(err)
-      return -1
-    }
-  }
-}
     addRow =()=>
     {
         //CHECK IF EDITABLE
@@ -95,7 +49,7 @@ if(window.location.pathname ==='/display')
     deleteRow =()=>
     {
         //CHECK IF EDITABLE
-        if(window.location.pathname.search("display") == -1 && this.props.operationRows.length>0)
+        if(window.location.pathname.search("display") == -1)
             return(
             <Popup
             trigger={ <div style={{float:"right",cursor:"help",color:"red",height:"auto",display:"inline", fontSize:"15px", paddingRight:"10px",fontWeight:'bold'}}> מחק שורה -</div>}
@@ -194,7 +148,7 @@ if(window.location.pathname ==='/display')
 
     deleteList= () =>
     {
-      if(window.location.pathname.search("display") == -1 && this.props.lists.length>0)
+      if(window.location.pathname.search("display") == -1)
         return(
         <Popup
             trigger={<button name ="deleteList" style={{display:"inline", fontSize:"15px"}} onClick={this.handleSubmit}>מחיקת קבוצה -</button>}
@@ -239,7 +193,7 @@ if(window.location.pathname ==='/display')
         <div style={styles.listsContainer}>
         {lists.map(list => 
           ( <OperationList key ={list.listID} listID={list.listID} cards = {list.cards} 
-                            deleteCard={this.deleteCard} handleChange={this.handleChange} handleSubmit={this.handleSubmit} changeCheckBoxState={this.changeCheckBoxState}  />))}
+                            deleteCard={this.deleteCard} handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>))}
           {this.addList()}<br/>
           {this.deleteList()}
           </div> 
@@ -250,8 +204,8 @@ if(window.location.pathname ==='/display')
 }
 const mapStateToProps = (state) =>{
     return {
-        lists: state.OperationWindowReducers.OperationList,
-        operationRows: state.OperationWindowReducers.OperationRows,
+        lists: state.OperationList,
+        operationRows: state.OperationRows
     }
 }
 

@@ -34,7 +34,7 @@ class UploadAirImg extends React.Component {
       if (imagePreviewUrl) {
         $imagePreview = (<img src={imagePreviewUrl} />);
       } else {
-        $imagePreview = (<div className="previewText">אנא בחר תמונה </div>);
+        $imagePreview = (<div className="previewText">Please select an Image for Preview</div>);
       }
   
       return (
@@ -45,7 +45,7 @@ class UploadAirImg extends React.Component {
               onChange={(e)=>this._handleImageChange(e)} />
             <button className="submitButton" 
               type="submit" 
-              onClick={(e)=>this._handleSubmit(e)}>אישור העלאת תמונה</button>
+              onClick={(e)=>this._handleSubmit(e)}>Upload Image</button>
           </form>
           <div className="imgPreview">
             {$imagePreview}

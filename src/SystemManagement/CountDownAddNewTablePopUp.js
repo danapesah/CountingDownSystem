@@ -138,6 +138,7 @@ render(){
         onClick={() =>{ 
           this.props.dispatch(change_to_show_chosen_table_state(this.props.data));
           this.props.dispatch(edit_title_hours(this.state.title,this.state.down_count,this.state.up_count,this.props.id) ) 
+       
          try{
              //create local storage of the chosen table when path is  '/edit'  that saves a copy of the table
          let chosen_state = {...this.props.data}
@@ -171,6 +172,8 @@ render(){
 }
 
 const mapStateToProps = (state)=> ({
-  
+  //state:state,
+    lists: state.CountDownlists.resources,
+    events: state.CountDownlists.events
 })
 export default connect(mapStateToProps)(CountDownAddNewTablePopUp) ;

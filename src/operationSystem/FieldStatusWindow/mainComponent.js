@@ -2,9 +2,8 @@ import React,{Component} from 'react'
 import { connect  } from 'react-redux'
 import StatusList from './StatusList'
 import Popup from "reactjs-popup";
-import { deleteButtonFieldStatus, addButtonFieldStatus ,addCardFieldStatus, deleteCardFieldStatus,deleteListFieldStatus, addListFieldStatus,changeColorButtonFieldStatus } from "../../Actions";
-import io from "socket.io-client"
-import axios from 'axios'
+import { deleteButtonFieldStatus, addButtonFieldStatus ,addCardFieldStatus, deleteCardFieldStatus,deleteListFieldStatus, addListFieldStatus } from "../../Actions";
+
 class MainComponent extends Component
 {
     state=
@@ -12,44 +11,30 @@ class MainComponent extends Component
         deleteList:"",
         addListTitle:"",
     }
-    
-save_to_db(){
-    //save to the db after the state changed
-    if(window.location.pathname ==='/display')
-    {
-    
-        try {
-          let chosen_state_id=null
-          const serializedStateID = localStorage.getItem("chosen_state_id");
-          const serializedState = localStorage.getItem("chosen_state"); 
-          if (serializedStateID !== null ) 
-          {
-    
-            chosen_state_id = JSON.parse(JSON.parse(serializedStateID ))
-            let copyState = JSON.parse(JSON.parse(serializedState ))
-            let copy_state={...copyState}
-            copy_state.StatusList=this.props.lists
-            axios.post('http://localhost:5000/counts/edit/' + chosen_state_id, copy_state)
-            .then(res => console.log(res.data)).
-            finally (function (){
-            let socket = io.connect('http://localhost:4000')
-            socket.emit("update_message" ,copy_state,chosen_state_id)
-            })
-                
-    
-            
-            return 0
-          }
-          
-        }
-        catch (err) 
-        {
-          console.log(err)
-          return -1
-        }
-      }
-    }
+    // componentDidMount()
+    // {
+    // try {
+    //     const serializedState = localStorage.getItem("chosen_state"); //''something 
+    //     if (serializedState === null) {
+    //         if 
+    //         return undefined;
+    //     }
+    //     else{
+    //         let _user_info_parse = JSON.parse(JSON.parse(serializedState ))
+    //         console.log(_user_info_parse)
+    //         this.setState({
+    //         _user_name:_user_info_parse.username, 
+    //         _user_permissions:_user_info_parse.permissions,
+    //         _user_logged: _user_info_parse.is_logged,
+    //         })
+    //         return JSON.parse(serializedState);
+    //     }
+        
+    //     } catch (err) {
+    //     return undefined;
+    //     }
 
+    // }
     handleChange =(event)=>
     {
         if(event.target.name === "deleteList")
@@ -80,10 +65,24 @@ save_to_db(){
    }   
 
 
-   changeColor =(cardID,buttonid,listID)=>
+   changeColor =(e)=>
    {    
-       this.props.dispatch(changeColorButtonFieldStatus(cardID,buttonid,listID))
-    this.save_to_db()
+       if( e.target.style.backgroundColor === "green")
+          {
+              e.target.style.backgroundColor="orange";
+           }
+       else if( e.target.style.backgroundColor === "orange")
+         {
+              e.target.style.backgroundColor="Red";
+        }
+        else if( e.target.style.backgroundColor === "red")
+          {
+              e.target.style.backgroundColor="black";
+          }
+       else if( e.target.style.backgroundColor === "black")
+         { 
+             e.target.style.backgroundColor="green";
+        }
    }
    
     deleteButton = (cardID,buttonID,listID)=>
@@ -140,7 +139,7 @@ save_to_db(){
    deleteAble =()=>
    {
        //CHECK IF EDITABLE
-       if(window.location.pathname.search("display") == -1 && this.props.lists.length>0)
+       if(window.location.pathname.search("display") == -1)
            return(
            <Popup
            trigger={ <button style={{float:"right",cursor:"help",display:"inline"}}>מחיקת רשימה</button>}
@@ -188,9 +187,29 @@ save_to_db(){
 }
 const mapStateToProps = (state) =>{
     return {
-        lists: state.FieldStatusReducers.StatusList,
+        lists: state.StatusList,
      
     }
+    //if theres any table in the local storage 
+    // try {
+    //     const serializedState = localStorage.getItem("chosen_state"); //''something 
+    //     if (serializedState === null) {
+    //       return {lists: state.StatusList}
+    //     }
+    //     else{
+    //       let chosen_state = JSON.parse(JSON.parse(serializedState ))
+    //       console.log(chosen_state)
+    //         // if(chosen_state.StatusList.length < state.StatusList.length)
+    //         //     return {lists: state.StatusList}
+    //       return {lists: chosen_state.StatusList}
+          
+    
+    //     }
+      
+    //   } catch (err) {
+    //     return undefined;
+    //   }
+    
 }
 
 const styles = {
