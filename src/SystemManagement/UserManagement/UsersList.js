@@ -33,6 +33,18 @@ class UsersList extends Component {
     } catch (err) {
       return err;
     }
+    try {
+      const serializedState = localStorage.getItem("chosen_state");
+      const serializedStateID = localStorage.getItem("chosen_state_id");
+      if (serializedStateID !== null ) {
+        localStorage.removeItem("chosen_state_id") 
+      }
+      if (serializedState !== null ) {
+        localStorage.removeItem("chosen_state") 
+      }
+    } catch (err) {
+      return err;
+    }
   }
   _delete_chosen_user(id){
     axios.delete('http://localhost:5000/users/'+id)
