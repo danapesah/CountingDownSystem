@@ -40,17 +40,6 @@ class MyNavbar extends Component {
 render() {
     return (
   
-<<<<<<< HEAD
-      <div style={{backgroundColor:"#343a40", width : "100%" , height:"80px", color:"white",paddingLeft:"50px"}}>
-      <div > 
-      <h4 > CountDown System</h4> 
-      <div>{this.state._user_logged===true ? "logged as: " +this.state._user_name+" "+this.state._user_permissions : "please login"} 
-       {/* {this.state._user_permissions==="admin" ? " admin" : null}  */}
-      </div>
-      {this.state._user_logged ===true ? 
-      <div style={{ display:"flex"  }}>
-      <Link  style={{color:"white", display:"flex",width : "60px" }} 
-=======
   <div style={{backgroundColor:"#343a40", width : "100%" , height:"80px", color:"white",paddingLeft:"50px"}}>
       <h4 style={{textAlign:"center"}} > CountDown System</h4> 
       <div style={{textAlign:"center"}}>{this.state._user_logged===true ? 
@@ -97,24 +86,7 @@ render() {
   <div > 
     
 
-  {/* {this.state._user_logged ===true ? 
-    <div style={{ display:"flex"  }}>
-    <Link  style={{color:"white", display:"flex",width : "60px" }} 
->>>>>>> parent of 0addaa7... more changes for navbar
-      onClick={()=>{this.props.dispatch(save_user_info_after_login('', '',false,''))
-      ;localStorage.clear() ; 
-      this.setState({
-        _user_name:'', 
-        _user_permissions:'',
-        _user_logged: false,
-      })
-    }}
-      to ="/">logout </Link>
-      <Link  style={{color:"white", display:"flex",width : "100px"  }} to ="/list">Table List </Link>
-      <Link  style={{color:"white", display:"flex",width : "100px"  }} to ="/user">Add user </Link>
-      </div>
-       :null }  
-
+  
       </div>
       </div>
 
