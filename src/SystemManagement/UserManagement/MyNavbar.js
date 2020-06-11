@@ -40,18 +40,18 @@ class MyNavbar extends Component {
 render() {
     return (
   
-  <div style={{backgroundColor:"#343a40", width : "100%" , height:"80px", color:"white",paddingLeft:"50px"}}>
-      <h4 style={{textAlign:"center"}} > CountDown System</h4> 
-      <div style={{textAlign:"center"}}>{this.state._user_logged===true ? 
+  <div style={{backgroundColor:"#343a40", width : "100%" , height:"85px", color:"white",paddingLeft:"50px"}}>
+      <h4 style={{textAlign:"center", fontFamily:"Consolas"}} > Count-Down System</h4> 
+      <div style={{textAlign:"center", fontFamily:"Consolas"}}>{this.state._user_logged===true ? 
     "logged as: " +this.state._user_name+" "+this.state._user_permissions : "please login"} 
   </div>
   {this.state._user_logged ===true ? 
     <div >
      <Nav className="justify-content-end" activeKey="/home">
      {this.state._user_permissions==="Admin" ? 
-     <div style={{ display:"flex"  }}>
+     <div style={{ display:"flex" }}>
     <Nav.Item>
-      <Nav.Link 
+      <Nav.Link  style ={{color:"white"}}
        onClick={()=>{this.props.dispatch(save_user_info_after_login('', '',false,''))
        ;localStorage.clear() ; 
          this.setState({
@@ -65,16 +65,16 @@ render() {
 
  
     <Nav.Item>
-      <Nav.Link href="/user"  eventKey="link-3">יצירת משתמש</Nav.Link>
+      <Nav.Link style ={{color:"white"}}href="/user"  eventKey="link-3">יצירת משתמש</Nav.Link>
     </Nav.Item>
 
   <Nav.Item>
-    <Nav.Link  href="/usersList" eventKey="link-2">רשימת משתמשים</Nav.Link>
+    <Nav.Link  style ={{color:"white"}} href="/usersList" eventKey="link-2">רשימת משתמשים</Nav.Link>
   </Nav.Item>
   </div>
   :null }  
   <Nav.Item>
-    <Nav.Link href="/list" eventKey="link-1">
+    <Nav.Link style ={{color:"white"}} href="/list" eventKey="link-1">
       רשימת ניסויים
     </Nav.Link>
   </Nav.Item>
