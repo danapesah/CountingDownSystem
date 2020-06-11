@@ -33,7 +33,19 @@ componentDidMount() {
     .then(response => {
     if (response.data.length===0)return;
     this.setState({ DB_users_info :response.data, data_length:response.data.length })
-    //console.log(this.state.DB_users_info)
+    try {
+      //removeItem from local storage
+      const serializedState = localStorage.getItem("chosen_state"); 
+      const serializedStateID = localStorage.getItem("chosen_state_id");
+      if (serializedStateID !== null ) {
+        localStorage.removeItem("chosen_state_id") 
+      }
+      if (serializedState !== null ) {
+        localStorage.removeItem("chosen_state") 
+      }
+    } catch (err) {
+      return err;
+    }
   })
 
   .catch((error) => { //catch errors 
