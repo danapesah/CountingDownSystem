@@ -56,22 +56,21 @@ show_all_users_fromDB(){
     for (let i=0 ; i <  this.state.DB_users_info.length ; i++)
     {
       temp.push(<tr key={i}>
-        <th>{this.state.DB_users_info[i].user_info.username}</th>
-        <th>{this.state.DB_users_info[i].user_info.permissions}</th>
         <th>
         {this.state.curr_user.username === this.state.DB_users_info[i].user_info.username &&
         this.state.curr_user.permissions === this.state.DB_users_info[i].user_info.permissions ? 
         <div style={{color:"red"}}onClick={()=>alert("פעולה לא חוקית")}>
-        your user 
+       משתמש נוכחי 
         </div>
         
        : <Link to={"/usersList"}   onClick={()=>
 
-         this._delete_chosen_user(this.state.DB_users_info[i]._id)}>delete </Link>
-        }
-
-            
+         this._delete_chosen_user(this.state.DB_users_info[i]._id)}>מחיקת משתמש </Link>
+        } 
         </th>
+        <th>{this.state.DB_users_info[i].user_info.permissions}</th>
+        <th>{this.state.DB_users_info[i].user_info.username}</th>
+
     </tr>)
     }
     return temp
@@ -81,15 +80,15 @@ show_all_users_fromDB(){
   render(){
 
     return (
-        <div style={{ width : "60%" , paddingLeft:"100px"}}>
+        <div style={{ width : "60%", marginLeft:"25%"}}>
             
-            <h4 >Users List</h4>
-        <table className="table">
+            <h4 style={{textAlign:"center"}} >כל המשתמשים הקיימים במערכת</h4>
+        <table className="table"  style={{textAlign:"center"}} >
           <thead className="thead-light">
             <tr>
-              <th>User name</th>
-              <th>Permissions</th>
-              <th>Action</th>
+              <th>פעולה</th>
+              <th>הרשאות</th>
+              <th>שם משתמש</th>
             </tr>
           </thead>
           <tbody >
