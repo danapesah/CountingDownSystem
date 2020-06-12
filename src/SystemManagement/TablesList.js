@@ -60,8 +60,27 @@ class TablesList extends Component {
     let temp=[]
     for (let i=0 ; i <  this.state.DB_info.length ; i++)
     {
-      temp.push(<tr key={i}><th >
+      temp.push(<tr key={i}><th style={{ display:"inline-block" }} >
+        <div style={{ display:"flex" }} >
+
+        {this.state.curr_permission === "Admin" ?
         <div style={{ display:"flex"}} >
+        <ConfirmDeletePopup id={this.state.DB_info[i]._id}/> | 
+          <Link to={"/list"}   onClick={()=>
+            { 
+              let newTable = this.state.DB_info[i]._system_info_object
+              newTable.title = "copy "+  this.state.DB_info[i]._system_info_object.title
+              // console.log(this.state.DB_info[i]._system_info_object)
+              axios.post('http://localhost:5000/counts/add',  this.state.DB_info[i]._system_info_object)
+              .then(res => console.log(res.data  )  )//promise, after its posted well console our the res.data
+              alert("new table added: " +"\""+ newTable.title+"\"")
+            }
+          }
+        >העתקת ניסוי  </Link>
+    
+       | </div>
+      : null }
+          
         {/* {this.state.curr_permission === "Admin" || this.state.curr_permission === "Editor" ||this.state.curr_permission === "Viewer " ?   */}
          <div style={{ display:"flex"}} >
         <Link to={"/display"}   onClick={()=>
@@ -83,15 +102,15 @@ class TablesList extends Component {
             
             }
           
-          >display </Link>
+          >הצגת  ניסוי </Link>
           </div>
           {/* : null } */}
        {this.state.curr_permission === "Admin" ||   this.state.curr_permission === "Editor" ?
        <div style={{ display:"flex"}} >
-      | <CountDownAddNewTablePopUp 
+      | <CountDownAddNewTablePopUp  
           new_or_edit={"edit"}
           chosen_table_title={this.state.DB_info[i]._system_info_object.title}
-          trigger_name={"edit"}
+          trigger_name={"עריכת ניסוי"}
           form_title={this.state.DB_info[i]._system_info_object.title + " :הינך רוצה לערוך  המערכת "}
           placeholder_before={this.state.DB_info[i]._system_info_object.hours_before_target} 
           placeholder_after={this.state.DB_info[i]._system_info_object.hours_after_target} 
@@ -104,23 +123,6 @@ class TablesList extends Component {
         </div>
             : null }
 
-      {this.state.curr_permission === "Admin" ?
-        <div style={{ display:"flex"}} >
-      
-          |<Link to={"/list"}   onClick={()=>
-            { 
-              let newTable = this.state.DB_info[i]._system_info_object
-              newTable.title = "copy "+  this.state.DB_info[i]._system_info_object.title
-              // console.log(this.state.DB_info[i]._system_info_object)
-              axios.post('http://localhost:5000/counts/add',  this.state.DB_info[i]._system_info_object)
-              .then(res => console.log(res.data  )  )//promise, after its posted well console our the res.data
-              alert("new table added: " +"\""+ newTable.title+"\"")
-            }
-          }
-        >copy </Link>
-      |<ConfirmDeletePopup id={this.state.DB_info[i]._id}/>
-        </div>
-      : null }
 
       </div>
      
@@ -136,7 +138,7 @@ class TablesList extends Component {
         <div style={{ width : "60%", marginLeft:"25%"}}>
             
         <h4  style={{textAlign:"center"}} >רשימת כל המערכות</h4>
-        <table  className="table">
+        <table  className="table"  style={{textAlign:"center"}}  >
           <thead className="thead-light">
             <tr>
               <th>פעולה</th>
