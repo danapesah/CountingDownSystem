@@ -31,16 +31,19 @@ class TablesList extends Component {
     })
     //.removeItem("chosen_state") while exit edit/display
     try {
-      const serializedState = localStorage.getItem("chosen_state"); 
-      const login_info_state = localStorage.getItem("login_info");
-      const chosen_state_id = localStorage.getItem("chosen_state_id"); 
+      const serializedState = localStorage.getItem("chosen_state"); //''something
+      const login_info_state = localStorage.getItem("login_info"); //''something  
+      const serializedStateID = localStorage.getItem("chosen_state_id");
+      if (serializedStateID !== null ) {
+        localStorage.removeItem("chosen_state_id") 
+      }
       if (serializedState !== null ) {
         localStorage.removeItem("chosen_state") 
         //let chosen_state = JSON.parse(JSON.parse(serializedState ))
       }
-      if (chosen_state_id !== null ) {
-        localStorage.removeItem("chosen_state_id") 
-      }
+      // if (chosen_state_id !== null ) {
+      //   localStorage.removeItem("chosen_state_id") 
+      // }
       if(login_info_state !== null)
       {
         let chosen_info = JSON.parse(JSON.parse(login_info_state ))
@@ -57,53 +60,13 @@ class TablesList extends Component {
     let temp=[]
     for (let i=0 ; i <  this.state.DB_info.length ; i++)
     {
-      temp.push(<tr key={i}  ><th> {this.state.DB_info[i]._system_info_object.title} </th ><th >
-        <div style={{ display:"flex"}} >
-        {/* {this.state.curr_permission === "Admin" || this.state.curr_permission === "Editor" ||this.state.curr_permission === "Viewer " ?   */}
-         <div style={{ display:"flex"}} >
-        <Link to={"/display"}   onClick={()=>
-          
-        {this.props.dispatch(change_to_show_chosen_table_state
-        (this.state.DB_info[i]._system_info_object));
-        //craete local storage of the chosen table when path is '/display'  chosen_state
-        try{
-          const serializedState = JSON.stringify(this.state.DB_info[i]._system_info_object)
-          const serializedStateID = JSON.stringify(this.state.DB_info[i]._id)
-          localStorage.setItem("chosen_state", JSON.stringify(serializedState));
-          localStorage.setItem("chosen_state_id", JSON.stringify(serializedStateID));
-          // console.log(JSON.stringify(serializedState))
-          }  
-          catch(e){
-          console.log(e)
-          }   }
-            
-            }
-          
-          >display </Link>
-          </div>
-          {/* : null } */}
-       {this.state.curr_permission === "Admin" ||   this.state.curr_permission === "Editor" ?
-       <div style={{ display:"flex"}} >
-      | <CountDownAddNewTablePopUp 
-          new_or_edit={"edit"}
-          chosen_table_title={this.state.DB_info[i]._system_info_object.title}
-          trigger_name={"edit"}
-          form_title={this.state.DB_info[i]._system_info_object.title + " :הינך רוצה לערוך  המערכת "}
-          placeholder_before={this.state.DB_info[i]._system_info_object.hours_before_target} 
-          placeholder_after={this.state.DB_info[i]._system_info_object.hours_after_target} 
-          path={"/edit/"+this.state.DB_info[i]._id}
-          link_name={" לחץ כאן לעריכה "}
-          color={"#007bff"}
-          data = {this.state.DB_info[i]._system_info_object}
-          id = {this.state.DB_info[i]._system_info_object._id}
-        />
-        </div>
-            : null }
+      temp.push(<tr key={i}><th style={{ display:"inline-block" }} >
+        <div style={{ display:"flex" }} >
 
-      {this.state.curr_permission === "Admin" ?
+        {this.state.curr_permission === "Admin" ?
         <div style={{ display:"flex"}} >
-      
-          |<Link to={"/list"}   onClick={()=>
+        <ConfirmDeletePopup id={this.state.DB_info[i]._id}/> | 
+          <Link to={"/list"}   onClick={()=>
             { 
               let newTable = this.state.DB_info[i]._system_info_object
               newTable.title = "copy "+  this.state.DB_info[i]._system_info_object.title
@@ -113,14 +76,57 @@ class TablesList extends Component {
               alert("new table added: " +"\""+ newTable.title+"\"")
             }
           }
-        >copy </Link>
-      |<ConfirmDeletePopup id={this.state.DB_info[i]._id}/>
-        </div>
+        >העתקת ניסוי  </Link>
+    
+       | </div>
       : null }
+          
+        {/* {this.state.curr_permission === "Admin" || this.state.curr_permission === "Editor" ||this.state.curr_permission === "Viewer " ?   */}
+         <div style={{ display:"flex"}} >
+        <Link to={"/display"}   onClick={()=>
+          
+        {this.props.dispatch(change_to_show_chosen_table_state
+        (this.state.DB_info[i]._system_info_object));
+        //create local storage of the chosen table when path is '/display'  chosen_state
+        try{
+          const serializedState = JSON.stringify(this.state.DB_info[i]._system_info_object)
+          const serializedStateID = JSON.stringify(this.state.DB_info[i]._id)
+          localStorage.setItem("chosen_state", JSON.stringify(serializedState));
+          localStorage.setItem("chosen_state_id",  JSON.stringify(serializedStateID));
+
+         //  console.log(JSON.stringify(serializedStateID))
+          }  
+          catch(e){
+          console.log(e)
+          }   }
+            
+            }
+          
+          >הצגת  ניסוי </Link>
+          </div>
+          {/* : null } */}
+       {this.state.curr_permission === "Admin" ||   this.state.curr_permission === "Editor" ?
+       <div style={{ display:"flex"}} >
+      | <CountDownAddNewTablePopUp  
+          new_or_edit={"edit"}
+          chosen_table_title={this.state.DB_info[i]._system_info_object.title}
+          trigger_name={"עריכת ניסוי"}
+          form_title={this.state.DB_info[i]._system_info_object.title + " :הינך רוצה לערוך  המערכת "}
+          placeholder_before={this.state.DB_info[i]._system_info_object.hours_before_target} 
+          placeholder_after={this.state.DB_info[i]._system_info_object.hours_after_target} 
+          path={"/edit/"+this.state.DB_info[i]._id}
+          link_name={" לחץ כאן לעריכה "}
+          color={"#007bff"}
+          data = {this.state.DB_info[i]._system_info_object}
+          id = {this.state.DB_info[i]._id} //checkkkkkkkkkkkkkkk
+        />
+        </div>
+            : null }
+
 
       </div>
-         
-    </th></tr>)
+     
+    </th><th>{this.state.DB_info[i]._system_info_object.title}</th></tr>)
     }
     return temp
   }
@@ -129,14 +135,14 @@ class TablesList extends Component {
 
       return (
         
-        <div style={{ width : "60%" , paddingLeft:"100px"}}>
+        <div style={{ width : "60%", marginLeft:"25%"}}>
             
-        <h4 >Tables in the BD</h4>
-        <table className="table">
+        <h4  style={{textAlign:"center"}} >רשימת כל המערכות</h4>
+        <table  className="table"  style={{textAlign:"center"}}  >
           <thead className="thead-light">
             <tr>
-              <th  >Table title</th>
-              <th >Actions</th>
+              <th>פעולה</th>
+              <th>שם המערכת</th>
             </tr>
           </thead>
           <tbody >

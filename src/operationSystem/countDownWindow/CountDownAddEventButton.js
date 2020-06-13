@@ -9,7 +9,7 @@ class countDownAddEventButton extends Component
         startHour:"",
         endHour:"",
         comments:"",
-        entity:"",
+        entity:"0",
 
     }
 
@@ -21,14 +21,14 @@ class countDownAddEventButton extends Component
         {
             let hourBefore = parseInt(this.props.hours_before_target.substring(0,2));
             let minBefore  = parseInt(this.props.hours_before_target.substring(3));
-             return (hourInput<=hourBefore)
+             return (hourInput<=hourBefore && minInput<60)
 
         }
         if(inputTime[0] == "+")
         {
             let hourafter = parseInt(this.props.hours_after_target.substring(0,2));
             let minafter  = parseInt(this.props.hours_after_target.substring(3));
-             return (hourInput<=hourafter)
+             return (hourInput<=hourafter && minInput<60)
         }
     }
   
@@ -60,7 +60,11 @@ class countDownAddEventButton extends Component
             this.state.entity=this.props.lists[0].key;
 
         this.props.dispatch(addEventCountDown(this.state.title,this.state.startHour,this.state.endHour,this.state.comments, this.state.entity));
-
+        this.setState({title:"",
+        startHour:"",
+        endHour:"",
+        comments:"",
+        entity:"0",})
      }   
 
      makeSelectInput =()=>
@@ -89,27 +93,27 @@ class countDownAddEventButton extends Component
        <form onSubmit={this.handleSubmit}>
             <label >
                 Mission Title:
-                <input type="text" name="title" onChange={this.handleChange} />
+                <input type="text" name="title" onChange={this.handleChange} value={this.state.title}/>
             </label>
             <label style={{rightMargin:"10px"}}>
                 Starting Hour
                 <input name="startHour" placeholder="(+|-)HH:MM" pattern="[+|-]{1}[0-9]{2}:[0-5]{1}[0-9]{1}"
-                     onChange={this.handleChange} style={{width:"100px"}} required></input>
+                     onChange={this.handleChange} style={{width:"100px"}} value={this.state.startHour} required></input>
           
             </label>
             <label>
                Ending Hour
                <input name="endHour" placeholder="(+|-)HH:MM" pattern="[+|-]{1}[0-9]{2}:[0-5]{1}[0-9]{1}"
-                     onChange={this.handleChange} style={{width:"100px"}} required></input>
+                     onChange={this.handleChange} style={{width:"100px"}} value={this.state.endHour} required></input>
             </label>
             
             <label style={{display:"inline-block"}}>
                  Entity:
-                <select name= "entity" style={{display:"inline-block", width:"150px"}} onChange={this.handleChange}>
+                <select name= "entity" style={{display:"inline-block", width:"150px"}} onChange={this.handleChange} value={this.state.entity}>
                     {this.makeSelectInput()}
                 </select>
             </label>
-            <textarea name="comments" onChange={this.handleChange} placeholder={"Extra Comments"}/>
+            <textarea name="comments" onChange={this.handleChange} placeholder={"Extra Comments"} value={this.state.comments}/>
              {/* <input type="submit" value="Submit" />  */}
             {this.InputValidation()}
         </form>  

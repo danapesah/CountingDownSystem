@@ -6,11 +6,104 @@ import MainComponentTime from './TimeWindow/MainComponentTime'
 import Logs from './countDownWindow/Logs'
 import axios from 'axios';
 import {connect } from 'react-redux'
+import {change_to_show_chosen_table_state} from "../Actions"
 // import { BrowserRouter as Router, Route , useLocation } from "react-router-dom"
+import io from "socket.io-client";
 
 class MainWindow extends React.Component {
+update_data_io() 
+{  //update the data from the db by listening to the socket
+
+  try {
+    if(window.location.pathname ==='/display')
+    {
+     
+      const socket = io.connect('http://localhost:4000')
+      socket.on("update_message",( data ,id) => {
+        let chosen_state_id=null
+        let DB_info = null
+        let data_len = null 
+        try {
+            const serializedStateID = localStorage.getItem("chosen_state_id"); 
+            if (serializedStateID !== null) {
+       
+              chosen_state_id = JSON.parse(JSON.parse(serializedStateID ))
+              
+              axios.post('http://localhost:5000/counts/edit/' + id , data  )
+              .then(res => console.log(res.data),
+              socket.emit("table saved to the DB" ,id))
+            
+            
+
+
+            }
+        } 
+        catch (err) 
+        {
+          console.log(err)
+        }
+    })//socket
+    const socket1 = io.connect('http://localhost:4000')
+    socket1.on("table saved to the DB", chosen_state_id => {
+      let  curr_chosen_state_id =null
+      try {
+        const serializedStateID = localStorage.getItem("chosen_state_id"); 
+       
+        if (serializedStateID !== null) {
+
+          curr_chosen_state_id = JSON.parse(JSON.parse(serializedStateID ))
+        }
+    } 
+    catch (err) 
+    {
+      console.log(err)
+    }
+    if(curr_chosen_state_id!==null && curr_chosen_state_id===chosen_state_id )
+    {
+      console.log("table saved to the DB") 
+      axios.get('http://localhost:5000/counts/') //GET REQUEST
+      .then(response => {
+      
+        let DB_info = null
+        let data_len = null
+      if (response.data.length===0) return;
+      data_len= response.data.length
+      DB_info={...response.data}
+      if(DB_info!== null &&  chosen_state_id!==null  )
+      {  
+          for(let i = 0 ; i <data_len ; i++)
+          {   
+            if( DB_info[i]._id===chosen_state_id ) 
+            { 
+              localStorage.removeItem("chosen_state") 
+              let serializedState1 = JSON.stringify(DB_info[i]._system_info_object)
+              localStorage.setItem("chosen_state", JSON.stringify(serializedState1));
+            //  console.log("local storage has changed") 
+
+                window.location.reload()
+            }
+          }
+
+        }
+
+      })//axios
+    }
+
+  })//socket
+  }
+
+}
+
+//} 
+catch (err) 
+{
+    console.log(err)
+}
+}
+
   render() {
     const curr_location =window.location.pathname
+    { this.update_data_io()}
 
   return (
     
@@ -48,7 +141,7 @@ class MainWindow extends React.Component {
             StatusList: this.props.FieldStatusReducers.StatusList,
             CountDownlists: this.props.CountDownWindowReducers.CountDownlists
           }
-          console.log(this.props.CountDownWindowReducers)
+          //console.log(this.props.CountDownWindowReducers)
           console.log("count edit: SAVE_STATE " , newState);
             axios.post('http://localhost:5000/counts/edit/' + curr_location.slice(6), newState)
             .then(res => console.log(res.data)); 
@@ -65,6 +158,7 @@ class MainWindow extends React.Component {
       <div class="row">
       <div  class="col-sm-8"  ><Logs /></div>
       <div style={{backgroundColor:'#d1d1e0'}} class="col-sm-4"><MainStatusWindow /></div>
+      
       </div>
     </div>
 

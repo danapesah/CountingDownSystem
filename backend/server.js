@@ -1,4 +1,4 @@
-  
+
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose'); //helps us to connect to our mongodb database
@@ -8,14 +8,12 @@ require('dotenv').config(); //dotenv file
 const app=express();
 const port = process.env.PORT ||5000;
 
-const server = require("http").createServer(app);
-const io = require("socket.io")(server);
 
 app.use(cors());
 app.use(express.json()); //parse jason
 
 const uri = process.env.LOCAL_URI; //where our db is stored 
-mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true , useUnifiedTopology: true});
+mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true,   useUnifiedTopology: true });
                       
 const connection= mongoose.connection; 
 connection.once('open', ()=>{
@@ -29,10 +27,12 @@ const usersRouter = require('./routes/users');
 app.use('/users', usersRouter);
 app.use('/counts', countsRouter);
 
-// app.get('/', (req, res) => {
-//   res.send('<h1>Hello world</h1>');
-// });
 
+
+
+app.listen(port ,()=> {
+    console.log('Server is running on port:',  {port} ); //start the server
+});
 
 /////////////////////////////////UDP SERVER CDRC
 
@@ -63,19 +63,24 @@ serverUDPTod.on('listening', function() {
 });
 
 
+////////////////////////////////////////
 
-//Socket io
+/////io
+const serverSharon = require("http").createServer(app);
+const io = require("socket.io")(serverSharon);
 
 io.on('connection', (socket) => {
-    socket.on('my other event', (data) => {
-      socket.setSendBufferSize(20);
-        console.log('socketData: '+JSON.stringify(data)); // reads the data a  
-        io.sockets.emit("socketData", data);
-      });
+  console.log('made socket connection', socket.id )
+   socket.on("update_message", (update_message, id)=>{
+     console.log("Received: "+ update_message);
+     io.sockets.emit('update_message', update_message, id);
+  })
 
-    console.log('made socket connection', socket.id)
+  socket.on("table saved to the DB", (chosen_state_id)=>{
+    console.log("saved: "+ chosen_state_id);
+    io.sockets.emit('table saved to the DB', chosen_state_id);
+ })
 
-     io.sockets.emit("Output from backend",socket.id);
 
       
      serverUDPCDRC.on('message', function(message, remote) {
@@ -90,20 +95,10 @@ io.on('connection', (socket) => {
 
     
 
-     socket.on("message", (message)=>{
-       console.log("Received: "+ message);
-     // io.sockets.emit("chat", message);
-      socket.broadcast.emit('message', message);
-      //console.log("chat" +JSON.stringify(message)); 
-
-    })
 });
 
 const port1 = 4000;
-server.listen(port1, () => {
+serverSharon.listen(port1, () => {
     console.log(`io Server Running at port ${port1}`)
   });
-
-app.listen(port ,()=> {
-    console.log( `app Server is running on port:  ${port}` ); //start the server
-});
+///////
