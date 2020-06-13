@@ -149,15 +149,15 @@ catch (err)
          }} >שמור טבלה ערוכה </button>
   } 
       <div className="row">
-      <div style={{backgroundColor:'#66c2ff'}} className="col-sm-8"><MainOperationWindow /></div>
-      <div style={{backgroundColor:'#ffce99'}} className="col-sm-4"><MainComponentTime /></div>
+      <div style={{backgroundColor:'#66c2ff'}} className="col-sm-8"><MainOperationWindow/></div>
+      <div style={{backgroundColor:'#ffce99'}} className="col-sm-4"><MainComponentTime/></div>
       </div>
       <div className="row">
-      <div  style={{backgroundColor:'#ffe0b3',width:"20px"}} className="col"><MessageWindow /></div>
+      <div className="col" style={{backgroundColor:'#ffe0b3',width:"20px"}} ><MessageWindow/></div>
       </div>
       <div className="row">
-      <div  className="col-sm-8"  ><Logs /></div>
-      <div style={{backgroundColor:'#d1d1e0'}} className="col-sm-4"><MainStatusWindow /></div>
+      <div className="col-sm-8"><Logs/></div>
+      <div className="col-sm-4" style={{backgroundColor:'#d1d1e0'}}><MainStatusWindow/></div>
       
       </div>
     </div>
