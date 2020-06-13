@@ -29,8 +29,8 @@ try {
     }
     else{
         let chosen_state = JSON.parse(JSON.parse(serializedState ))
-        console.log(chosen_state.MessageWindow)
-        console.log(chosen_state)
+       // console.log(chosen_state.MessageWindow)
+        //console.log(chosen_state)
         initialState={...chosen_state}
     }
     
@@ -46,7 +46,7 @@ const CountDownWindowReducers = (state = initialState, action) =>{
             const deleteID = action.payload.id;
                const newEventsList = state.CountDownlists.events.filter( event=>
                 {
-                  if(event.id != deleteID.id)    
+                  if(event.id !== deleteID.id)    
                   {
                     return event
                   }  
@@ -66,7 +66,7 @@ const CountDownWindowReducers = (state = initialState, action) =>{
             let newEventsList = [];
             for(let i=0;i<state.CountDownlists.resources.length;i++)
                 {
-                    if(state.CountDownlists.resources[i].key != deleteID)
+                    if(state.CountDownlists.resources[i].key !== deleteID)
                     {
                         if(state.CountDownlists.resources[i].key>deleteID)
                         {
@@ -78,7 +78,7 @@ const CountDownWindowReducers = (state = initialState, action) =>{
                 }
                 for(let i=0;i<state.CountDownlists.events.length;i++)
                 {
-                    if(state.CountDownlists.events[i].columID != deleteID)
+                    if(state.CountDownlists.events[i].columID !== deleteID)
                     {
                         if(state.CountDownlists.events[i].columID >deleteID)
                         {
@@ -136,15 +136,15 @@ const CountDownWindowReducers = (state = initialState, action) =>{
             let newEvents= [...state.CountDownlists.events]
             for(let i=0;i<state.CountDownlists.events.length;i++)
             {
-                if(newEvents[i].id == action.payload.id.id)
+                if(newEvents[i].id === action.payload.id.id)
                 {
-                    if(newEvents[i].color == "green")
+                    if(newEvents[i].color === "green")
                         newEvents[i].color = "orange"
-                    else if(newEvents[i].color == "orange")
+                    else if(newEvents[i].color === "orange")
                         newEvents[i].color = "Red"
-                    else if(newEvents[i].color == "Red")
+                    else if(newEvents[i].color === "Red")
                         newEvents[i].color = "black"
-                    else if(newEvents[i].color == "black")
+                    else if(newEvents[i].color === "black")
                         newEvents[i].color = "green"
                 }
             }

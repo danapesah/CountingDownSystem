@@ -54,7 +54,35 @@ class TablesList extends Component {
     }
 
   }
+  check_numbers_of_copies(new_table_name)
+  {// this function susopses to check how many copies the chosen table has
+    //and the return the new copied table name (numbers of copies+1)
+    let fff = "("
+    let ggg = ")"
 
+   
+    for(let i =  0 ; i < this.state.data_length ; i++)
+    {
+      let _exist_table_title = this.state.DB_info[i]._system_info_object.title 
+      let check =new_table_name.search(_exist_table_title)
+
+      if(check !== -1  )
+      {  
+      //  check = new_table_name.search(fff)
+         if (check!==-1)
+          {
+         //   check = new_table_name.search(ggg)
+            if (check!== -1 )
+            {
+            //  alert("fjfjfjfj")
+            }
+
+          }
+      }
+     
+    }
+    
+  }
 
   show_all_tables_fromDB(){
     let temp=[]
@@ -70,6 +98,7 @@ class TablesList extends Component {
             { 
               let newTable = this.state.DB_info[i]._system_info_object
               newTable.title = "copy "+  this.state.DB_info[i]._system_info_object.title
+             // this.check_numbers_of_copies(newTable.title)
               // console.log(this.state.DB_info[i]._system_info_object)
               axios.post('http://localhost:5000/counts/add',  this.state.DB_info[i]._system_info_object)
               .then(res => console.log(res.data  )  )//promise, after its posted well console our the res.data
@@ -155,7 +184,7 @@ class TablesList extends Component {
         <CountDownAddNewTablePopUp 
           new_or_edit={"new"}
           chosen_table_title={''}
-          trigger_name={"CREATE NEW TABLE"}
+          trigger_name={"יצירת מערכת חדשה"}
           form_title={"שם המערכת החדשה"}
           placeholder_before={"HH:MM"}
           placeholder_after={"HH:MM"} 

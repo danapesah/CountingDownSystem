@@ -8,6 +8,7 @@ import {connect } from 'react-redux'
 import {save_user_info_after_login} from '../../Actions'
 import MyNavbar from './MyNavbar'
 import Spinner from '../Spinner'
+import Button from 'react-bootstrap/Button'
 //add tests and checks 
  class LoginPage extends Component {
 
@@ -94,7 +95,7 @@ return (
 
   <div>
 
-    <div style={{paddingLeft:"400px", width : "900px"}} >
+    <div style={{paddingLeft:"500px", width : "900px"}} >
       <br></br>
     <h3 style={{textAlign:"center"}} >התחברות</h3>
     <form >
@@ -126,9 +127,9 @@ return (
   <div  style={{textAlign:"center"}} >
   {this.state._spinner ==="none" ?
   
-   <Link  className="btn btn-primary"
+   <Button  className="btn btn-primary"
        onClick={this.onSubmit}
-     >התחבר </Link>  
+     >התחבר </Button>  
   
      :
      <Spinner/>} 

@@ -1,15 +1,10 @@
 import React, {Component} from 'react'
-import {connect } from 'react-redux'
 import Popup from "reactjs-popup";
 import { Link } from 'react-router-dom'; //link to different routs
-import NumberFormat from 'react-number-format';
 import axios from 'axios';
 
 class ConfirmDeletePopup extends Component {
 
-constructor(props) {
-    super(props);
-} 
 _delete_chosen_table(id){
     axios.delete('http://localhost:5000/counts/'+id)
     .then(response => { console.log(response.data)});
@@ -37,14 +32,6 @@ render(){
             </label>
 
             <br></br>
-
-          
-            {/* <button style={{backgroundColor : "blue"}} 
-            onMouseOver={(e) =>{ e.target.style.fontSize= '25px';e.target.style.fontWeight='bold'; e.target.style.backgroundColor= "red" } }
-            onMouseOut={(e) =>{ e.target.style.fontSize= '20px' ; e.target.style.fontWeight=null ; e.target.style.backgroundColor= "blue"}}
-            onClick={(e)=>window.location="/list"}
-            >לא</button> */}
-
 
             <Link to={"/"} style={{float:"left" , backgroundColor : "blue" ,fontSize:'20px', color:'black'}}
             onMouseOver={(e) =>{ e.target.style.fontSize='25px';e.target.style.fontWeight='bold'; e.target.style.backgroundColor= "red"  } }

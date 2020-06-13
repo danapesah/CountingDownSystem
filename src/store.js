@@ -1,38 +1,38 @@
 import IndexReducers from './reducers/indexReducers'
-import initialState from './reducers/MainWindowReducers'
+// import initialState from './reducers/MainWindowReducers'
 
-import { createStore , combineReducers} from 'redux';
+import { createStore} from 'redux';
 
-function saveToLocalStorage(state,state_name){
-    try{
-    const serializedState = JSON.stringify(state)
-    localStorage.setItem(state_name, JSON.stringify(serializedState));
-    }  
-    catch(e){
-    console.log(e)
-    }   
-}
+// function saveToLocalStorage(state,state_name){
+//     try{
+//     const serializedState = JSON.stringify(state)
+//     localStorage.setItem(state_name, JSON.stringify(serializedState));
+//     }  
+//     catch(e){
+//     console.log(e)
+//     }   
+// }
 
-function loadFromLocalStorage(state_name){
-    try {
-        const serializedState = localStorage.getItem(state_name); //''something 
-        if (serializedState === null) {
-          return undefined;
-        }
-        return JSON.parse(serializedState);
-      } catch (err) {
-        return undefined;
-      }
-}
+// function loadFromLocalStorage(state_name){
+//     try {
+//         const serializedState = localStorage.getItem(state_name); //''something 
+//         if (serializedState === null) {
+//           return undefined;
+//         }
+//         return JSON.parse(serializedState);
+//       } catch (err) {
+//         return undefined;
+//       }
+// }
 
-const persistedState= loadFromLocalStorage();
+//const persistedState= loadFromLocalStorage();
 
 // const rootReducer = combineReducers({
 //   initialState : MainWindowReducers,
 // })
 const store = createStore(
   IndexReducers,
-  persistedState,
+  // persistedState,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   )
 

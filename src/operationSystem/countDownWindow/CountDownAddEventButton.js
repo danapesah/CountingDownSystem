@@ -17,24 +17,24 @@ class countDownAddEventButton extends Component
     {
         let hourInput = parseInt(inputTime.substring(1,3));
         let minInput = parseInt(inputTime.substring(4));
-        if(inputTime[0] == "-")
+        if(inputTime[0] === "-")
         {
             let hourBefore = parseInt(this.props.hours_before_target.substring(0,2));
-            let minBefore  = parseInt(this.props.hours_before_target.substring(3));
+           //let minBefore  = parseInt(this.props.hours_before_target.substring(3));
              return (hourInput<=hourBefore && minInput<60)
 
         }
-        if(inputTime[0] == "+")
+        if(inputTime[0] === "+")
         {
             let hourafter = parseInt(this.props.hours_after_target.substring(0,2));
-            let minafter  = parseInt(this.props.hours_after_target.substring(3));
+            //let minafter  = parseInt(this.props.hours_after_target.substring(3));
              return (hourInput<=hourafter && minInput<60)
         }
     }
   
     InputValidation =()=>
     {
-        if(this.timeValidator(this.state.startHour) && this.timeValidator(this.state.endHour) && this.state.title !="") 
+        if(this.timeValidator(this.state.startHour) && this.timeValidator(this.state.endHour) && this.state.title !=="") 
              return <input type="submit" value="Submit" />  
     }    
 
@@ -56,7 +56,7 @@ class countDownAddEventButton extends Component
      handleSubmit =(event)=>
      {
          event.preventDefault();
-         if(this.state.entity == "")
+         if(this.state.entity === "")
             this.state.entity=this.props.lists[0].key;
 
         this.props.dispatch(addEventCountDown(this.state.title,this.state.startHour,this.state.endHour,this.state.comments, this.state.entity));
@@ -80,8 +80,8 @@ class countDownAddEventButton extends Component
     render()
     {
 
-        let leftPlace=50+this.props.lists.length*140;
-        if(window.location.pathname.search("display") == -1 && this.props.lists.length>0)       
+      //  let leftPlace=50+this.props.lists.length*140;
+        if(window.location.pathname.search("display") === -1 && this.props.lists.length>0)       
         return(
   
         <Popup

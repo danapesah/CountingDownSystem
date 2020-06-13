@@ -8,7 +8,7 @@ const  OperationList = ({listID,cards, deleteCard,handleChange,handleSubmit,chan
 
     const addCard =(listID,handleChange,handleSubmit)=>
     {
-      if(window.location.pathname.search("display") == -1)
+      if(window.location.pathname.search("display") === -1)
         return(
         <Popup
         trigger={<div style={styles.listsContainer,{cursor:"help",fontSize:"40px",paddingTop:"35px",height:"150px"}}className="button">+</div>}

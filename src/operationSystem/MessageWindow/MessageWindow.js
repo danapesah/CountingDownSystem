@@ -31,8 +31,8 @@ class  MessageWindow  extends React.Component  {
           copy_state.MessageWindow =this.state.message
 
           axios.post('http://localhost:5000/counts/edit/' + chosen_state_id, copy_state)
-          .then(res => console.log(res.data)).
-          finally (function (){
+          .then(res => console.log(res.data))
+          .finally(function (){
           let socket = io.connect('http://localhost:4000')
           socket.emit("update_message" ,copy_state,chosen_state_id)
             })
@@ -52,7 +52,7 @@ class  MessageWindow  extends React.Component  {
   }
   handleChange=(event)=>
    {
-     console.log(event.target.value)
+    // console.log(event.target.value)
      this.setState({message: event.target.value})
    }
 
@@ -60,7 +60,7 @@ class  MessageWindow  extends React.Component  {
      {
         event.preventDefault();
         this.props.dispatch(updateMessage(this.state.message));
-        let success = this.save_to_db()
+        this.save_to_db()
      }   
    editMessage=()=>
    { //CHECK IF EDITABLE

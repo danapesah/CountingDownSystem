@@ -43,8 +43,8 @@ if(window.location.pathname ==='/display')
         copy_state.OperationList=this.props.lists
         copy_state.OperationRows=this.props.operationRows
         axios.post('http://localhost:5000/counts/edit/' + chosen_state_id, copy_state)
-        .then(res => console.log(res.data)).
-        finally (function (){
+        .then(res => console.log(res.data))
+        .finally(function (){
         let socket = io.connect('http://localhost:4000')
         socket.emit("update_message" ,copy_state,chosen_state_id)
           })

@@ -11,7 +11,7 @@ class CountDownAddEntityButton extends Component
 
   inputValidtion =()=>
   {
-    if(this.state.title != "")
+    if(this.state.title !== "")
       return  <input type="submit" value="Submit" /> 
   }
 
@@ -31,7 +31,7 @@ class CountDownAddEntityButton extends Component
 
     render()
     {
-      if(window.location.pathname.search("display") == -1)
+      if(window.location.pathname.search("display") === -1)
         return(
             <Popup
             trigger={<button style={{position:"absolute",left:(this.props.resources.length*140+50)}}className="button">הוספת עמודה</button>}

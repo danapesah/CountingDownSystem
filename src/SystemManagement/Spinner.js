@@ -1,5 +1,5 @@
 import Spinner from 'react-bootstrap/Spinner'
-import React, {Component} from 'react'
+import React from 'react'
 
 const spinner =()=> (
     <Spinner animation="border" role="status">

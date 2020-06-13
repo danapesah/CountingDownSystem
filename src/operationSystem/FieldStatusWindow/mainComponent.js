@@ -30,8 +30,8 @@ save_to_db(){
             let copy_state={...copyState}
             copy_state.StatusList=this.props.lists
             axios.post('http://localhost:5000/counts/edit/' + chosen_state_id, copy_state)
-            .then(res => console.log(res.data)).
-            finally (function (){
+            .then(res => console.log(res.data))
+            .finally (function (){
             let socket = io.connect('http://localhost:4000')
             socket.emit("update_message" ,copy_state,chosen_state_id)
             })
@@ -109,7 +109,7 @@ save_to_db(){
      addAble =()=>
     {
         //CHECK IF EDITABLE
-        if(window.location.pathname.search("display") == -1)
+        if(window.location.pathname.search("display") === -1)
             return(
             <Popup
             trigger={ <button style={{float:"right",width:"auto",height:"auto", marginLeft:"5px", marginRight:"5px"}}>הוספת רשימה</button>}
@@ -140,7 +140,7 @@ save_to_db(){
    deleteAble =()=>
    {
        //CHECK IF EDITABLE
-       if(window.location.pathname.search("display") == -1 && this.props.lists.length>0)
+       if(window.location.pathname.search("display") === -1 && this.props.lists.length>0)
            return(
            <Popup
            trigger={ <button style={{float:"right",cursor:"help",display:"inline"}}>מחיקת רשימה</button>}

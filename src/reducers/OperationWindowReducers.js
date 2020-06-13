@@ -1,4 +1,4 @@
-import {CONSTANTS, save_user_info_after_login} from "../Actions";
+import {CONSTANTS} from "../Actions";
 
 let initialState = {
     OperationRows: ["אישור ירידה", "אישור המראה", "המראה"],
@@ -12,8 +12,6 @@ try {
     }
     else{
         let chosen_state = JSON.parse(JSON.parse(serializedState ))
-        console.log(chosen_state.MessageWindow)
-        console.log(chosen_state)
         initialState={...chosen_state}
     }
     
@@ -74,12 +72,12 @@ const OperationWindowReducers = (state = initialState, action) =>{
                 {
                     let list;
                     for(let i=0;i<state.OperationList.length; i++)
-                        if(state.OperationList[i].listID == action.payload.listID)
+                        if(state.OperationList[i].listID === action.payload.listID)
                         list = i;
                     let newOperationList = [...state.OperationList];
                     newOperationList[list].cards= state.OperationList[list].cards.filter(card =>
                         {
-                            if(card.id != action.payload.cardID)
+                            if(card.id !== action.payload.cardID)
                                 return card;
                         });
                     return {...state,OperationList:newOperationList};
@@ -97,7 +95,7 @@ const OperationWindowReducers = (state = initialState, action) =>{
              case CONSTANTS.DELETE_ROW_OPERATION:
                     {
                         let newOperationRows = [...state.OperationRows];
-                        if(action.payload.rowPlace == 0)
+                        if(action.payload.rowPlace === 0)
                             newOperationRows.shift();
                         else
                             newOperationRows.splice(action.payload.rowPlace,action.payload.rowPlace);
@@ -110,7 +108,7 @@ const OperationWindowReducers = (state = initialState, action) =>{
               case CONSTANTS.DELETE_LIST_OPERATION:
                     {       
                         let newOperationRows = [...state.OperationList];
-                        if(state.OperationList.length == 1)
+                        if(state.OperationList.length === 1)
                         {
                             newOperationRows = []
                         }
@@ -118,26 +116,26 @@ const OperationWindowReducers = (state = initialState, action) =>{
                         {
                             newOperationRows= state.OperationList.filter(list =>
                                 {
-                                     if(list.listID != action.payload.ListID)
+                                     if(list.listID !== action.payload.ListID)
                                          return list;
                                  });   
                         }
                     return {...state,OperationList:newOperationRows};
                      }
-                case CONSTANTS. CHANGE_CHECKBOX_STATE_OPERATION:
+                case CONSTANTS.CHANGE_CHECKBOX_STATE_OPERATION:
                 {       
                     
                     let newOperationRows = [...state.OperationList];
                     for(let i=0; i<newOperationRows.length;i++)
                     {
-                        if(newOperationRows[i].listID == action.payload.listID)
+                        if(newOperationRows[i].listID === action.payload.listID)
                         {
                             for(let j=0;j<newOperationRows[i].cards.length;j++)
                             {
-                                if(newOperationRows[i].cards[j].id == action.payload.cardID)
+                                if(newOperationRows[i].cards[j].id === action.payload.cardID)
                                 {
                                     console.log(action.payload.checkBoxID);
-                                    if(newOperationRows[i].cards[j].checkBox[action.payload.checkBoxID] == "0")
+                                    if(newOperationRows[i].cards[j].checkBox[action.payload.checkBoxID] === "0")
                                         newOperationRows[i].cards[j].checkBox[action.payload.checkBoxID] =1;
                                     else
                                         newOperationRows[i].cards[j].checkBox[action.payload.checkBoxID] =0;

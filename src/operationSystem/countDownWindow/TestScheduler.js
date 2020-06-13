@@ -16,17 +16,17 @@ class TestScheduler extends Component
         let originalEventEnd = this.convertTimeInput(originalEvent.endHour);
         let originalStartHourBytes;
         let originalEndHourBytes;
-        if(originalEventStart[0] === '+' && originalEventEnd[0] == '+')
+        if(originalEventStart[0] === '+' && originalEventEnd[0] === '+')
         {
             originalStartHourBytes = this.convertTimeInput(this.props.hours_before_target)*50 + 1*50+ 50*originalEventStart[1];
             originalEndHourBytes = this.convertTimeInput(this.props.hours_before_target)*50 + 1*50+ 50*originalEventEnd[1];
         }
-        else if(originalEventStart[0] === '-' && originalEventEnd[0] == '-')
+        else if(originalEventStart[0] === '-' && originalEventEnd[0] === '-')
         {
             originalStartHourBytes =this.convertTimeInput(this.props.hours_before_target)*50 +1*50 - 50*originalEventStart[1];
             originalEndHourBytes = this.convertTimeInput(this.props.hours_before_target)*50 + 1*50 - 50*originalEventEnd[1];
         }
-        else if(originalEventStart[0] === '-' && originalEventEnd[0] == '+')
+        else if(originalEventStart[0] === '-' && originalEventEnd[0] === '+')
         {
             originalStartHourBytes =this.convertTimeInput(this.props.hours_before_target)*50 +1*50 - 50*originalEventStart[1];
             originalEndHourBytes = this.convertTimeInput(this.props.hours_before_target)*50 + 1*50+ 50*originalEventEnd[1];
@@ -36,17 +36,17 @@ class TestScheduler extends Component
         let secondEventEnd = this.convertTimeInput(secondEvent.endHour);
         let secondStartHourBytes;
         let secondEndHourBytes
-        if(secondEventStart[0] === '+' && secondEventEnd[0] == '+')
+        if(secondEventStart[0] === '+' && secondEventEnd[0] === '+')
         {
             secondStartHourBytes = this.convertTimeInput(this.props.hours_before_target)*50 + 1*50+ 50*secondEventStart[1];
             secondEndHourBytes = this.convertTimeInput(this.props.hours_before_target)*50 + 1*50+ 50*secondEventEnd[1];
         }
-        else if(secondEventStart[0] === '-' && secondEventEnd[0] == '-')
+        else if(secondEventStart[0] === '-' && secondEventEnd[0] === '-')
         {
             secondStartHourBytes =this.convertTimeInput(this.props.hours_before_target)*50 +1*50 - 50*secondEventStart[1];
             secondEndHourBytes = this.convertTimeInput(this.props.hours_before_target)*50 + 1*50 - 50*secondEventEnd[1];
         }
-        else if(secondEventStart[0] === '-' && secondEventEnd[0] == '+')
+        else if(secondEventStart[0] === '-' && secondEventEnd[0] === '+')
         {
             secondStartHourBytes =this.convertTimeInput(this.props.hours_before_target)*50 +1*50 - 50*secondEventStart[1];
             secondEndHourBytes = this.convertTimeInput(this.props.hours_before_target)*50 + 1*50+ 50*secondEventEnd[1];
@@ -115,7 +115,7 @@ if(window.location.pathname ==='/display')
     {
         let hourInput = parseInt(inputTime.substring(1,3));
         let minInput = parseInt(inputTime.substring(4));
-        if(inputTime[0] == "-")
+        if(inputTime[0] === "-")
         {
             let hourBefore = parseInt(this.props.hours_before_target.substring(0,2));
             let minBefore  = parseInt(this.props.hours_before_target.substring(3));
@@ -123,7 +123,7 @@ if(window.location.pathname ==='/display')
 
 
         }
-        if(inputTime[0] == "+")
+        if(inputTime[0] === "+")
         {
             let hourafter = parseInt(this.props.hours_after_target.substring(0,2));
             let minafter  = parseInt(this.props.hours_after_target.substring(3));
@@ -163,7 +163,7 @@ if(window.location.pathname ==='/display')
         for(let i=numOfHoursBeforeCount;i>=1;i--)
         {
             let placeOnScreen=(numOfHoursBeforeCount-i+1)*50+"px";
-            if(i == 1)
+            if(i === 1)
                 divTable.push(<div key={i+'a'} style={{top:placeOnScreen, position:"absolute", height:"50px",width:"50px", border:"solid", borderBottomColor:"red"}}>-{i}:00</div>)
             else
                 divTable.push(<div key={i+'b'} style={{top:placeOnScreen, position:"absolute", height:"50px",width:"50px", border:"solid"}}>-{i}:00</div>)
@@ -184,7 +184,7 @@ if(window.location.pathname ==='/display')
         for(let j=0;j<this.props.lists.length;j++)
         {
             let leftPlace=50+j*140;     
-            if(window.location.pathname.search("display") == -1) 
+            if(window.location.pathname.search("display") === -1) 
                 divTable.push(<div key={'a'+j} style={{top:0,left:leftPlace, position:"absolute", height:"50px",width:"140px", border:"solid",textAlign:"center"}}>
                 <div name={this.props.lists[j].key} style={{float:"right",color:"red",cursor:"help", width:"10px",height:"auto"}} onClick={this.deleteColumn}>x</div>
                 {this.props.lists[j].title}</div>)
@@ -229,19 +229,19 @@ if(window.location.pathname ==='/display')
                 validMission = false;
             }
                 
-            if(startHourArr[0] === '+' && endHourArr[0] == '+')
+            if(startHourArr[0] === '+' && endHourArr[0] === '+')
             {
                 let startHourBytes = this.convertTimeInput(this.props.hours_before_target)*50 + 1*50+ 50*startHourArr[1];
                 let eventDuration =(endHourArr[1]-startHourArr[1])*50;
                 return <CountDownEvent key={key+'a'} id={key} title={title} startHourBytes={startHourBytes} eventDuration={eventDuration} columID={columID} comments={comments} startHour={startHour} endHour={endHour} editEvent={this.editEvent} color={color} changeColor={this.changeEventColor} validMission={validMission} multipleEvent={multipleEvent}/>
             }
-            else if(startHourArr[0] === '-' && endHourArr[0] == '-')
+            else if(startHourArr[0] === '-' && endHourArr[0] === '-')
             {
                 let startHourBytes =this.convertTimeInput(this.props.hours_before_target)*50 +1*50 - 50*startHourArr[1];
                 let eventDuration =(startHourArr[1]-endHourArr[1])*50;
                 return <CountDownEvent key={key+'b'} id={key} title={title} startHourBytes={startHourBytes} eventDuration={eventDuration} columID={columID} comments={comments} startHour={startHour} endHour={endHour} editEvent={this.editEvent} color={color} changeColor={this.changeEventColor} validMission={validMission} multipleEvent={multipleEvent}/>
             }
-            else if(startHourArr[0] === '-' && endHourArr[0] == '+')
+            else if(startHourArr[0] === '-' && endHourArr[0] === '+')
             {
                 let startHourBytes =this.convertTimeInput(this.props.hours_before_target)*50 +1*50 - 50*startHourArr[1];
                 let eventDuration =(startHourArr[1]+endHourArr[1])*50;
@@ -262,16 +262,16 @@ if(window.location.pathname ==='/display')
                 if( j != i)
                 {
                     let tempmultipleEvent =  this.checkMultipleEvent(this.props.events[i],this.props.events[j]);
-                    if (multipleEvent == -1 && (multipleEventPlace[j] == null || multipleEventPlace[j] == -1))
+                    if (multipleEvent === -1 && (multipleEventPlace[j] === null || multipleEventPlace[j] === -1))
                     {
                         multipleEvent = tempmultipleEvent;
             
                     }
-                    else if (tempmultipleEvent !=-1 && multipleEventPlace[j]!=null && multipleEventPlace[j] != -1)
+                    else if (tempmultipleEvent !==-1 && multipleEventPlace[j]!==null && multipleEventPlace[j] !== -1)
                     {
-                        if(multipleEventPlace[j] == 1)
+                        if(multipleEventPlace[j] === 1)
                             multipleEvent = 2;
-                        if(multipleEventPlace[j] == 2)
+                        if(multipleEventPlace[j] === 2)
                             multipleEvent = 1;
                     }
                    

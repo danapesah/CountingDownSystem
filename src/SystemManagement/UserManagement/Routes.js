@@ -1,7 +1,6 @@
 
 import React, { Component } from 'react'
-import axios from 'axios'
-import { BrowserRouter as Router, Route , Switch ,Link } from "react-router-dom"
+import { BrowserRouter as Router, Route , Switch } from "react-router-dom"
 import CreateUser from './CreateUser'
 import UsersList from './UsersList'
 import TablesList from '../TablesList'
@@ -9,7 +8,6 @@ import LoginPage from './LoginPage'
 import MainWindow from '../../operationSystem/MainWindow'
 import {connect } from 'react-redux'
 import MyNavbar from './MyNavbar'
-import store from '../../store'
 
 class Routes extends Component {
 
@@ -41,6 +39,7 @@ class Routes extends Component {
         <Router  forceRefresh={true} >
         <MyNavbar sharon={this.props._user_name}/>
         <Switch>
+          <React.Fragment>
            <div >
            <br/>
 
@@ -61,6 +60,7 @@ class Routes extends Component {
           <Route path="/login" component={LoginPage} />
           <Route path="/usersList" component={UsersList} />          
            </div>
+           </React.Fragment>
        </Switch>
 
      

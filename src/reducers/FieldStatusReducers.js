@@ -27,10 +27,10 @@ const FieldStatusReducers = (state = initialState, action) =>{
             let card;
 
             for(let i=0;i<state.StatusList.length; i++)
-                if(state.StatusList[i].listID == action.payload.listID)
+                if(state.StatusList[i].listID === action.payload.listID)
                    list = i;
             for(let i=0;i<state.StatusList[list].cards.length; i++)
-                if(state.StatusList[list].cards[i].cardID == action.payload.cardID)
+                if(state.StatusList[list].cards[i].cardID === action.payload.cardID)
                    card = i;
 
             let newStatusList = [...state.StatusList];
@@ -49,15 +49,15 @@ const FieldStatusReducers = (state = initialState, action) =>{
             let card;
             let newButton =[];
             for(let i=0;i<state.StatusList.length; i++)
-                if(state.StatusList[i].listID == action.payload.listID)
+                if(state.StatusList[i].listID === action.payload.listID)
                    list = i;
             for(let i=0;i<state.StatusList[list].cards.length; i++)
-                if(state.StatusList[list].cards[i].cardID == action.payload.cardID)
+                if(state.StatusList[list].cards[i].cardID === action.payload.cardID)
                    card = i;
 
             let newStatusList = [...state.StatusList];
             let newID;
-            if(newStatusList[list].cards[card].buttons.length == 0)
+            if(newStatusList[list].cards[card].buttons.length === 0)
                  newID=0;
             else
                  newID=(newStatusList[list].cards[card].buttons[(newStatusList[list].cards[card].buttons.length-1)].id)+1
@@ -78,11 +78,11 @@ const FieldStatusReducers = (state = initialState, action) =>{
             //INPUT FIRST BUTTON CASE
             let list;
             for(let i=0;i<state.StatusList.length; i++)
-                if(state.StatusList[i].listID == action.payload.listID)
+                if(state.StatusList[i].listID === action.payload.listID)
                    list = i;
             let newStatusList = [...state.StatusList];
             let newID;
-            if(newStatusList[list].cards.length == 0)
+            if(newStatusList[list].cards.length === 0)
                  newID=0;
             else
                  newID=(newStatusList[list].cards[(newStatusList[list].cards.length-1)].cardID)+1
@@ -101,12 +101,12 @@ const FieldStatusReducers = (state = initialState, action) =>{
         {
             let list;
             for(let i=0;i<state.StatusList.length; i++)
-                if(state.StatusList[i].listID == action.payload.listID)
+                if(state.StatusList[i].listID === action.payload.listID)
                    list = i;
             let newStatusList = [...state.StatusList];
             newStatusList[list].cards= state.StatusList[list].cards.filter(card =>
                 {
-                    if(card.cardID != action.payload.cardID)
+                    if(card.cardID !== action.payload.cardID)
                         return card;
                 });
             return {...state,StatusList:newStatusList};
@@ -118,7 +118,7 @@ const FieldStatusReducers = (state = initialState, action) =>{
             let newStatusList = [...state.StatusList];
             newStatusList= state.StatusList.filter(list =>
                 {
-                    if(list.listID != action.payload.listID)
+                    if(list.listID !== action.payload.listID)
                         return list;
                 });
             return {...state,StatusList:newStatusList};
@@ -158,14 +158,14 @@ const FieldStatusReducers = (state = initialState, action) =>{
             let button = -1;
 
             for(let i=0;i<state.StatusList.length; i++)
-                if(state.StatusList[i].listID == action.payload.listID)
+                if(state.StatusList[i].listID === action.payload.listID)
                    list = i;
             for(let i=0;i<state.StatusList[list].cards.length; i++)
-                if(state.StatusList[list].cards[i].cardID == action.payload.cardID)
+                if(state.StatusList[list].cards[i].cardID === action.payload.cardID)
                    card = i;
 
             for(let i=0;i<state.StatusList[list].cards[card].buttons.length; i++)
-                if(state.StatusList[list].cards[card].buttons[i].id == action.payload.buttonID)
+                if(state.StatusList[list].cards[card].buttons[i].id === action.payload.buttonID)
                     button = i;      
                     
             let newStatusList = [...state.StatusList];
