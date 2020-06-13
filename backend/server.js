@@ -77,13 +77,15 @@ io.on('connection', (socket) => {
 
      io.sockets.emit("Output from backend",socket.id);
 
-
+      
      serverUDPCDRC.on('message', function(message, remote) {
-        io.sockets.emit("udpCDRCMessage","CDRC Clock "+message);     
+        io.sockets.emit("udpCDRCMessage","CDRC Clock "+message);   
+        setInterval(function(){  }, 900);
         });
 
       serverUDPTod.on('message', function(message, remote) {
-          io.sockets.emit("udpTodMessage","Tod Clock "+message);     
+          io.sockets.emit("udpTodMessage","Tod Clock "+message); 
+          setInterval(function(){  }, 900);
         });   
 
     
