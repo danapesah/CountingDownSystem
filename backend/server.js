@@ -90,7 +90,7 @@ io.on('connection', (socket) => {
 serverUDPTod.on('message', function(message, remote) {
     io.sockets.emit("udpTodMessage","Tod Clock "+message);   
     setInterval(function(){  }, 900);  
-np  });   
+  });   
 
 
 });
