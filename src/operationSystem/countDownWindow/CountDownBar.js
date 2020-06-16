@@ -11,10 +11,12 @@ state= {
 
 constructor() {
     super()
-    socket.on("udpCDRCMessage", (message)=>{
-        this.setState({CDRClock:message});
-      })
-
+    if(window.location.pathname.search("display") != -1)
+    {
+        socket.on("udpCDRCMessage", (message)=>{
+            this.setState({CDRClock:message});
+          })
+    }
 }
 
 
@@ -46,14 +48,15 @@ convertTimeInput =(time)=>
 render(){
     let width = this.props.lists.length*140;
     let hourInt = this.convertCdrcClockInput(this.state.CDRClock);
-    let top =50;
+    let top =43;
     if(this.state.CDRClock[13] == "+")
         top += this.convertTimeInput(this.props.hours_before_target)*50+hourInt*50;
     else
     {
         top += this.convertTimeInput(this.props.hours_before_target)*50-hourInt*50;
     }
-    
+    if(window.location.pathname.search("display") != -1)
+    {
     return(
         <div
         style={{
@@ -67,6 +70,11 @@ render(){
         }}
         />
     )
+    }
+    else
+    {
+        return(null);
+    }
 }
       
 }

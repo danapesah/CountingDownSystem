@@ -54,6 +54,7 @@ var PORT = 6070;
 var HOST = '0.0.0.0';
 
 var dgram = require('dgram');
+const { assert } = require('console');
 var serverUDPTod = dgram.createSocket('udp4');
 
 serverUDPTod.bind(PORT);
@@ -66,6 +67,9 @@ serverUDPTod.on('listening', function() {
 ////////////////////////////////////////
 
 /////io
+
+var udpCDRCMessage = "";
+var udpTodMessage = "";
 const serverSharon = require("http").createServer(app);
 const io = require("socket.io")(serverSharon);
 
@@ -83,13 +87,19 @@ io.on('connection', (socket) => {
 
 
  serverUDPCDRC.on('message', function(message, remote) {
-  io.sockets.emit("udpCDRCMessage","CDRC Clock "+message);  
-  setInterval(function(){  }, 900);   
+   if(message != udpCDRCMessage)
+   {
+    io.sockets.emit("udpCDRCMessage","CDRC Clock "+message);  
+    udpCDRCMessage = message;
+   }  
   });
 
 serverUDPTod.on('message', function(message, remote) {
+  if(message != udpTodMessage)
+  {
     io.sockets.emit("udpTodMessage","Tod Clock "+message);   
-    setInterval(function(){  }, 900);  
+    udpTodMessage = message;
+  }
   });   
 
 
