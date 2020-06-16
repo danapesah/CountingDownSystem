@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
 import {connect } from 'react-redux'
 import axios from 'axios';
-import { Link , BrowserRouter , useLocation  } from 'react-router-dom'; //link to different routs
+import { Link } from 'react-router-dom'; //link to different routs
+import Spinner from "../Spinner"
 
 
 class UsersList extends Component {
@@ -11,13 +12,14 @@ class UsersList extends Component {
           DB_users_info : {},
           data_length:0,
           curr_user:'', //the current user permission
+          spinner_on:true,
         };
       }
    componentDidMount() {
     axios.get('http://localhost:5000/users/') //GET REQUEST
       .then(response => {
       if (response.data.length===0)return;
-      this.setState({ DB_users_info :response.data, data_length:response.data.length })
+      this.setState({ DB_users_info :response.data, data_length:response.data.length, spinner_on:false, })
     })
 
     .catch((error) => { //catch errors 
@@ -81,7 +83,13 @@ show_all_users_fromDB(){
 
     return (
         <div style={{ width : "60%", marginLeft:"25%"}}>
-            
+        {this.state.spinner_on === true ? 
+        <div style={{ width : "60%", marginLeft:"25%"}}>
+          <Spinner/>
+        </div>
+        :
+        <div>
+         
             <h4 style={{textAlign:"center"}} >כל המשתמשים הקיימים במערכת</h4>
         <table className="table"  style={{textAlign:"center"}} >
           <thead className="thead-light">
@@ -99,7 +107,8 @@ show_all_users_fromDB(){
           </tbody>
         </table>
       
- 
+        </div>
+        }
       </div>
     
     );

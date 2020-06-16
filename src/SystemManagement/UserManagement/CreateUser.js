@@ -4,6 +4,8 @@ import axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Popup from "reactjs-popup"
+import Spinner from "../Spinner"
+
 // Admin - All types of permissions.
 // Editor - display and edit permissions.
 // Viewer - display permissions
@@ -29,6 +31,7 @@ constructor(props) {
     data_length:0,
     valid_user_input: false,
     popup_message:"יש למלא את השדה החסר" ,
+    spinner_on:true,
 
   }
 }
@@ -36,7 +39,7 @@ componentDidMount() {
   axios.get('http://localhost:5000/users/') //GET REQUEST
     .then(response => {
     if (response.data.length===0)return;
-    this.setState({ DB_users_info :response.data, data_length:response.data.length })
+    this.setState({ DB_users_info :response.data, data_length:response.data.length, spinner_on:false,})
    // console.log(this.state.DB_users_info)
     try {
       const serializedState = localStorage.getItem("chosen_state");
@@ -203,7 +206,16 @@ return arr_add_user_inputs
     render(){
     return (
       <div>
+      {this.state.spinner_on === true ? 
+        <div style={{ marginLeft:"45%"}}>
+          <Spinner/>
+        </div>
+        :
+        <div>
+         
       {this.add_user_inputs()}
+     </div>
+      }
      </div>
 
     );
