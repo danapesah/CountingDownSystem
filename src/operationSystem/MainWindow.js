@@ -7,6 +7,8 @@ import Logs from './countDownWindow/Logs'
 import axios from 'axios';
 import {connect } from 'react-redux'
 import {change_to_show_chosen_table_state} from "../Actions"
+import ReactDOM from "react-dom";
+import FlexLayout from "flexlayout-react";
 // import { BrowserRouter as Router, Route , useLocation } from "react-router-dom"
 import io from "socket.io-client";
 
@@ -107,7 +109,7 @@ catch (err)
 
   return (
     
-    <div >
+    <div>
        {curr_location=== "/display" ? null  :
         curr_location==="/system"   ?  
         <button  onClick={()=>{
@@ -129,7 +131,7 @@ catch (err)
           window.location = '/list';
         }} >שמור טבלה חדשה  </button>:
           
-        <button  onClick={()=>{
+        <button style={{top:"30px",position:"absolute",left:"10px"}}  onClick={()=>{
           let newState ={
             _user_info: this.props.MainWindowReducers._user_info,
             title: this.props.MainWindowReducers.title, 
@@ -149,15 +151,15 @@ catch (err)
          }} >שמור טבלה ערוכה </button>
   } 
       <div class="row">
-      <div style={{backgroundColor:'#66c2ff'}} class="col-sm-8"><MainOperationWindow /></div>
-      <div style={{backgroundColor:'#ffce99'}} class="col-sm-4"><MainComponentTime /></div>
+      <div style={styles.MainOperationWindow} class="col-sm-8"><MainOperationWindow /></div>
+      <div style={ styles.MainComponentTime} class="col-sm-4"><MainComponentTime /></div>
       </div>
       <div class="row">
-      <div  style={{backgroundColor:'#ffe0b3',width:"20px"}} class="col"><MessageWindow /></div>
+      <div  style={ styles.MessageWindow} class="col"><MessageWindow /></div>
       </div>
       <div class="row">
-      <div  class="col-sm-8"  ><Logs /></div>
-      <div style={{backgroundColor:'#d1d1e0'}} class="col-sm-4"><MainStatusWindow /></div>
+      <div  class="col-sm-8" style={ styles.Logs}><Logs /></div>
+      <div style={ styles.MainStatusWindow} class="col-sm-4"><MainStatusWindow /></div>
       
       </div>
     </div>
@@ -168,15 +170,58 @@ catch (err)
 }
 
 const styles = {
-  cardsContainer:
-  {
-    width:"100%",
-    backgroundColor: '#66c2ff',
-    height:  "100%",
-    overflow: "auto"
-    
+  MainOperationWindow:{
+      border: "1px solid",
+      overflow:"scroll",
+      backgroundColor: '#e6f5ff',
+      left:"20px",
+      width:"1500px",
+      height:"230px",
+      // position:"absolute",
   },
-  
+  MainComponentTime:
+  {
+    border: "1px solid",
+    backgroundColor: '#ffcccc',
+    left:"1100px",
+    width:"450px",
+    height:"230px",
+    position:"absolute",
+  },
+  MessageWindow:
+  {
+    border: "1px solid",
+    backgroundColor: '#fff5e6',
+    position:"absolute",
+    top:"350px",
+    position:"absolute",
+    left:"5px",
+    height:"50px",
+    overflow:"hidden",
+    width:"1063px",
+  },
+  Logs:
+  {
+    border: "1px solid",
+    backgroundColor: '#d9f2d9',
+    overflow:"scroll",
+    top:"410px",
+    left:"5px",
+    height:"300px",
+    position:"absolute",
+    width:"1080px",
+  },
+  MainStatusWindow:{
+    border: "1px solid",
+    backgroundColor: '#efeff5',
+    overflow:"scroll",
+    top:"700px",
+    position:"absolute",
+    top:"350px",
+    left:"1100px",
+    width:"450px",
+    height:"370px",
+  },
 }
 const mapStateToProps = (state)=> ({
   MainWindowReducers: state.MainWindowReducers,
