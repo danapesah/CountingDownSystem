@@ -8,7 +8,7 @@ import CountDownAddNewTablePopUp from './CountDownAddNewTablePopUp'; //the popup
 import ConfirmDeletePopup from './ConfirmDeletePopup'; //the popup for confirm delete
 import openSocket from 'socket.io-client';
 import io from "socket.io-client";
-
+import Spinner from "./Spinner"
 
 class TablesList extends Component {
     constructor(props) {
@@ -17,13 +17,18 @@ class TablesList extends Component {
           DB_info : {},
           data_length:0,
           curr_permission:'', //the current user permission
+          spinner_on:true,
         };
       }
    componentDidMount() {
     axios.get('http://localhost:5000/counts/') //GET REQUEST
       .then(response => {
       if (response.data.length===0)return;
-      this.setState({ DB_info :response.data, data_length:response.data.length })
+      this.setState({ 
+        DB_info :response.data, 
+        data_length:response.data.length,
+        spinner_on:false,
+      })
     })
 
     .catch((error) => { //catch errors 
@@ -118,7 +123,7 @@ class TablesList extends Component {
           link_name={" לחץ כאן לעריכה "}
           color={"#007bff"}
           data = {this.state.DB_info[i]._system_info_object}
-          id = {this.state.DB_info[i]._id} //checkkkkkkkkkkkkkkk
+          id = {this.state.DB_info[i]._id} //checkkkkk
         />
         </div>
             : null }
@@ -136,7 +141,14 @@ class TablesList extends Component {
       return (
         
         <div style={{ width : "60%", marginLeft:"25%"}}>
-            
+          {this.state.spinner_on === true ? 
+        <div style={{ width : "60%", marginLeft:"25%"}}>
+          <Spinner/>
+        </div>
+        :
+        <div>
+        
+        
         <h4  style={{textAlign:"center"}} >רשימת כל המערכות</h4>
         <table  className="table"  style={{textAlign:"center"}}  >
           <thead className="thead-light">
@@ -163,6 +175,8 @@ class TablesList extends Component {
           link_name={"צור טבלה חדשה "}
           color={"black"}
         />
+        </div>
+        }
       </div>
       );
     }
