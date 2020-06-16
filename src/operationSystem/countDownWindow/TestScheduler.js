@@ -171,7 +171,8 @@ if(window.location.pathname ==='/display')
         for(let i=numOfHoursAfterCount;i>=1;i--)
         {
             let placeOnScreen=numOfHoursBeforeCount*50+i*50+"px";
-            divTable.push(<div key={i} style={{top:placeOnScreen, position:"absolute", height:"50px",width:"50px", border:"solid"}}>+{i}:00</div>)
+            divTable.push(<div key={i} style={{top:placeOnScreen, position:"absolute", height:"50px",width:"50px", border:"solid"}}>
+                <div style={{bottom:"0",position:"absolute"}}>+{i}:00</div></div>)
         }
 
         return divTable;
