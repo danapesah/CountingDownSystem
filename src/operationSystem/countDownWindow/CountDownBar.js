@@ -48,7 +48,7 @@ convertTimeInput =(time)=>
 render(){
     let width = this.props.lists.length*140;
     let hourInt = this.convertCdrcClockInput(this.state.CDRClock);
-    let top =43;
+    let top =45;
     if(this.state.CDRClock[13] == "+")
         top += this.convertTimeInput(this.props.hours_before_target)*50+hourInt*50;
     else
