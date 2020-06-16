@@ -164,6 +164,7 @@ class TablesList extends Component {
                 {this.show_all_tables_fromDB()} 
           </tbody>
         </table>
+        {this.state.curr_permission === "Admin" ?
         <CountDownAddNewTablePopUp 
           new_or_edit={"new"}
           chosen_table_title={''}
@@ -175,6 +176,7 @@ class TablesList extends Component {
           link_name={"צור טבלה חדשה "}
           color={"black"}
         />
+        :null}
         </div>
         }
       </div>
