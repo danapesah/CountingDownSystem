@@ -45,25 +45,35 @@ class Routes extends Component {
            <br/>
 
          { this.state._user_already_logged === false ? 
-             <Route path="/" exact component={LoginPage}   /> 
-           :  <Route path="/" exact component={TablesList}/>
-            
-          }  
-
-        <Route path="/delete/:id" exact component={TablesList} />
-        <Route path="/done" exact component={TablesList} />
-
+           <div >
+             <Route path="/" exact component={LoginPage}   />
+             <Route path="/delete/:id" exact component={LoginPage} />
+             <Route path="/list"  component={LoginPage}/>
+             <Route path="/edit/:id" component={LoginPage}  />{/*add /edit/:id to the address */}
+             <Route path="/system" component={LoginPage} /> {/*add /user to the address*/ } 
+             <Route path="/display"  component={LoginPage} /> {/*add /display to the address*/ }
+             <Route path="/user" component={LoginPage} /> 
+             <Route path="/login" component={LoginPage} />
+             <Route path="/usersList" component={LoginPage} />  
+            </div>
+           :  
+           <div >
+           <Route path="/" exact component={TablesList}/>
+          <Route path="/delete/:id" exact component={TablesList} />
+          {/* <Route path="/done" exact component={TablesList} /> */}
           <Route path="/list"  component={TablesList}/>
           <Route path="/edit/:id" component={MainWindow}  />{/*add /edit/:id to the address */}
           <Route path="/system" component={MainWindow} /> {/*add /user to the address*/ } 
           <Route path="/display"  component={MainWindow} /> {/*add /display to the address*/ }
           <Route path="/user" component={CreateUser} /> 
           <Route path="/login" component={LoginPage} />
-          <Route path="/usersList" component={UsersList} />          
+          <Route path="/usersList" component={UsersList} />  
+          </div>
+          }  
+
+        
            </div>
        </Switch>
-
-     
        </Router>
 
 
