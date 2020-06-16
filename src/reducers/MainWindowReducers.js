@@ -50,7 +50,7 @@ const MainWindowReducers = (state = initialState, action) =>{
         const StatusListNew=[]
         const CountDownlistsNew = {
             events:  [],
-            resources:[...state.CountDownlists.resources], //we will always need the default resources
+            resources:[], //we will always need the default resources
           }
          const newState= {
              ...state,
