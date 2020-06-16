@@ -176,9 +176,9 @@ add_user_inputs()
     } 
     modal closeOnDocumentClick contentStyle={{width:"auto", height:"auto"}}> 
     {close =>(
-        // setTimeout(function(){
-        //   window.location = '/user'
-        // },1000),
+        setTimeout(function(){
+          window.location = '/user'
+        },1000),
 
     <form >
    <label style={{fontSize: "19px" , color:"black", fontWeight:'bold' , border: '30px solid lightblue'}} > 
