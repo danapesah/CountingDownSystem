@@ -112,7 +112,7 @@ catch (err)
     <div>
        {curr_location=== "/display" ? null  :
         curr_location==="/system"   ?  
-        <button  onClick={()=>{
+        <button style={{top:"5%",position:"absolute",left:"3%"}} onClick={()=>{
 
         let newState ={
           _user_info: this.props.MainWindowReducers._user_info,
@@ -131,7 +131,7 @@ catch (err)
           window.location = '/list';
         }} >שמור טבלה חדשה  </button>:
           
-        <button style={{top:"30px",position:"absolute",left:"10px"}}  onClick={()=>{
+        <button style={{top:"5%",position:"absolute",left:"3%"}}  onClick={()=>{
           let newState ={
             _user_info: this.props.MainWindowReducers._user_info,
             title: this.props.MainWindowReducers.title, 
