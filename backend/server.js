@@ -54,7 +54,6 @@ var PORT = 6070;
 var HOST = '0.0.0.0';
 
 var dgram = require('dgram');
-const { assert } = require('console');
 var serverUDPTod = dgram.createSocket('udp4');
 
 serverUDPTod.bind(PORT);
