@@ -55,10 +55,17 @@ const StatusCard = ({title ,buttons, changeColor,cardID, listID, deleteButton, a
 
     const showCardComments =()=>
     {
+        let positionPopUp ="";
+        if(buttons.length == 1)
+            positionPopUp="left center";
+        else if(buttons.length > 1 && buttons.length <4)
+            positionPopUp="center center";
+        else
+            positionPopUp="right center";
         return(
             <Popup 
             trigger={<div style={{color:"black",cursor:"help", width:"10px",height:"auto",display:"inline", marginRight:"5px", fontSize:"22px"}} onClick={showCardComments}>?</div>} 
-            position="right center" >
+            position={positionPopUp} >
             <div>
             <div>{cardComments}</div>
             </div>
