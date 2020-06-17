@@ -25,8 +25,17 @@ const  OperationList = ({listID,cards, deleteCard,handleChange,handleSubmit,chan
             <label style={{display:"inline-block"}}>
                  Type:
                 <select name= "cardType" style={{display:"inline-block", width:"150px"}} onChange={(event)=>{handleChange(event)}}>
-                <option value={0}>מטוס</option>
-                <option value={1}>מסוק</option>
+                <option value={0}>מטוס נוסעים</option>
+                <option value={1}>מטוס קל</option>
+                <option value={2}>מטוס קרב</option>
+                <option value={3}>מסוק</option>
+                <option value={4}>מכונית</option>
+                <option value={5}>טיל</option>
+                <option value={6}>ספינה</option>
+                <option value={7}>סירה</option>
+                <option value={8}>ספינת מלחמה</option>
+                <option value={9}>צוללת</option>
+                <option value={10}>אחר</option>
                 </select>
             </label>
             <br/>

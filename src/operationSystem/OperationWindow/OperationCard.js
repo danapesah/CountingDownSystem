@@ -1,12 +1,30 @@
 import React from 'react'
-import planePic from './Icons/plane.jpeg'
-import helicopterPic from './Icons/helicopter.jpeg'
+import Airliner from './Icons/Airliner.png'
+import helicopterPic from './Icons/helicopter.png'
+import car from './Icons/car.png'
+import lightPlane from './Icons/lightPlane.png'
+import missile from './Icons/missile.png'
+import warAircraft from './Icons/warAircraft.png'
+import ship from './Icons/ship.png'
+import smallBoat from './Icons/smallBoat.png'
+import warship from './Icons/warship.png'
+import submarine from './Icons/submarine.png'
+import other from './Icons/other.png'
 
 const OperationCard = ({listID, cardID,title, checkBox, picture, deleteCard,changeCheckBoxState}) =>
 {
     const picArray=[
-        planePic,
-        helicopterPic
+        Airliner,
+        lightPlane,
+        warAircraft,
+        helicopterPic,
+        car,
+        missile,
+        ship,
+        smallBoat,
+        warship,
+        submarine,
+        other
     ]
     const checkBoxUtil =(checkBox)=>
     {
@@ -50,7 +68,7 @@ const OperationCard = ({listID, cardID,title, checkBox, picture, deleteCard,chan
     
     return(
        <div style={{lineHeight: '0',borderRight: '2px dotted black',paddingLeft:"3px",paddingRight:"1px"}}>
-           <img src={picArray[picture]} style={{width:"50px",height:"40px"}}></img>
+           <img src={picArray[picture]} style={{width:"35px",height:"35px",paddingRight:"1px"}}></img>
            {deleteAble(cardID,listID)}
             <div style={{paddingTop:"10px"}}>{title}</div>
             <form action="#" style={{paddingTop:"19px"}} >
