@@ -184,7 +184,7 @@ add_user_inputs()
         },1000),
 
     <form >
-   <label style={{fontSize: "19px" , color:"black", fontWeight:'bold' , border: '30px solid lightblue'}} > 
+   <label style={{fontSize: "19px" , color:"black", fontWeight:'bold' , border: '30px solid white'}} > 
     {this.state.popup_message}
     </label>
 
