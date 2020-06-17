@@ -157,8 +157,8 @@ if(window.location.pathname ==='/display')
 
     createTimeColumn =()=>
     {
-        let numOfHoursBeforeCount = this.convertTimeInput(this.props.hours_before_target);
-        let numOfHoursAfterCount = this.convertTimeInput(this.props.hours_after_target);
+        let numOfHoursBeforeCount = Math.ceil(this.convertTimeInput(this.props.hours_before_target));
+        let numOfHoursAfterCount = Math.ceil(this.convertTimeInput(this.props.hours_after_target));
         let divTable=[]
         for(let i=numOfHoursBeforeCount;i>=1;i--)
         {
@@ -180,8 +180,8 @@ if(window.location.pathname ==='/display')
     createMissionColumn =()=>
     {
         let divTable=[]
-        let numOfHoursBeforeCount = this.convertTimeInput(this.props.hours_before_target);
-        let numOfHoursAfterCount = this.convertTimeInput(this.props.hours_after_target);
+        let numOfHoursBeforeCount = Math.ceil(this.convertTimeInput(this.props.hours_before_target));
+        let numOfHoursAfterCount =  Math.ceil(this.convertTimeInput(this.props.hours_after_target));
         for(let j=0;j<this.props.lists.length;j++)
         {
             let leftPlace=50+j*140;     

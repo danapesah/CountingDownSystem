@@ -46,25 +46,43 @@ render(){
             >לא</button> */}
 
 
-            <Link to={"/"} style={{float:"left" , backgroundColor : "blue" ,fontSize:'20px', color:'black'}}
-            onMouseOver={(e) =>{ e.target.style.fontSize='25px';e.target.style.fontWeight='bold'; e.target.style.backgroundColor= "red"  } }
-            onMouseOut={(e) =>{ e.target.style.fontSize= '20px' ; e.target.style.fontWeight=null ; e.target.style.backgroundColor= "blue"}}
+            <Link to={"/"} style={{float:"left",fontSize:'20px',backgroundColor:'#d9d0d0',border:"1px solid",color:"black"}}
+            onMouseOver={(e) =>{ e.target.style.fontSize='25px';e.target.style.fontWeight='bold';  } }
+            onMouseOut={(e) =>{ e.target.style.fontSize= '20px' ; e.target.style.fontWeight=null;}}
             onClick={()=>null}>     
             לא </Link>  
   
-            <Link to={"/delete/"+this.props.id} style={{ float:"right", backgroundColor : "blue" ,fontSize:'20px', color:'black'}}
-            onMouseOver={(e) =>{ e.target.style.fontSize='25px';e.target.style.fontWeight='bold'; e.target.style.backgroundColor= "red"  } }
-            onMouseOut={(e) =>{ e.target.style.fontSize= '20px' ; e.target.style.fontWeight=null ; e.target.style.backgroundColor= "blue"}}
+            <Link to={"/delete/"+this.props.id} style={{ float:"right",fontSize:'20px', backgroundColor:'#d9d0d0',border:"1px solid",color:"black"}}
+            onMouseOver={(e) =>{ e.target.style.fontSize='25px';e.target.style.fontWeight='bold';  } }
+            onMouseOut={(e) =>{ e.target.style.fontSize= '20px' ; e.target.style.fontWeight=null ;}}
             onClick={()=>{this._delete_chosen_table(this.props.id)}}>     
             כן </Link>  
             <br></br>
-     
+
+            <a className="close" onClick={close} style={styles.close}>
+            &times;
+             </a>
     </form>)}
     
     </Popup> 
   </div>
           
     );
+  }
+}
+const styles = {
+  close:
+  {
+    cursor: 'pointer',
+    position: "absolute",
+    display: "block",
+    padding: "2px 5px",
+    right: "-10px",
+    top:"-10px",
+    fontSize: "15px",
+    background:" #ffffff",
+    borderRadius: "18px",
+    border: "1px solid #cfcece"
   }
 }
 
