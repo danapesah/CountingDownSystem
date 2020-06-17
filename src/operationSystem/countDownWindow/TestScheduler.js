@@ -164,9 +164,9 @@ if(window.location.pathname ==='/display')
         {
             let placeOnScreen=(numOfHoursBeforeCount-i+1)*50+"px";
             if(i == 1)
-                divTable.push(<div key={i+'a'} style={{top:placeOnScreen, position:"absolute", height:"50px",width:"50px", border:"solid", borderBottomColor:"#a32217"}}>-{i}:00</div>)
+                divTable.push(<div key={i+'p'} style={{top:placeOnScreen, position:"absolute", height:"50px",width:"50px", border:"solid", borderBottomColor:"#a32217"}}>-{i}:00</div>)
             else
-                divTable.push(<div key={i+'b'} style={{top:placeOnScreen, position:"absolute", height:"50px",width:"50px", border:"solid"}}>-{i}:00</div>)
+                divTable.push(<div key={i+'x'} style={{top:placeOnScreen, position:"absolute", height:"50px",width:"50px", border:"solid"}}>-{i}:00</div>)
         }
         for(let i=numOfHoursAfterCount;i>=1;i--)
         {
@@ -186,7 +186,7 @@ if(window.location.pathname ==='/display')
         {
             let leftPlace=50+j*140;     
             if(window.location.pathname.search("display") == -1) 
-                divTable.push(<div key={'a'+j} style={{top:0,left:leftPlace, position:"absolute", height:"50px",width:"140px", border:"solid",textAlign:"center"}}>
+                divTable.push(<div key={'q'+j} style={{top:0,left:leftPlace, position:"absolute", height:"50px",width:"140px", border:"solid",textAlign:"center"}}>
                 <div name={this.props.lists[j].key} style={{float:"right",color:"#a32217",cursor:"help", width:"10px",height:"auto"}} onClick={this.deleteColumn}>x</div>
                 {this.props.lists[j].title}</div>)
             else
@@ -234,7 +234,7 @@ if(window.location.pathname ==='/display')
             {
                 let startHourBytes = this.convertTimeInput(this.props.hours_before_target)*50 + 1*50+ 50*startHourArr[1];
                 let eventDuration =(endHourArr[1]-startHourArr[1])*50;
-                return <CountDownEvent key={key+'a'} id={key} title={title} startHourBytes={startHourBytes} eventDuration={eventDuration} columID={columID} comments={comments} startHour={startHour} endHour={endHour} editEvent={this.editEvent} color={color} changeColor={this.changeEventColor} validMission={validMission} multipleEvent={multipleEvent}/>
+                return <CountDownEvent key={key+'n'} id={key} title={title} startHourBytes={startHourBytes} eventDuration={eventDuration} columID={columID} comments={comments} startHour={startHour} endHour={endHour} editEvent={this.editEvent} color={color} changeColor={this.changeEventColor} validMission={validMission} multipleEvent={multipleEvent}/>
             }
             else if(startHourArr[0] === '-' && endHourArr[0] == '-')
             {
