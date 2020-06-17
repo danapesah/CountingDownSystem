@@ -33,12 +33,12 @@ class MainComponentTime extends Component
                 <div className="center">חלון שעונים</div>
                 <br/>
                 <div style={{ textAlign:"right",}}>
-                <div>-עולמי</div>
+                <div>-מטרה</div>
                 <div style={{borderStyle: "solid",  width: "50%", margin:"auto"}}>
                 {this.state.CDRClock}
                 </div>
                 <br/>
-                <div>-מטרה</div>
+                <div>-עולמי</div>
                 <div style={{borderStyle: "solid",  width: "50%", margin:"auto"}}>
                 {this.state.TodClock}
                 </div>

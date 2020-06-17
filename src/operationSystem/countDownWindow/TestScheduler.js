@@ -164,7 +164,7 @@ if(window.location.pathname ==='/display')
         {
             let placeOnScreen=(numOfHoursBeforeCount-i+1)*50+"px";
             if(i == 1)
-                divTable.push(<div key={i+'a'} style={{top:placeOnScreen, position:"absolute", height:"50px",width:"50px", border:"solid", borderBottomColor:"red"}}>-{i}:00</div>)
+                divTable.push(<div key={i+'a'} style={{top:placeOnScreen, position:"absolute", height:"50px",width:"50px", border:"solid", borderBottomColor:"#a32217"}}>-{i}:00</div>)
             else
                 divTable.push(<div key={i+'b'} style={{top:placeOnScreen, position:"absolute", height:"50px",width:"50px", border:"solid"}}>-{i}:00</div>)
         }
@@ -187,7 +187,7 @@ if(window.location.pathname ==='/display')
             let leftPlace=50+j*140;     
             if(window.location.pathname.search("display") == -1) 
                 divTable.push(<div key={'a'+j} style={{top:0,left:leftPlace, position:"absolute", height:"50px",width:"140px", border:"solid",textAlign:"center"}}>
-                <div name={this.props.lists[j].key} style={{float:"right",color:"red",cursor:"help", width:"10px",height:"auto"}} onClick={this.deleteColumn}>x</div>
+                <div name={this.props.lists[j].key} style={{float:"right",color:"#a32217",cursor:"help", width:"10px",height:"auto"}} onClick={this.deleteColumn}>x</div>
                 {this.props.lists[j].title}</div>)
             else
                divTable.push(<div key={'z'+j} style={{top:0,left:leftPlace, position:"absolute", height:"50px",width:"140px", border:"solid",textAlign:"center"}}>{this.props.lists[j].title}</div>)
@@ -200,7 +200,7 @@ if(window.location.pathname ==='/display')
                 
                 divTable.push(<div key={'b'+i} style={{top:placeOnScreenTop,left:leftPlace, position:"absolute", height:"25px",width:"140px",borderRight:"dotted",borderBottom:"solid"}}></div>)
                 if(i == numOfHoursBeforeCount)
-                divTable.push(<div key={'abc'+i} style={{top:placeOnScreenBottom,left:leftPlace, position:"absolute", height:"25px",width:"140px",borderRight:"dotted",borderBottom:"solid",borderBottomColor:"red"}}></div>)
+                divTable.push(<div key={'abc'+i} style={{top:placeOnScreenBottom,left:leftPlace, position:"absolute", height:"25px",width:"140px",borderRight:"dotted",borderBottom:"solid",borderBottomColor:"#a32217"}}></div>)
                 else
                 divTable.push(<div key={'d'+i} style={{top:placeOnScreenBottom,left:leftPlace, position:"absolute", height:"25px",width:"140px",borderRight:"dotted",borderBottom:"solid"}}></div>)
             }
@@ -208,7 +208,7 @@ if(window.location.pathname ==='/display')
             {
                 divTable.push(<div key={j+'d'+i} style={{top:placeOnScreenTop,left:leftPlace, position:"absolute", height:"25px",width:"140px", borderLeft:"dotted",borderRight:"dotted",borderBottom:"solid"}}></div>)
                 if(i == numOfHoursBeforeCount)
-                    divTable.push(<div key={j+'e'+i} style={{top:placeOnScreenBottom,left:leftPlace, position:"absolute", height:"25px",width:"140px", borderLeft:"dotted",borderRight:"dotted",borderBottom:"solid",borderBottomColor:"red"}}></div>)
+                    divTable.push(<div key={j+'e'+i} style={{top:placeOnScreenBottom,left:leftPlace, position:"absolute", height:"25px",width:"140px", borderLeft:"dotted",borderRight:"dotted",borderBottom:"solid",borderBottomColor:"#a32217"}}></div>)
                 else
                     divTable.push(<div key={j+'f'+i} style={{top:placeOnScreenBottom,left:leftPlace, position:"absolute", height:"25px",width:"140px", borderLeft:"dotted",borderRight:"dotted",borderBottom:"solid"}}></div>)
             }

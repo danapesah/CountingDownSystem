@@ -12,7 +12,6 @@ router.route('/add').post((req, res) => {
  
   const newTable = new Table({_system_info_object}); //new table
 
-  //console.log(newTable + "newCount")
   newTable.save() //save to the db
     .then(() => res.json('countdown added!')) //return table added in jason
     .catch(err => res.status(400).json('Error: ' + err)); //or error
