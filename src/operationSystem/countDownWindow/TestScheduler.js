@@ -240,7 +240,7 @@ if(window.location.pathname ==='/display')
             {
                 let startHourBytes =this.convertTimeInput(this.props.hours_before_target)*50 +1*50 - 50*startHourArr[1];
                 let eventDuration =(startHourArr[1]-endHourArr[1])*50;
-                return <CountDownEvent key={key+'b'} id={key} title={title} startHourBytes={startHourBytes} eventDuration={eventDuration} columID={columID} comments={comments} startHour={startHour} endHour={endHour} editEvent={this.editEvent} color={color} changeColor={this.changeEventColor} validMission={validMission} multipleEvent={multipleEvent}/>
+                return <CountDownEvent key={key+'bzl'} id={key} title={title} startHourBytes={startHourBytes} eventDuration={eventDuration} columID={columID} comments={comments} startHour={startHour} endHour={endHour} editEvent={this.editEvent} color={color} changeColor={this.changeEventColor} validMission={validMission} multipleEvent={multipleEvent}/>
             }
             else if(startHourArr[0] === '-' && endHourArr[0] == '+')
             {
