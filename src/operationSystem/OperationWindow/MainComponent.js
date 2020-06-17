@@ -234,7 +234,7 @@ if(window.location.pathname ==='/display')
         <div>
         <div style={styles.lineContainer}>
             <p style={ {marginBottom:"10%"}}> שם משימה </p>
-             {operationRows.map((row,i) =>(<div key={i}>{row}<br/></div>))}
+             {operationRows.map((row,i) =>(<div key={i} style={{marginTop:"11%"}}>{row}<br/></div>))}
         </div  >
         <div style={styles.listsContainer}>
         {lists.map(list => 
@@ -266,8 +266,9 @@ const styles = {
     {   
      width:"auto",
      float:"right",
-    flexDirection:"column",
-     marginTop:"25px"
+
+     flexDirection:"column",
+     marginTop:"3.5%",
     },
     close:
     {
