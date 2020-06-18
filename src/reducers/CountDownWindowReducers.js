@@ -117,7 +117,7 @@ const CountDownWindowReducers = (state = initialState, action) =>{
             events:[
                 ...state.CountDownlists.events,
                 {
-                    id:state.CountDownlists.events.length+1,
+                    id:(state.CountDownlists.events[state.CountDownlists.events.length-1].id+1),
                     title:action.payload.title,
                     startHour:action.payload.startHour,
                     endHour:action.payload.endHour, 
