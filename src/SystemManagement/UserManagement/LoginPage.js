@@ -29,10 +29,6 @@ import Popup from "reactjs-popup"
     popup_message: "משתמש לא קיים במערכת",
   }
 }
-// componentDidMount() {
- 
-
-// }
 
 onChangeUsername(e) {
 this.setState({
@@ -63,9 +59,6 @@ console.log(error);
 checkUser(){
 let temp_permissions=''
 for(let i =  0; i < this.state.DB_users_info.length ; i++){
-  console.log("IN");
-  console.log("U"+this.state.DB_users_info[i].user_info.username)
-  console.log("P"+this.state.DB_users_info[i].user_info.password)
   if(this.state.username ===  this.state.DB_users_info[i].user_info.username &&
       this.state.password ===  this.state.DB_users_info[i].user_info.password  )
       {
