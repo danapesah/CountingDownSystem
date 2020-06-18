@@ -13,37 +13,47 @@ class MainComponentTime extends Component
     }
     constructor(...args) {
         super()
+        if(window.location.pathname.search("display") != -1) 
+        {
         socket.on("udpCDRCMessage", (message)=>{
             this.setState({CDRClock:message})
           })
         socket.on("udpTodMessage", (message)=>{
             this.setState({TodClock:message})
           })
+        }
     }
   
 
 
     render(){
+        if(window.location.pathname.search("display") != -1) 
         return(
             <div>
                 <div className="center">חלון שעונים</div>
                 <br/>
                 <div style={{ textAlign:"right",}}>
-                <div>-עולמי</div>
+                <div>-מטרה</div>
                 <div style={{borderStyle: "solid",  width: "50%", margin:"auto"}}>
                 {this.state.CDRClock}
                 </div>
                 <br/>
-                <div>-מטרה</div>
+                <div>-עולמי</div>
                 <div style={{borderStyle: "solid",  width: "50%", margin:"auto"}}>
                 {this.state.TodClock}
                 </div>
                 </div>
-
-
+            </div>
+        )
+        else
+        return(
+            <div>
+            <div className="center">חלון שעונים</div>
+            <div className="right">השעון מוצג במצב תצוגה</div>
             </div>
         )
     }
+   
 }
 
 export default connect()(MainComponentTime);

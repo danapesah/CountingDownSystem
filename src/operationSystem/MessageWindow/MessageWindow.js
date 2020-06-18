@@ -73,7 +73,7 @@ class  MessageWindow  extends React.Component  {
           {close =>(
               <div>
                <form onSubmit={this.handleSubmit}>
-              <textarea name="comments" onChange={this.handleChange} defaultValue={this.state.message}/>
+              <textarea name="comments" onChange={this.handleChange} defaultValue={this.state.message} style={{height:"250px"}}/>
               <input type="submit" value="Submit" /> 
               </form>  
               <a className="close" onClick={close} style={styles.close}>
@@ -89,7 +89,7 @@ class  MessageWindow  extends React.Component  {
         <div>
         {this.editMessage()}
         <div className="center"> חלון הודעות רץ  </div>  
-      <TextScroller text={this.props.messageValue} />
+      <TextScroller text={this.props.messageValue} length={this.props.messageValue.length} />
     
         
       </div>

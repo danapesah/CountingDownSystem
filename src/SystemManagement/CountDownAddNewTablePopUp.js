@@ -92,7 +92,7 @@ render(){
         >{this.props.trigger_name}</div>}
         
         modal closeOnDocumentClick 
-        contentStyle={{width:"auto", height:"auto",backgroundColor:"#007bff" }}
+        contentStyle={{width:"auto", height:"auto"}}
         >
  
         {close =>(
@@ -127,14 +127,14 @@ render(){
           this.props.new_or_edit==="new" ? 
         
             
-          <Link to={this.props.path} style={{backgroundColor:'lightblue'}}      
+          <Link to={this.props.path} style={{backgroundColor:'#d9d0d0',border:"1px solid",color:"black"}}      
           onClick={() =>{ 
            this.props.dispatch(set_new_table(this.state.title,this.state.down_count,this.state.up_count) )  
           } } >
          {this.props.link_name}  </Link>    
         : 
         
-        <Link to={this.props.path} style={{backgroundColor:'lightblue'}}      
+        <Link to={this.props.path} style={{backgroundColor:'#d9d0d0',border:"1px solid",color:"black"}}      
         onClick={() =>{ 
           this.props.dispatch(change_to_show_chosen_table_state(this.props.data));
           this.props.dispatch(edit_title_hours(this.state.title,this.state.down_count,this.state.up_count,this.props.id) ) 
@@ -166,11 +166,31 @@ render(){
           
 
 
-
-    </form>)}</Popup> 
+    <a className="close" onClick={close} style={styles.close}>
+            &times;
+             </a>
+    </form>)}
+    </Popup> 
   </div>
           
     );
+  }
+}
+
+
+const styles = {
+  close:
+  {
+    cursor: 'pointer',
+    position: "absolute",
+    display: "block",
+    padding: "2px 5px",
+    right: "-10px",
+    top:"-10px",
+    fontSize: "15px",
+    background:" #ffffff",
+    borderRadius: "18px",
+    border: "1px solid #cfcece"
   }
 }
 
