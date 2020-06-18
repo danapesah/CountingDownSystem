@@ -41,6 +41,7 @@ class Routes extends Component {
             window.location.pathname !== "/usersList" )
             {  
               this.setState({_curr_location:"page_not_found"})
+              return
             }
             if(window.location.pathname.search("/delete") !== -1 && window.location.pathname.length <= 7)
             {
@@ -72,7 +73,7 @@ class Routes extends Component {
 
           else{
             this.setState({_curr_location:null})}
-            return
+            
           }
 
         }
