@@ -8,6 +8,7 @@ import {connect } from 'react-redux'
 import {save_user_info_after_login} from '../../Actions'
 import MyNavbar from './MyNavbar'
 import Spinner from '../Spinner'
+import Popup from "reactjs-popup"
 //add tests and checks 
  class LoginPage extends Component {
 
@@ -25,6 +26,7 @@ import Spinner from '../Spinner'
     isLogged:0,
     user_permissions:'',
     _spinner:"none",
+    popup_message: "משתמש לא קיים במערכת",
   }
 }
 componentDidMount() {
@@ -66,6 +68,7 @@ for(let i =  0; i < this.state.DB_users_info.length ; i++){
             _spinner: "up", 
             isLogged:1,
           user_permissions: this.state.DB_users_info[i].user_info.permissions,
+          popup_message:"ברוך הבא"
            
       })
      
@@ -80,13 +83,13 @@ for(let i =  0; i < this.state.DB_users_info.length ; i++){
         catch(e){
           console.log(e)
         }   
-      window.location="/list"
+    //  window.location="/list"
       
   }
-}
+ 
 }
 
-
+}
 
 
 render(){
@@ -94,7 +97,7 @@ return (
 
   <div>
 
-    <div style={{paddingLeft:"400px", width : "900px"}} >
+    <div style={{paddingLeft:"500px", width : "1100px"}} >
       <br></br>
     <h3 style={{textAlign:"center"}} >התחברות</h3>
     <form >
@@ -122,19 +125,39 @@ return (
       </div>
       <br></br>
       <br></br>
-
-  <div  style={{textAlign:"center"}} >
-  {this.state._spinner ==="none" ?
-  
-   <Link  className="btn btn-primary"
-       onClick={this.onSubmit}
-     >התחבר </Link>  
-  
-     :
-     <Spinner/>} 
-   </div>
+     
       </form>
-      </div>    
+ <div >
+      </div> 
+      <Popup 
+    trigger={
+
+    <div style={{textAlign:"center",color:"#fff" , backgroundColor: "#007bff" , borderColor: "#007bff" , width:"20%", 
+    border:" 1px solid transparent", fontSize:"20px",}} 
+      onMouseOver={(e) =>{ e.target.style.fontWeight='bold'; } }
+      onMouseOut={(e) =>{ e.target.style.fontWeight=null }}
+      onClickCapture=  {this.onSubmit}
+    > התחבר
+    </div> 
+    } 
+    modal closeOnDocumentClick contentStyle={{width:"auto", height:"auto"}}> 
+    {close =>(
+        setTimeout(function(){
+          window.location = '/'
+        },1000),
+
+    <form >
+   <label style={{fontSize: "19px" , color:"black", fontWeight:'bold' , border: '30px solid white',textAlign:"center",}} > 
+    {this.state.popup_message}
+    <div><Spinner/> </div> 
+    {this.state._spinner !=="none" ?
+     <div><Spinner/> </div> :null}
+    </label>
+
+ </form>
+     )}
+</Popup> 
+</div>    
     </div>
     );
   }

@@ -43,7 +43,7 @@ class Routes extends Component {
               this.setState({_curr_location:"page_not_found"})
               return
             }
-            if(window.location.pathname.search("/delete") !== -1 && window.location.pathname.length <= 7)
+            if((window.location.pathname.search("/delete") !== -1 || window.location.pathname.search("/delete/") !== -1 )&& window.location.pathname.length <= 8  )
             {
               this.setState({_curr_location:"page_not_found"})
               return;
@@ -70,7 +70,11 @@ class Routes extends Component {
             }
    
           }
-
+          if(window.location.pathname.search("/edit") !== -1 && _edit_id===null)
+          {
+            this.setState({_curr_location:"page_not_found"})
+            return;
+          }
           else{
             this.setState({_curr_location:null})}
             
