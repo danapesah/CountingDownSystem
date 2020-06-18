@@ -164,14 +164,14 @@ if(window.location.pathname ==='/display')
         {
             let placeOnScreen=(numOfHoursBeforeCount-i+1)*50+"px";
             if(i == 1)
-                divTable.push(<div key={i+'p'} style={{top:placeOnScreen, position:"absolute", height:"50px",width:"50px", border:"solid", borderBottomColor:"#a32217"}}>-{i}:00</div>)
+                divTable.push(<div key={i+'p'} style={{top:placeOnScreen, position:"absolute", height:"50px",width:"50px", border:"solid", borderBottomColor:"#a32217",left:"0"}}>-{i}:00</div>)
             else
-                divTable.push(<div key={i+'x'} style={{top:placeOnScreen, position:"absolute", height:"50px",width:"50px", border:"solid"}}>-{i}:00</div>)
+                divTable.push(<div key={i+'x'} style={{top:placeOnScreen, position:"absolute", height:"50px",width:"50px", border:"solid",left:"0"}}>-{i}:00</div>)
         }
         for(let i=numOfHoursAfterCount;i>=1;i--)
         {
             let placeOnScreen=numOfHoursBeforeCount*50+i*50+"px";
-            divTable.push(<div key={i} style={{top:placeOnScreen, position:"absolute", height:"50px",width:"50px", border:"solid"}}>
+            divTable.push(<div key={i} style={{top:placeOnScreen, position:"absolute", height:"50px",width:"50px", border:"solid",left:"0"}}>
                 <div style={{bottom:"0",position:"absolute"}}>+{i}:00</div></div>)
         }
 

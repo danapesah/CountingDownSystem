@@ -85,7 +85,7 @@ class countDownAddEventButton extends Component
         return(
   
         <Popup
-        trigger={<button style={{position:"absolute", width:"50px", height:"50px",textAlign:"center",fontSize:"13px"}}className="button">הוספת אירוע  </button>}
+        trigger={<button style={{position:"absolute", width:"50px", height:"50px",textAlign:"center",fontSize:"13px",left:"0"}}className="button">הוספת אירוע  </button>}
         modal
         closeOnDocumentClick>
           {close =>(

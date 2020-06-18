@@ -10,7 +10,6 @@ import {connect } from 'react-redux'
 import {change_to_show_chosen_table_state} from "../Actions"
 import ReactDOM from "react-dom";
 import FlexLayout from "flexlayout-react";
-// import { BrowserRouter as Router, Route , useLocation } from "react-router-dom"
 import io from "socket.io-client";
 
 class MainWindow extends React.Component {
