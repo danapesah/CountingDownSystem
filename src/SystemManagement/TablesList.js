@@ -84,7 +84,7 @@ class TablesList extends Component {
               alert("new table added: " +"\""+ newTable.title+"\"")
             }
           }
-        >העתקת ניסוי  </Link>
+        >העתקת פעילות  </Link>
     
        | </div>
       : null }
@@ -110,7 +110,7 @@ class TablesList extends Component {
             
             }
           
-          >הצגת  ניסוי </Link>
+          >הצגת  פעילות </Link>
           </div>
           {/* : null } */}
        {this.state.curr_permission === "Admin" ||   this.state.curr_permission === "Editor" ?
@@ -118,8 +118,8 @@ class TablesList extends Component {
       | <CountDownAddNewTablePopUp  
           new_or_edit={"edit"}
           chosen_table_title={this.state.DB_info[i]._system_info_object.title}
-          trigger_name={"עריכת ניסוי"}
-          form_title={this.state.DB_info[i]._system_info_object.title + " :הינך רוצה לערוך  המערכת "}
+          trigger_name={"עריכת פעילות"}
+          form_title={this.state.DB_info[i]._system_info_object.title + " : עריכת מערכת "}
           placeholder_before={this.state.DB_info[i]._system_info_object.hours_before_target} 
           placeholder_after={this.state.DB_info[i]._system_info_object.hours_after_target} 
           path={"/edit/"+this.state.DB_info[i]._id}
@@ -153,12 +153,12 @@ class TablesList extends Component {
         <div>
         
         
-        <h4  style={{textAlign:"center"}} >רשימת כל המערכות</h4>
+        <h4  style={{textAlign:"center"}} >רשימת כל הפעילויות</h4>
         <table  className="table"  style={{textAlign:"center"}}  >
           <thead className="thead-light">
             <tr>
               <th>פעולה</th>
-              <th>שם המערכת</th>
+              <th>שם פעילות</th>
             </tr>
           </thead>
           <tbody >

@@ -96,7 +96,7 @@ render() {
     </div>
   :null } 
     <Nav.Item>
-      <Nav.Link style={{color:"white"}} href="/list" eventKey="link-1">רשימת ניסויים</Nav.Link>
+      <Nav.Link style={{color:"white"}} href="/list" eventKey="link-1">רשימת פעילויות</Nav.Link>
     </Nav.Item>
  
   </div>

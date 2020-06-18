@@ -101,6 +101,7 @@ return (
 <div>
 <Router  forceRefresh={true} >
 <MyNavbar sharon={this.props._user_name}/>
+<br></br>
 <Switch>
  <Route path="/" exact component={TablesList}/>
  <Route path="/delete/:id" component={TablesList} />
@@ -118,11 +119,13 @@ return (
 :   this.state._user_already_logged === false ? 
     <div>
     <MyNavbar sharon={this.props._user_name}/>
+    <br></br>
     <LoginPage/>
     </div>
 
 : <div>
   <MyNavbar sharon={this.props._user_name}/>
+  <br></br>
   <div  style={{textAlign:"center", fontSize:"50px"}}>  הדף המבוקש אינו נמצא   </div>
   </div>}
 

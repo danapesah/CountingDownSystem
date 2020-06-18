@@ -28,12 +28,12 @@ render(){
         <div style={{color:"#007bff"}} 
         onMouseOver={(e) =>{ e.target.style.textDecorationLine= 'underline';e.target.style.fontWeight='bold';e.target.style.color="blue"} }
         onMouseOut={(e) =>{ e.target.style.textDecorationLine= null ; e.target.style.fontWeight=null ;  e.target.style.color="#007bff"}}
-        >מחיקת ניסוי </div> } 
+        >מחיקת פעילות </div> } 
         modal closeOnDocumentClick  contentStyle={{width:"auto", height:"auto"}}> 
         {close =>(
           <form >
             <label style={{fontSize: "19px" , color:"black", fontWeight:'bold'}} >
-           ?האם ברצונך למחוק ניסוי זה מהמערכת
+           ?האם ברצונך למחוק פעילות זה מהמערכת
             </label>
 
             <br></br>
