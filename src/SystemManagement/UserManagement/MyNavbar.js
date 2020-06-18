@@ -24,10 +24,10 @@ class MyNavbar extends Component {
         if (serializedStateInfo === null) {
           return undefined;
         }
-        if (serializedState !== null) {
+        if (serializedState !== null &&( window.location.pathname.search("display")!== -1 ) || window.location.pathname.search("edit")!== -1 )  {
           let _chosen_state_parse = JSON.parse(JSON.parse(serializedState ))
           this.setState({chosen_system_title: _chosen_state_parse.title})
-          console.log(_chosen_state_parse.title)
+         // console.log(_chosen_state_parse.title)
         }
         if (serializedStateInfo !== null) {
           let _user_info_parse = JSON.parse(JSON.parse(serializedStateInfo ))
@@ -51,11 +51,18 @@ render() {
   
   <div style={{backgroundColor:"#343a40", width : "100%" , height:"85px", color:"white",paddingLeft:"50px"}}>
   <div > 
-  <h4 style={{textAlign:"center"}}> מערכת פעימה</h4> 
+  <h4 style={{textAlign:"center"}}> 
+{/* {  alert(this.state.chosen_system_title)} */}
+  
+  { this.state.chosen_system_title !== '' ?
+
+  " " +this.state.chosen_system_title +" - ":
+   null} 
+
+  מערכת פעימה
+  </h4> 
   <div style={{textAlign:"center"}}>{this.state._user_already_logged===true ? 
    this.state._user_name+" "+this.state._user_permissions +" "+ ":שלום"  : "יש להתחבר למערכת"}
-  {/* {this.state.chosen_system_title!=='' ? "נבחרה המערכת:" + " " + this.state.chosen_system_title  :null} */}
- 
   </div>
 
   <Nav className="justify-content-end">
@@ -89,7 +96,7 @@ render() {
     </div>
   :null } 
     <Nav.Item>
-      <Nav.Link style={{color:"white"}} href="/list" eventKey="link-1">רשימת ניסויים</Nav.Link>
+      <Nav.Link style={{color:"white"}} href="/list" eventKey="link-1">רשימת פעילויות</Nav.Link>
     </Nav.Item>
  
   </div>

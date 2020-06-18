@@ -148,6 +148,10 @@ render(){
           const serializedState = JSON.stringify(chosen_state)
           localStorage.setItem("chosen_state", JSON.stringify(serializedState));
           console.log(JSON.stringify(serializedState))
+
+          const serializedStateID = JSON.stringify(this.props.id)
+          localStorage.setItem("edit_state_id",  JSON.stringify(serializedStateID));
+
           }  
           catch(e){
           console.log(e)

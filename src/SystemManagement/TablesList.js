@@ -20,6 +20,7 @@ class TablesList extends Component {
         };
       }
    componentDidMount() {
+     
     axios.get('http://localhost:5000/counts/') //GET REQUEST
       .then(response => {
       if (response.data.length===0)return;
@@ -38,6 +39,7 @@ class TablesList extends Component {
       const serializedState = localStorage.getItem("chosen_state"); //''something
       const login_info_state = localStorage.getItem("login_info"); //''something  
       const serializedStateID = localStorage.getItem("chosen_state_id");
+      const edit_state_id = localStorage.getItem("edit_state_id");
       if (serializedStateID !== null ) {
         localStorage.removeItem("chosen_state_id") 
       }
@@ -45,14 +47,15 @@ class TablesList extends Component {
         localStorage.removeItem("chosen_state") 
         //let chosen_state = JSON.parse(JSON.parse(serializedState ))
       }
-      // if (chosen_state_id !== null ) {
-      //   localStorage.removeItem("chosen_state_id") 
-      // }
+      if (edit_state_id !== null ) {
+        localStorage.removeItem("edit_state_id") 
+      }
       if(login_info_state !== null)
       {
         let chosen_info = JSON.parse(JSON.parse(login_info_state ))
         this.setState({ curr_permission: chosen_info.permissions })
       }
+     
     } catch (err) {
       return err;
     }
@@ -80,7 +83,7 @@ class TablesList extends Component {
               alert("new table added: " +"\""+ newTable.title+"\"")
             }
           }
-        >העתקת ניסוי  </Link>
+        >העתקת פעילות  </Link>
     
        | </div>
       : null }
@@ -106,7 +109,7 @@ class TablesList extends Component {
             
             }
           
-          >הצגת  ניסוי </Link>
+          >הצגת  פעילות </Link>
           </div>
           {/* : null } */}
        {this.state.curr_permission === "Admin" ||   this.state.curr_permission === "Editor" ?
@@ -114,8 +117,8 @@ class TablesList extends Component {
       | <CountDownAddNewTablePopUp  
           new_or_edit={"edit"}
           chosen_table_title={this.state.DB_info[i]._system_info_object.title}
-          trigger_name={"עריכת ניסוי"}
-          form_title={this.state.DB_info[i]._system_info_object.title + " :הינך רוצה לערוך  המערכת "}
+          trigger_name={"עריכת פעילות"}
+          form_title={this.state.DB_info[i]._system_info_object.title + " : עריכת מערכת "}
           placeholder_before={this.state.DB_info[i]._system_info_object.hours_before_target} 
           placeholder_after={this.state.DB_info[i]._system_info_object.hours_after_target} 
           path={"/edit/"+this.state.DB_info[i]._id}
@@ -124,6 +127,7 @@ class TablesList extends Component {
           data = {this.state.DB_info[i]._system_info_object}
           id = {this.state.DB_info[i]._id} //checkkkkk
         />
+        
         </div>
             : null }
 
@@ -135,8 +139,8 @@ class TablesList extends Component {
     return temp
   }
 
+ 
     render(){
-
       return (
         
         <div style={{ width : "60%", marginLeft:"25%"}}>
@@ -148,12 +152,12 @@ class TablesList extends Component {
         <div>
         
         
-        <h4  style={{textAlign:"center"}} >רשימת כל המערכות</h4>
+        <h4  style={{textAlign:"center"}} >רשימת כל הפעילויות</h4>
         <table  className="table"  style={{textAlign:"center"}}  >
           <thead className="thead-light">
             <tr>
               <th>פעולה</th>
-              <th>שם המערכת</th>
+              <th>שם פעילות</th>
             </tr>
           </thead>
           <tbody >

@@ -38,11 +38,15 @@ class UsersList extends Component {
     try {
       const serializedState = localStorage.getItem("chosen_state");
       const serializedStateID = localStorage.getItem("chosen_state_id");
+      const edit_state_id = localStorage.getItem("edit_state_id");
       if (serializedStateID !== null ) {
         localStorage.removeItem("chosen_state_id") 
       }
       if (serializedState !== null ) {
         localStorage.removeItem("chosen_state") 
+      }
+      if (edit_state_id !== null ) {
+        localStorage.removeItem("edit_state_id") 
       }
     } catch (err) {
       return err;
