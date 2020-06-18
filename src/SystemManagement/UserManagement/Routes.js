@@ -21,6 +21,9 @@ class Routes extends Component {
           _curr_edit_id: null,
         }
       }
+      componentDidMount(){
+        this.check_path_name()
+      }
   check_path_name(){
       try {
         const curr_login = localStorage.getItem("login_info");
@@ -91,7 +94,6 @@ class Routes extends Component {
 
 
 render(){
-  this.check_path_name()
 return (
        
 <div>

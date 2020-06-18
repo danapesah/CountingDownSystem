@@ -29,19 +29,10 @@ import Popup from "reactjs-popup"
     popup_message: "משתמש לא קיים במערכת",
   }
 }
-componentDidMount() {
-  axios.get('http://localhost:5000/users/') //GET REQUEST
-    .then(response => {
-    if (response.data.length===0)return;
-    this.setState({ DB_users_info :response.data })
-    //console.log(this.state.DB_users_info)
-  })
+// componentDidMount() {
+ 
 
-  .catch((error) => { //catch errors 
-    console.log(error);
-  })
-
-}
+// }
 
 onChangeUsername(e) {
 this.setState({
@@ -57,8 +48,24 @@ this.setState({
 
 onSubmit(e) {
 e.preventDefault();
+
+axios.get('http://localhost:5000/users/') //GET REQUEST
+.then(response => {
+if (response.data.length===0)return;
+this.setState({ DB_users_info :response.data })
+}).finally(()=>this.checkUser())
+.catch((error) => { //catch errors 
+console.log(error);
+})
+}
+
+
+checkUser(){
 let temp_permissions=''
 for(let i =  0; i < this.state.DB_users_info.length ; i++){
+  console.log("IN");
+  console.log("U"+this.state.DB_users_info[i].user_info.username)
+  console.log("P"+this.state.DB_users_info[i].user_info.password)
   if(this.state.username ===  this.state.DB_users_info[i].user_info.username &&
       this.state.password ===  this.state.DB_users_info[i].user_info.password  )
       {
