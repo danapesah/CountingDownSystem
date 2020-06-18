@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {connect } from 'react-redux'
 import axios from 'axios';
 import { Link , BrowserRouter , useLocation  } from 'react-router-dom'; //link to different routs
-import TestScheduler from '../operationSystem/countDownWindow/TestScheduler';
 import { change_to_show_chosen_table_state , delete_chosen_table} from "../Actions";
 import CountDownAddNewTablePopUp from './CountDownAddNewTablePopUp'; //the popup for create new table
 import ConfirmDeletePopup from './ConfirmDeletePopup'; //the popup for confirm delete

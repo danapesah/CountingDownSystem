@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import TestScheduler from '../countDownWindow/TestScheduler'
+import MainCountDownWindow from '../countDownWindow/MainCountDownWindow'
 import UploadAirImg from '../countDownWindow/UploadAirImg'
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
@@ -37,7 +37,7 @@ class Logs extends Component {
 {this.state._chosen_tab==="#evets" ? "events and table" :
 this.state._chosen_tab==="#sea" ? "sea and table"  :
 this.state._chosen_tab==="#air img and table " ? <div style={{backgroundColor: "#66c2ff",position:"absolute", top:"50px", left:"20px"}}><UploadAirImg/> </div> :
-<TestScheduler/>
+<MainCountDownWindow/>
 }</div>
 
   </div>

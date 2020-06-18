@@ -8,7 +8,7 @@ import axios from 'axios'
 import CountDownBar from './CountDownBar';
 import {deleteEventCountDown,deleteEntityCountDown,changeEventColorCountDown} from '../../Actions';
 
-class TestScheduler extends Component
+class MainCountDownWindow extends Component
 { 
     checkMultipleEvent=(originalEvent, secondEvent)=>
     {
@@ -312,4 +312,4 @@ const mapStateToProps = (state)=> ({
   })
 
 
-export default  connect(mapStateToProps)(TestScheduler)
+export default  connect(mapStateToProps)(MainCountDownWindow)

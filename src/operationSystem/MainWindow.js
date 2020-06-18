@@ -3,6 +3,7 @@ import MainOperationWindow from './OperationWindow/MainComponent'
 import MainStatusWindow from './FieldStatusWindow/mainComponent'
 import MessageWindow from './MessageWindow/MessageWindow'
 import MainComponentTime from './TimeWindow/MainComponentTime'
+import MainCountDownWindow from './countDownWindow/MainCountDownWindow'
 import Logs from './countDownWindow/Logs'
 import axios from 'axios';
 import {connect } from 'react-redux'
@@ -158,7 +159,7 @@ catch (err)
       <div  style={ styles.MessageWindow} className="col"><MessageWindow /></div>
       </div>
       <div className="row">
-      <div  className="col-sm-8" style={ styles.Logs}><Logs /></div>
+      <div  className="col-sm-8" style={ styles.Logs}><MainCountDownWindow /></div>
       <div style={ styles.MainStatusWindow} className="col-sm-4"><MainStatusWindow /></div>
       
       </div>

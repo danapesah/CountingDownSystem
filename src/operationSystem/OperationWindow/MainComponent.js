@@ -173,10 +173,9 @@ if(window.location.pathname ==='/display')
       }
       if(event.target.name === 'deleteList')
       {
-          console.log(this.state.deleteListID)
         this.props.dispatch(deleteListOperation(this.state.deleteListID));
       }
-    
+      
    }   
 
     deleteCard = (cardID,listID) =>
