@@ -27,7 +27,7 @@ class MyNavbar extends Component {
         if (serializedState !== null) {
           let _chosen_state_parse = JSON.parse(JSON.parse(serializedState ))
           this.setState({chosen_system_title: _chosen_state_parse.title})
-          console.log(_chosen_state_parse.title)
+         // console.log(_chosen_state_parse.title)
         }
         if (serializedStateInfo !== null) {
           let _user_info_parse = JSON.parse(JSON.parse(serializedStateInfo ))

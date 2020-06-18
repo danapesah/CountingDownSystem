@@ -17,67 +17,111 @@ class Routes extends Component {
         super(props)
         this.state={
           _user_already_logged : false,
+          _curr_location: null,
+          _curr_edit_id: null,
         }
       }
-  componentDidMount() {
+  check_path_name(){
       try {
-        const login_curr = localStorage.getItem("login_info");
-
-        if (login_curr !== null ) {
+        const curr_login = localStorage.getItem("login_info");
+        const _edit_id = localStorage.getItem("edit_state_id");
+      
+        if (curr_login !== null ) {
           this.setState({_user_already_logged:true})
+          if(this.state._user_already_logged ===true )
+          {
+            if (window.location.pathname !== "/" && 
+            window.location.pathname.search("/delete") === -1  && 
+            window.location.pathname !== "/list" &&
+            window.location.pathname.search("/edit") === -1 &&
+            window.location.pathname !== "/system" &&
+            window.location.pathname !== "/display" &&
+            window.location.pathname !== "/user" &&
+            window.location.pathname !== "/login" &&
+            window.location.pathname !== "/usersList" )
+            {  
+              this.setState({_curr_location:"page_not_found"})
+            }
+            if(window.location.pathname.search("/delete") !== -1 && window.location.pathname.length <= 7)
+            {
+              this.setState({_curr_location:"page_not_found"})
+              return;
+            }
+            if(window.location.pathname.search("/edit") !== -1 && _edit_id!==null)
+            {
+              if(window.location.pathname.length <= 5)
+              {
+                this.setState({_curr_location:"page_not_found"})
+                return;
+              }
+              let tempID = JSON.parse(JSON.parse(_edit_id))
+              try{
+                let temp_path_id =window.location.pathname.slice(window.location.pathname.indexOf("edit")+5) 
+                if(temp_path_id !== tempID)
+                {
+                  this.setState({_curr_location:"page_not_found"})
+                  return;
+                }
+              }
+              catch (err) {
+                return err
+
+            }
+   
+          }
+
+          else{
+            this.setState({_curr_location:null})}
+            return
+          }
+
         }
-      } catch (err) {
+      } 
+      
+      catch (err) {
         return err;
       }
-  
+    
   }
 
 
-    render(){
-    return (
+render(){
+  this.check_path_name()
+return (
        
-        <div>
-     
-        <Router  forceRefresh={true} >
-        <MyNavbar sharon={this.props._user_name}/>
-        <Switch>
-           <div >
-           <br/>
+<div>
+    
+{ this.state._curr_location === null &&  this.state._user_already_logged === true ?
 
-         { this.state._user_already_logged === false ? 
-           <div >
-             <Route path="/" exact component={LoginPage}   />
-             <Route path="/delete/:id" exact component={LoginPage} />
-             <Route path="/list"  component={LoginPage}/>
-             <Route path="/edit/:id" component={LoginPage}  />{/*add /edit/:id to the address */}
-             <Route path="/system" component={LoginPage} /> {/*add /user to the address*/ } 
-             <Route path="/display"  component={LoginPage} /> {/*add /display to the address*/ }
-             <Route path="/user" component={LoginPage} /> 
-             <Route path="/login" component={LoginPage} />
-             <Route path="/usersList" component={LoginPage} />  
-            </div>
-           :  
-           <div >
-           <Route path="/" exact component={TablesList}/>
-          <Route path="/delete/:id" exact component={TablesList} />
-          {/* <Route path="/done" exact component={TablesList} /> */}
-          <Route path="/list"  component={TablesList}/>
-          <Route path="/edit/:id" component={MainWindow}  />{/*add /edit/:id to the address */}
-          <Route path="/system" component={MainWindow} /> {/*add /user to the address*/ } 
-          <Route path="/display"  component={MainWindow} /> {/*add /display to the address*/ }
-          <Route path="/user" component={CreateUser} /> 
-          <Route path="/login" component={LoginPage} />
-          <Route path="/usersList" component={UsersList} />  
-          </div>
-          }  
+<div>
+<Router  forceRefresh={true} >
+<MyNavbar sharon={this.props._user_name}/>
+<Switch>
+ <Route path="/" exact component={TablesList}/>
+ <Route path="/delete/:id" component={TablesList} />
+ <Route path="/list" exact component={TablesList}/>
+ <Route path="/edit/:id" component={MainWindow}  />{/*add /edit/:id to the address */}
+ <Route path="/system" exact component={MainWindow} /> {/*add /user to the address*/ } 
+ <Route path="/display" exact component={MainWindow} /> {/*add /display to the address*/ }
+ <Route path="/user" exact component={CreateUser} /> 
+ <Route path="/login" exact component={LoginPage} />
+ <Route path="/usersList" exact component={UsersList} />  
+ </Switch>
+ </Router> 
+ </div>
 
-        
-           </div>
-       </Switch>
-       </Router>
-
-
+:   this.state._user_already_logged === false ? 
+    <div>
+    <MyNavbar sharon={this.props._user_name}/>
+    <LoginPage/>
     </div>
+
+: <div>
+  <MyNavbar sharon={this.props._user_name}/>
+  <div  style={{textAlign:"center", fontSize:"50px"}}>  הדף המבוקש אינו נמצא   </div>
+  </div>}
+
+  </div>
     );
   }
  }
@@ -89,4 +133,3 @@ class Routes extends Component {
   _logged:state.MainWindowReducers._user_info._logged
 })
 export default connect(mapStateToProps)(Routes) ; 
-

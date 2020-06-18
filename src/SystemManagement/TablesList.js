@@ -39,6 +39,7 @@ class TablesList extends Component {
       const serializedState = localStorage.getItem("chosen_state"); //''something
       const login_info_state = localStorage.getItem("login_info"); //''something  
       const serializedStateID = localStorage.getItem("chosen_state_id");
+      const edit_state_id = localStorage.getItem("edit_state_id");
       if (serializedStateID !== null ) {
         localStorage.removeItem("chosen_state_id") 
       }
@@ -46,9 +47,9 @@ class TablesList extends Component {
         localStorage.removeItem("chosen_state") 
         //let chosen_state = JSON.parse(JSON.parse(serializedState ))
       }
-      // if (chosen_state_id !== null ) {
-      //   localStorage.removeItem("chosen_state_id") 
-      // }
+      if (edit_state_id !== null ) {
+        localStorage.removeItem("edit_state_id") 
+      }
       if(login_info_state !== null)
       {
         let chosen_info = JSON.parse(JSON.parse(login_info_state ))
@@ -125,6 +126,7 @@ class TablesList extends Component {
           data = {this.state.DB_info[i]._system_info_object}
           id = {this.state.DB_info[i]._id} //checkkkkk
         />
+        
         </div>
             : null }
 
