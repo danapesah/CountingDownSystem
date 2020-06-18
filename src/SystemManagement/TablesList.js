@@ -21,6 +21,7 @@ class TablesList extends Component {
         };
       }
    componentDidMount() {
+     
     axios.get('http://localhost:5000/counts/') //GET REQUEST
       .then(response => {
       if (response.data.length===0)return;
@@ -55,6 +56,7 @@ class TablesList extends Component {
         let chosen_info = JSON.parse(JSON.parse(login_info_state ))
         this.setState({ curr_permission: chosen_info.permissions })
       }
+     
     } catch (err) {
       return err;
     }
@@ -138,8 +140,8 @@ class TablesList extends Component {
     return temp
   }
 
+ 
     render(){
-
       return (
         
         <div style={{ width : "60%", marginLeft:"25%"}}>
