@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import {connect } from 'react-redux'
-import axios from 'axios';
-import { Link , BrowserRouter , useLocation  } from 'react-router-dom'; //link to different routs
-import TestScheduler from '../operationSystem/countDownWindow/TestScheduler';
-import { change_to_show_chosen_table_state , delete_chosen_table} from "../Actions";
-import CountDownAddNewTablePopUp from './CountDownAddNewTablePopUp'; //the popup for create new table
-import ConfirmDeletePopup from './ConfirmDeletePopup'; //the popup for confirm delete
-import openSocket from 'socket.io-client';
-import io from "socket.io-client";
+import axios from 'axios'
+import { Link } from 'react-router-dom'; //link to different routs
+import TestScheduler from '../operationSystem/countDownWindow/TestScheduler'
+import { change_to_show_chosen_table_state , delete_chosen_table} from "../Actions"
+import CountDownAddNewTablePopUp from './CountDownAddNewTablePopUp' //the popup for create new table
+import ConfirmDeletePopup from './ConfirmDeletePopup' //the popup for confirm delete
+import openSocket from 'socket.io-client'
+import io from "socket.io-client"
 import Spinner from "./Spinner"
 
 class TablesList extends Component {
@@ -35,10 +35,10 @@ class TablesList extends Component {
     .catch((error) => { //catch errors 
       console.log(error);
     })
-    //.removeItem("chosen_state") while exit edit/display
+    //removeItem("chosen_state") while exit edit/display
     try {
-      const serializedState = localStorage.getItem("chosen_state"); //''something
-      const login_info_state = localStorage.getItem("login_info"); //''something  
+      const serializedState = localStorage.getItem("chosen_state"); 
+      const login_info_state = localStorage.getItem("login_info"); 
       const serializedStateID = localStorage.getItem("chosen_state_id");
       const edit_state_id = localStorage.getItem("edit_state_id");
       if (serializedStateID !== null ) {
@@ -46,7 +46,6 @@ class TablesList extends Component {
       }
       if (serializedState !== null ) {
         localStorage.removeItem("chosen_state") 
-        //let chosen_state = JSON.parse(JSON.parse(serializedState ))
       }
       if (edit_state_id !== null ) {
         localStorage.removeItem("edit_state_id") 

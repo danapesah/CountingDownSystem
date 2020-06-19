@@ -34,10 +34,6 @@ update_data_io()
               axios.post('http://localhost:5000/counts/edit/' + id , data  )
               .then(res => console.log(res.data),
               socket.emit("table saved to the DB" ,id))
-            
-            
-
-
             }
         } 
         catch (err) 
