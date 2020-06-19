@@ -116,7 +116,7 @@ class TablesList extends Component {
           new_or_edit={"edit"}
           chosen_table_title={this.state.DB_info[i]._system_info_object.title}
           trigger_name={"עריכת פעילות"}
-          form_title={this.state.DB_info[i]._system_info_object.title + " : עריכת מערכת "}
+          form_title={this.state.DB_info[i]._system_info_object.title + " : עריכת פעילות "}
           placeholder_before={this.state.DB_info[i]._system_info_object.hours_before_target} 
           placeholder_after={this.state.DB_info[i]._system_info_object.hours_after_target} 
           path={"/edit/"+this.state.DB_info[i]._id}
