@@ -12,8 +12,7 @@ try {
     }
     else{
         let chosen_state = JSON.parse(JSON.parse(serializedState ))
-        console.log(chosen_state.MessageWindow)
-        console.log(chosen_state)
+
         initialState={...chosen_state}
     }
     
@@ -43,7 +42,7 @@ const OperationWindowReducers = (state = initialState, action) =>{
         
             case CONSTANTS.ADD_CARD_OPERATION:
             {
-                console.log("ADD_CARD_OPERATION")
+                
                 let newOperationList =[...state.OperationList]
                 for (let i=0;i<newOperationList.length;i++)
                     {
@@ -62,7 +61,7 @@ const OperationWindowReducers = (state = initialState, action) =>{
                             checkBox:Array(state.OperationRows.length).fill(0)
                             }
                             newOperationList[i].cards.push(newCard);
-                            console.log(newOperationList[i].cards)
+                           
                          }   
                     }
                 
@@ -136,7 +135,7 @@ const OperationWindowReducers = (state = initialState, action) =>{
                             {
                                 if(newOperationRows[i].cards[j].id == action.payload.cardID)
                                 {
-                                    console.log(action.payload.checkBoxID);
+            
                                     if(newOperationRows[i].cards[j].checkBox[action.payload.checkBoxID] == "0")
                                         newOperationRows[i].cards[j].checkBox[action.payload.checkBoxID] =1;
                                     else

@@ -98,8 +98,7 @@ save_to_db(){
 
     addCard = ( listID,cardTitle, cardComments ) =>
     {
-        this.props.dispatch(addCardFieldStatus(listID,cardTitle, cardComments)); 
-        console.log(this.props.state)             
+        this.props.dispatch(addCardFieldStatus(listID,cardTitle, cardComments));          
     }
 
     deleteCard = (listID, cardID) =>

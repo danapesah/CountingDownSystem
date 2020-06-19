@@ -29,8 +29,6 @@ try {
     }
     else{
         let chosen_state = JSON.parse(JSON.parse(serializedState ))
-        console.log(chosen_state.MessageWindow)
-        console.log(chosen_state)
         initialState={...chosen_state}
     }
     
@@ -93,7 +91,7 @@ const CountDownWindowReducers = (state = initialState, action) =>{
                 resources:newResourcesList,
                 events:newEventsList
              } 
-             console.log(state);
+            
              return {...state,CountDownlists: CountDownlistsNew };    
         };
         case CONSTANTS.ADD_ENTITY_COUNTDOWN:{

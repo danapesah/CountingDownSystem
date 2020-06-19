@@ -12,7 +12,6 @@ class Logs extends Component {
         };
     } 
  render() {
-  //console.log(this.state._chosen_tab)
   return (
       <div>
     <Nav style={{backgroundColor: ""}}

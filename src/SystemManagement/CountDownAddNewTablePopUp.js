@@ -16,7 +16,6 @@ constructor(props) {
       up_count: this.props.placeholder_after, //numbers of up hours
       down_count:this.props.placeholder_before,//numbers of down hours
     };
-   // console.log("state:  " , this.state)
 } 
 set_title(event){
     this.setState({title: event.target.value})
@@ -48,29 +47,7 @@ check_input() //check if the input is valid
   }
   if(this.props.new_or_edit==="edit")
   {
-  //  console.log(this.state)
 
-    
-    // if(this.state.title ==='' )
-    // {
-
-    //   alert("do you want to save the mane")
-    //  // this.setState({title: this.props.chosen_table_title})
-    // }
-    // 
-    // if(this.state.up_count.length===5 && this.state.down_count.length===5  )
-    // { console.log(this.state)
-    //   for (let i =0; i < 5 ; i++){
-    
-    //     if(this.state.up_count[i]=== 'M' || this.state.up_count[i]=== 'Y' || 
-    //         this.state.down_count[i]=== 'M' || this.state.up_count[i]=== 'Y'  )
-    //       { 
-    //         flag=0
-    //       }
-    //       else{flag=1}
-    //   }
-
-    // }
     flag=1
   }
 
@@ -147,7 +124,6 @@ render(){
 
           const serializedState = JSON.stringify(chosen_state)
           localStorage.setItem("chosen_state", JSON.stringify(serializedState));
-          console.log(JSON.stringify(serializedState))
 
           const serializedStateID = JSON.stringify(this.props.id)
           localStorage.setItem("edit_state_id",  JSON.stringify(serializedStateID));

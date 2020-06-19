@@ -20,7 +20,6 @@ class MainWindow extends Component
 
     changeCheckBoxState =(cardID,listID,checkBoxID)=>
     {
-      console.log(checkBoxID);
       this.props.dispatch(changeCheckBoxStateOperation(cardID,listID,checkBoxID));
       this.save_to_db()
     }

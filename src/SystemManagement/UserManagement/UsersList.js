@@ -18,7 +18,6 @@ class UsersList extends Component {
    componentDidMount() {
     axios.get('http://localhost:5000/users/') //GET REQUEST - gets all the tables from the DB
       .then(response => {
-      if (response.data.length===0)return;
       this.setState({ DB_users_info :response.data, data_length:response.data.length, spinner_on:false, })
     })
 

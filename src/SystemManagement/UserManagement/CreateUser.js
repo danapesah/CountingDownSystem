@@ -99,7 +99,6 @@ check_input_and_save(_user_name , _password ,_permissions )
     .then(res => console.log(res.data)) //promise, after its posted well console our the res.data
     // .catch(e=>  console.log(e))
     .finally(
-    console.log(user),
     this.setState({popup_message: "משתמש חדש נוסף למערכת " ,})
     )
     

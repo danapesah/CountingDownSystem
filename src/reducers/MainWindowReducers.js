@@ -23,8 +23,7 @@ try {
     }
     else{
         let chosen_state = JSON.parse(JSON.parse(serializedState ))
-       // console.log(chosen_state.MessageWindow)
-        console.log(chosen_state)
+
         initialState={...chosen_state}
     }
     
@@ -46,7 +45,7 @@ const MainWindowReducers = (state = initialState, action) =>{
     }
     case CONSTANTS.SET_NEW_TABLE:{
         //set a new "clean" state for a new table
-    //  alert("SET_NEW_TABLE")
+  
         const StatusListNew=[]
         const CountDownlistsNew = {
             events:  [],
@@ -68,7 +67,7 @@ const MainWindowReducers = (state = initialState, action) =>{
          let chosen_state = {...newState}
          const serializedState = JSON.stringify(chosen_state)
          localStorage.setItem("chosen_state", JSON.stringify(serializedState));
-         console.log(JSON.stringify(serializedState))
+         
          }  
          catch(e){
          console.log(e)
@@ -88,7 +87,7 @@ const MainWindowReducers = (state = initialState, action) =>{
     
     case CONSTANTS.SET_EDIT_TABLE:{
         //edit the title ,hours_before_target,hours_after_target, 
-    //    alert("SET_EDIT_TABLE")    
+  
         return{...state, 
             title: action.payload.title ,
             hours_before_target:  action.payload.down_count,

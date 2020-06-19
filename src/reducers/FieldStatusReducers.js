@@ -169,7 +169,6 @@ const FieldStatusReducers = (state = initialState, action) =>{
                     button = i;      
                     
             let newStatusList = [...state.StatusList];
-            // console.log(newStatusList[list].cards[card].buttons[button].color)
             if(button !== -1)
             {
             if( newStatusList[list].cards[card].buttons[button].color === "green")
@@ -181,7 +180,6 @@ const FieldStatusReducers = (state = initialState, action) =>{
             else if( newStatusList[list].cards[card].buttons[button].color === "black")
                 newStatusList[list].cards[card].buttons[button].color="green";
             }
-            // console.log(newStatusList);
             return {...state,StatusList:newStatusList};
         
         }

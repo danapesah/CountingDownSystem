@@ -148,8 +148,8 @@ style={{textAlign:"right"}}
       <label style={{fontSize: "19px" , color:"black", fontWeight:'bold' , border: '30px solid white',textAlign:"center",}} > 
       {this.state.popup_message}
       <div><Spinner/> </div> 
-      {this.state._spinner !=="none" ?
-      <div><Spinner/> </div> :null}
+      {/* {this.state._spinner !=="none" ?
+      <div><Spinner/> </div> :null} */}
       </label>
 
 </form>

@@ -58,7 +58,6 @@ update_data_io()
     }
     if(curr_chosen_state_id!==null && curr_chosen_state_id===chosen_state_id )
     {
-      console.log("table saved to the DB") 
       axios.get('http://localhost:5000/counts/') //GET REQUEST
       .then(response => {
       
@@ -76,8 +75,6 @@ update_data_io()
               localStorage.removeItem("chosen_state") 
               let serializedState1 = JSON.stringify(DB_info[i]._system_info_object)
               localStorage.setItem("chosen_state", JSON.stringify(serializedState1));
-            //  console.log("local storage has changed") 
-
                 window.location.reload()
             }
           }
@@ -121,7 +118,6 @@ catch (err)
           StatusList: this.props.FieldStatusReducers.StatusList,
           CountDownlists: this.props.CountDownWindowReducers.CountDownlists
         }
-          console.log("count: SAVE_STATE " , this.props.state);
           axios.post('http://localhost:5000/counts/add',  newState)
           .then(res => console.log(res.data  ),  );//promise, after its posted well console our the res.data
           window.location = '/list';
@@ -139,8 +135,6 @@ catch (err)
             StatusList: this.props.FieldStatusReducers.StatusList,
             CountDownlists: this.props.CountDownWindowReducers.CountDownlists
           }
-          //console.log(this.props.CountDownWindowReducers)
-          console.log("count edit: SAVE_STATE " , newState);
             axios.post('http://localhost:5000/counts/edit/' + curr_location.slice(6), newState)
             .then(res => console.log(res.data)); 
            window.location = '/list';
