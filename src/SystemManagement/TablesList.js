@@ -76,6 +76,7 @@ class TablesList extends Component {
             { 
               let newTable = this.state.DB_info[i]._system_info_object
               newTable.title = "copy "+  this.state.DB_info[i]._system_info_object.title
+              // console.log(this.state.DB_info[i]._system_info_object)
               axios.post('http://localhost:5000/counts/add',  this.state.DB_info[i]._system_info_object)
               .then(res => console.log(res.data  )  )//promise, after its posted well console our the res.data
               //alert("new table added: " +"\""+ newTable.title+"\"")
@@ -86,6 +87,7 @@ class TablesList extends Component {
        | </div>
       : null }
           
+        {/* {this.state.curr_permission === "Admin" || this.state.curr_permission === "Editor" ||this.state.curr_permission === "Viewer " ?   */}
          <div style={{ display:"flex"}} >
         <Link to={"/display"}   onClick={()=>
           
@@ -97,6 +99,7 @@ class TablesList extends Component {
           const serializedStateID = JSON.stringify(this.state.DB_info[i]._id)
           localStorage.setItem("chosen_state", JSON.stringify(serializedState));
           localStorage.setItem("chosen_state_id",  JSON.stringify(serializedStateID));
+
           }  
           catch(e){
           console.log(e)
@@ -181,8 +184,11 @@ class TablesList extends Component {
       );
     }
 }
-// const mapStateToProps = (state)=> ({
-//   // resources: state.CountDownWindowReducers.CountDownlists.resources,
-// })
-export default TablesList ;
+const mapStateToProps = (state)=> ({
+  // resources: state.CountDownWindowReducers.CountDownlists.resources,
+  // events: state.CountDownWindowReducers.CountDownlists.events,
+//  CountDownlists:state.CountDownlists,
+
+})
+export default connect(mapStateToProps)(TablesList) ;
 
