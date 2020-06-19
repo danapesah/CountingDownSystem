@@ -111,13 +111,21 @@ const CountDownWindowReducers = (state = initialState, action) =>{
         }
         case CONSTANTS.ADD_EVENT_COUNTDOWN:
         {    
-        
+            let newID;
+            if(state.CountDownlists.events.length == 0)
+            {
+                newID=0;
+            }
+            else
+            {
+                newID = (state.CountDownlists.events[state.CountDownlists.events.length-1].id+1);
+            }
         const CountDownlistsNew = {
             resources:[...state.CountDownlists.resources],
             events:[
                 ...state.CountDownlists.events,
                 {
-                    id:state.CountDownlists.events.length+1,
+                    id:newID,
                     title:action.payload.title,
                     startHour:action.payload.startHour,
                     endHour:action.payload.endHour, 

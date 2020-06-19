@@ -29,18 +29,6 @@ import Popup from "reactjs-popup"
     popup_message: "משתמש לא קיים במערכת",
   }
 }
-componentDidMount() {
-  axios.get('http://localhost:5000/users/') //GET REQUEST - gets all the tables from the DB
-    .then(response => {
-    if (response.data.length===0)return;
-    this.setState({ DB_users_info :response.data })
-  })
-
-  .catch((error) => { //catch errors 
-    console.log(error);
-  })
-
-}
 
 onChangeUsername(e) { //set the username
 this.setState({
@@ -56,6 +44,19 @@ this.setState({
 
 onSubmit(e) { //check the user input 
 e.preventDefault();
+
+axios.get('http://localhost:5000/users/') //GET REQUEST
+.then(response => {
+if (response.data.length===0)return;
+this.setState({ DB_users_info :response.data })
+}).finally(()=>this.checkUser())
+.catch((error) => { //catch errors 
+console.log(error);
+})
+}
+
+
+checkUser(){
 let temp_permissions=''
 for(let i =  0; i < this.state.DB_users_info.length ; i++){
   if(this.state.username ===  this.state.DB_users_info[i].user_info.username &&

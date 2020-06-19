@@ -5,11 +5,33 @@ const  CountDownEvent = ({id, title,startHourBytes,eventDuration, columID,commen
 {
   const checkIfEditAble=()=>
   {
+    let xColor ="Red";
+    if(color == "Red")
+       xColor="black";
     if(window.location.pathname.search("display") == -1)
-      return <div style={{float:"right",color:"red",cursor:"help", width:"10px",height:"auto"}} onClick={()=>editEvent({id})}>x</div>
+      return <div style={{float:"right",color:xColor,cursor:"help", width:"10px",height:"auto"}} onClick={()=>editEvent({id})}>x</div>
     else
       return(null);
   }
+
+  const checkWhereTitle =(titleLocation)=>
+  {
+    if(eventDuration<50)
+    {
+      if(titleLocation == "popup")
+        return <div style={{borderBottom:"solid",color:"black"}}>{title}</div>
+      if(titleLocation == "event")
+        return(null);
+    }
+    else
+    {
+      if(titleLocation == "popup")
+        return(null);
+    if(titleLocation == "event")
+      return <div style={{textAlign:"right"}}>{title}</div>
+    }
+  }
+
   let textColor;
   if(color == "black")
     textColor = "white";
@@ -53,18 +75,19 @@ const  CountDownEvent = ({id, title,startHourBytes,eventDuration, columID,commen
             {checkIfEditAble()}
             <Popup trigger={<div style={{cursor:"help", width:"15px",height:"auto"}} > ...</div>} position="right center" >
               <div>
-              <div style={{borderRadius:"50%", backgroundColor:nextColor,width:"20px",float:"right",color:"black"}} onClick={()=>changeColor({id})}>=></div>
+              <div style={{borderRadius:"50%", backgroundColor:nextColor,width:"20px",float:"right",color:"black",textAlign:"center"}} onClick={()=>changeColor({id})}>()</div>
                 <div style={{borderBottom:"solid",color:"black"}}>{startHour} - {endHour}</div>
+                {checkWhereTitle("popup")}
                 <div style={{color:"black"}}>{comments}</div>
               </div>
             </Popup>
-            <div  style={{textAlign:"right"}}>{title}</div>
+            {checkWhereTitle("event")}
             </div>
     );
   }
   else
   {
-    alert("נמחקה  "+title+"  המשימה ")
+    // alert("נמחקה  "+title+"  המשימה ")
     editEvent({id})
       return null;
   }
