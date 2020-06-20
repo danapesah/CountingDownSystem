@@ -9,6 +9,7 @@ import {connect } from 'react-redux'
 import {change_to_show_chosen_table_state} from "../Actions"
 import ReactDOM from "react-dom";
 import FlexLayout from "flexlayout-react";
+import TestScheduler from '././countDownWindow/TestScheduler'
 // import { BrowserRouter as Router, Route , useLocation } from "react-router-dom"
 import io from "socket.io-client";
 
@@ -121,7 +122,7 @@ catch (err)
           axios.post('http://localhost:5000/counts/add',  newState)
           .then(res => console.log(res.data  ),  );//promise, after its posted well console our the res.data
           window.location = '/list';
-        }} >שמור טבלה חדשה  </button>:
+        }} >שמור פעילות חדשה  </button>:
           
         <button style={{top:"5%",position:"absolute",left:"3%"}}  onClick={()=>{
           let newState ={
@@ -138,7 +139,7 @@ catch (err)
             axios.post('http://localhost:5000/counts/edit/' + curr_location.slice(6), newState)
             .then(res => console.log(res.data)); 
            window.location = '/list';
-         }} >שמור טבלה ערוכה </button>
+         }} >שמור עריכת פעילות </button>
   } 
       <div className="row">
       <div style={styles.MainOperationWindow} className="col-sm-8"><MainOperationWindow /></div>

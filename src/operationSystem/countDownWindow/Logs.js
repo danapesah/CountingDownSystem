@@ -20,9 +20,9 @@ class Logs extends Component {
     onSelect={(selectedKey) =>   this.setState({_chosen_tab: selectedKey}) }
   >
     <Nav.Item>
-        <Nav.Link href="#countdown" eventKey="#countdown"style={{color:"white", backgroundColor: "green"}} >לשונית ספירה יורדת </Nav.Link>
+        <Nav.Link href="#countdown" eventKey="#countdown"style={{color:"white", backgroundColor: "green"}} >חלון ספירה יורדת </Nav.Link>
     </Nav.Item>
-    <Nav.Item>
+    {/* <Nav.Item>
       <Nav.Link href="#evets" eventKey="#evets" style={{color:"white",backgroundColor: "orange"}} >לשונית לוג אירועים </Nav.Link>
     </Nav.Item>
     <Nav.Item>
@@ -30,7 +30,7 @@ class Logs extends Component {
     </Nav.Item>
     <Nav.Item>
       <Nav.Link href="#air" eventKey="#air" style={{color:"white",backgroundColor: "lightblue"}} >לשונית סגירות אוויר</Nav.Link>
-    </Nav.Item>
+    </Nav.Item> */}
   </Nav>
 <div style={{position:"absolute", top:"50px"}}>
 {this.state._chosen_tab==="#evets" ? "events and table" :
