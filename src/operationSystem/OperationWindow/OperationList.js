@@ -14,16 +14,20 @@ const  OperationList = ({listID,cards, deleteCard,handleChange,handleSubmit,chan
         trigger={<div style={styles.listsContainer,{cursor:"help",fontSize:"40px",paddingTop:"35px",height:"150px"}}className="button">+</div>}
         modal
         onClose={(event)=>handleChange(event,"closeWindow")}
+        contentStyle={{width:"auto", height:"auto"}}
         closeOnDocumentClick>
           {close =>(
               <div>
             <form name="addCard" onSubmit={handleSubmit}>
-            <label >
-                Card Title:
-                <input type="text" name="cardTitle" onChange={(event)=>{handleChange(event,listID)}}/>
+            <label className="center"  style={{color:"black"}}>    :שם הכרטיס
+                <input style={{textAlign:"right"}} type="text" name="cardTitle" onChange={(event)=>{handleChange(event,listID)}}/>
+            
             </label>
-            <label style={{display:"inline-block"}}>
-                 Type:
+          
+            <br/>
+
+            <label className="right" style={{display:"inline-block", color:"black"}}>
+                 
                 <select name= "cardType" style={{display:"inline-block", width:"150px"}} onChange={(event)=>{handleChange(event)}}>
                 <option value={0}>מטוס נוסעים</option>
                 <option value={1}>מטוס קל</option>
@@ -37,9 +41,11 @@ const  OperationList = ({listID,cards, deleteCard,handleChange,handleSubmit,chan
                 <option value={9}>צוללת</option>
                 <option value={10}>אחר</option>
                 </select>
+                :סוג
             </label>
             <br/>
-             <input type="submit" value="Submit" /> 
+
+             <input type="submit" value="אישור" /> 
         </form>  
         <a className="close" onClick={close} style={styles.close}>
             &times;

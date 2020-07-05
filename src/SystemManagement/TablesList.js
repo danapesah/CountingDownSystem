@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect } from 'react-redux'
 import axios from 'axios'
 import { Link } from 'react-router-dom'; //link to different routs
-import TestScheduler from '../operationSystem/countDownWindow/TestScheduler'
+import CountDownMainWindow from '../operationSystem/countDownWindow/CountDownMainWindow'
 import { change_to_show_chosen_table_state , delete_chosen_table} from "../Actions"
 import CountDownAddNewTablePopUp from './CountDownAddNewTablePopUp' //the popup for create new table
 import ConfirmDeletePopup from './ConfirmDeletePopup' //the popup for confirm delete
@@ -169,12 +169,12 @@ class TablesList extends Component {
         <CountDownAddNewTablePopUp 
           new_or_edit={"new"}
           chosen_table_title={''}
-          trigger_name={"הוספת מערכת חדשה"}
-          form_title={"שם המערכת החדשה"}
+          trigger_name={"הוספת פעילות חדשה"}
+          form_title={"שם פעילות החדשה"}
           placeholder_before={"HH:MM"}
           placeholder_after={"HH:MM"} 
           path={"/system"}
-          link_name={"צור טבלה חדשה "}
+          link_name={"צור פעילות חדשה "}
           color={"black"}
         />
         :null}

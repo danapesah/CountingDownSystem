@@ -3,13 +3,10 @@ import MainOperationWindow from './OperationWindow/MainComponent'
 import MainStatusWindow from './FieldStatusWindow/mainComponent'
 import MessageWindow from './MessageWindow/MessageWindow'
 import MainComponentTime from './TimeWindow/MainComponentTime'
-import Logs from './countDownWindow/Logs'
+import CountDownMainWindow from './countDownWindow/CountDownMainWindow'
 import axios from 'axios';
 import {connect } from 'react-redux'
-import {change_to_show_chosen_table_state} from "../Actions"
-import ReactDOM from "react-dom";
-import FlexLayout from "flexlayout-react";
-import TestScheduler from '././countDownWindow/TestScheduler'
+
 // import { BrowserRouter as Router, Route , useLocation } from "react-router-dom"
 import io from "socket.io-client";
 
@@ -149,7 +146,10 @@ catch (err)
       <div  style={ styles.MessageWindow} className="col"><MessageWindow /></div>
       </div>
       <div className="row">
-      <div  className="col-sm-8" style={ styles.Logs}><Logs /></div>
+     
+      <div  className="col-sm-8"   style={ styles.Logs} > 
+      <div style={{textAlign:"center" }} >חלון ספירה יורדת</div>
+        <div ><CountDownMainWindow /></div></div>
       <div style={ styles.MainStatusWindow} className="col-sm-4"><MainStatusWindow /></div>
       
       </div>

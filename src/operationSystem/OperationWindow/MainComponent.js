@@ -71,15 +71,17 @@ if(window.location.pathname ==='/display')
             modal
             closeOnEscape
             repositionOnResize
+            contentStyle={{width:"auto", height:"auto"}}
             closeOnDocumentClick>
             {close =>(
             <div >
             <form name="addRow" onSubmit={this.handleSubmit}>
-                <label style={{float:"center"}} >
-                    Row Title:
-                    <input  type="text" name="addRow" value={this.state.rowTitle} onChange={this.handleChange}/>
+                <label className="center" style={{float:"center", color:"black"}} >
+                    :שם השורה
+                    <input style={{textAlign:"right"}}  type="text" name="addRow" value={this.state.rowTitle} onChange={this.handleChange}/>
                 </label>
-                 <input type="submit" value="Submit" /> 
+                <br/>
+                 <input  className="left" type="submit" value="אישור" /> 
             </form>  
             <button className="close" onClick={close} style={styles.close}>
             &times;
@@ -101,18 +103,20 @@ if(window.location.pathname ==='/display')
             modal
             closeOnEscape
             repositionOnResize
+            contentStyle={{width:"auto", height:"auto"}}
             closeOnDocumentClick>
             {close =>(
             <div >
             <form name="deleteRow" onSubmit={this.handleSubmit}>
-                <label style={{float:"center"}} >
-                    Row Title:
+                <label  className="center" style={{float:"center", color:"black"}} >
+           
                     <select name= "deleteRow" style={{display:"inline-block", width:"auto"}} onChange={this.handleChange}>
-                    {this.props.operationRows.map((row,i)=>(<option key={i} value={i}>{row}</option>))}
-                    
+                    {this.props.operationRows.map((row,i)=>(<option style={{fontSize:"22px"}} key={i} value={i}>{row}</option>))}
                     </select>
+                    :שם השורה
                 </label>
-                 <input type="submit" value="Submit" /> 
+                <br/>
+                 <input  className="left" type="submit" value="אישור" /> 
             </form>  
             <a className="close" onClick={close} style={styles.close}>
             &times;
@@ -200,17 +204,19 @@ if(window.location.pathname ==='/display')
             modal
             closeOnEscape
             repositionOnResize
+            contentStyle={{width:"auto", height:"auto"}}
             closeOnDocumentClick>
             {close =>(
             <div >
             <form name="deleteList" onSubmit={(event)=>this.handleSubmit(event,"closeWindow")}>
-                <label style={{float:"center"}} >
-                    List Number:
+                <label style={{float:"center",color:"black"}} >
+               
                     <select name= "deleteList" style={{display:"inline-block", width:"auto"}} onChange={this.handleChange}>
-                    {this.props.lists.map((list,i)=>(<option key={i} value={list.listID}>{i+1}</option>))}
+                    {this.props.lists.map((list,i)=>(<option style={{fontSize:"22px"}} key={i} value={list.listID}>{i+1}</option>))}
                     </select>
+                    :מספר רשימה
                 </label><br/>
-                 <input type="submit" value="Submit" /> 
+                 <input type="submit" value="אישור" /> 
             </form>  
             <a className="close" onClick={close} style={styles.close}>
             &times;

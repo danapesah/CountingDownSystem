@@ -113,13 +113,15 @@ save_to_db(){
             <Popup
             trigger={ <button style={{float:"right",width:"auto",height:"auto", marginLeft:"5px", marginRight:"5px"}}>הוספת רשימה</button>}
             modal
-            closeOnDocumentClick>
-           <form name="addList" onSubmit={this.handleSubmit} >
-                <label style={{float:"center"}} >
-                    List Title:
-                    <input  type="text" name="addList" onChange={this.handleChange} />
+            closeOnDocumentClick
+            contentStyle={{width:"auto", height:"auto"}}>
+           <form name="addList" onSubmit={this.handleSubmit}  >
+                <label className="center" style={{color:"black"}} >
+                :שם הרשימה
+                    <input style={{textAlign:"right"}}  type="text" name="addList" onChange={this.handleChange} />
                 </label>
-                 <input type="submit" value="Submit" /> 
+                <br/>
+                 <input className="left" type="submit" value="אישור" /> 
             </form>  
           </Popup>)
         else
@@ -132,7 +134,7 @@ save_to_db(){
     {
         let inputListArray=[];
         this.props.lists.map((list,i)=>{
-        inputListArray.push(<option key={i} value={list.listID}>{list.listTitle}</option>)})
+        inputListArray.push(<option style={{fontSize:"22px"}} key={i} value={list.listID}>{list.listTitle}</option>)})
         return inputListArray;
         
    }
@@ -142,17 +144,21 @@ save_to_db(){
        if(window.location.pathname.search("display") == -1 && this.props.lists.length>0)
            return(
            <Popup
+           style={{width:"20px"}}
            trigger={ <button style={{float:"right",cursor:"help",display:"inline"}}>מחיקת רשימה</button>}
            modal
+           contentStyle={{width:"auto", height:"auto"}}
            closeOnDocumentClick>
           <form name="deleteList" onSubmit={this.handleSubmit}>
-          <label style={{display:"inline-block"}}>
-                Card Title:
+          <label style={{display:"inline-block", float:"right", color:"black"}}>
+             
                <select name= "deleteList" style={{display:"inline-block", width:"auto"}} onChange={this.handleChange}>
                    {this.makeSelectInput()}
                </select>
+               :שם כרטיס
            </label>
-                <input type="submit" value="Submit" /> 
+           <br/><br/>
+                <input className="left"  type="submit" value="אישור" /> 
            </form>  
          </Popup>)
          else

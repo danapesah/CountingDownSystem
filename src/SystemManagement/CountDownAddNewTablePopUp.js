@@ -35,8 +35,8 @@ check_input() //check if the input is valid
     {
       for (let i =0; i < 5 ; i++){
     
-        if(this.state.up_count[i]=== 'M' || this.state.up_count[i]=== 'Y' || 
-            this.state.down_count[i]=== 'M' || this.state.down_count[i]=== 'Y'  )
+        if(this.state.up_count[i]=== 'H' || this.state.up_count[i]=== 'M' || 
+            this.state.down_count[i]=== 'H' || this.state.down_count[i]=== 'M'  )
           { 
             flag=0
           }
@@ -67,7 +67,6 @@ render(){
         onMouseOver={(e) =>{ e.target.style.textDecorationLine= 'underline';e.target.style.fontWeight='bold';e.target.style.color="blue"} }
         onMouseOut={(e) =>{ e.target.style.textDecorationLine= null ; e.target.style.fontWeight=null ;  e.target.style.color= this.props.color}} 
         >{this.props.trigger_name}</div>}
-        
         modal closeOnDocumentClick 
         contentStyle={{width:"auto", height:"auto"}}
         >
@@ -77,7 +76,7 @@ render(){
             <label style={{paddingLeft:"120px",color:"black" }} >
             {this.props.form_title}
 
-            <input type="text"  value = {this.state.title} onChange={(event)=>{this.set_title(event)}} />
+            <input style={{textAlign:"right"}} type="text"  value = {this.state.title} onChange={(event)=>{this.set_title(event)}} />
             
             </label>
             <br></br>
@@ -85,7 +84,7 @@ render(){
             <label style={{paddingLeft:"120px", color:"black" }}>
                 <NumberFormat  name="startHour" format="##:##" placeholder={this.props.placeholder_before} 
                 
-                mask={['M', 'M', 'Y', 'Y']}   
+                mask={['H', 'H', 'M', 'M']}   
               
               onChange={(event)=>this.set_num_of_down_count(event)}  style={{width:"100px",color:"black"}}/>
               שעות לפני הספירה
@@ -94,7 +93,7 @@ render(){
             <br></br> 
             <label style={{paddingLeft:"120px" , color:"black"}}>
               <NumberFormat name="startHour" format="##:##" placeholder={this.props.placeholder_after} 
-              mask={['M', 'M', 'Y', 'Y']} onChange={(event)=>this.set_num_of_up_count(event)}  style={{width:"100px", color:"black"}}/>
+              mask={['H', 'H', 'M', 'M']} onChange={(event)=>this.set_num_of_up_count(event)}  style={{width:"100px", color:"black"}}/>
              שעות אחרי הספירה
 
             </label>
