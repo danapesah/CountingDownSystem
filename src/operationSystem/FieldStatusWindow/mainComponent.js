@@ -3,8 +3,9 @@ import { connect  } from 'react-redux'
 import StatusList from './StatusList'
 import Popup from "reactjs-popup";
 import { deleteButtonFieldStatus, addButtonFieldStatus ,addCardFieldStatus, deleteCardFieldStatus,deleteListFieldStatus, addListFieldStatus,changeColorButtonFieldStatus } from "../../Actions";
-import io from "socket.io-client"
 import axios from 'axios'
+import socket from "../../SystemManagement/socketConfig";
+
 class MainComponent extends Component
 {
     state=
@@ -32,7 +33,6 @@ save_to_db(){
             axios.post('http://localhost:5000/counts/edit/' + chosen_state_id, copy_state)
             .then(res => console.log(res.data)).
             finally (function (){
-            let socket = io.connect('http://localhost:4000')
             socket.emit("update_message" ,copy_state,chosen_state_id)
             })
                 

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import io from "socket.io-client";
 import {connect } from 'react-redux'
-const socket = io.connect('http://localhost:4000');
+import socket from "../../SystemManagement/socketConfig";
 
 class CountDownBar extends Component
 {

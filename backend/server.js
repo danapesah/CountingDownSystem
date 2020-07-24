@@ -84,6 +84,9 @@ io.on('connection', (socket) => {
     io.sockets.emit('table saved to the DB', chosen_state_id);
  })
 
+ io.on('connection', function (socket) {
+  console.log( socket.client.conn.server.clientsCount + " users connected" );
+});
 
  serverUDPCDRC.on('message', function(message, remote) {
    if(message != udpCDRCMessage)

@@ -6,19 +6,17 @@ import MainComponentTime from './TimeWindow/MainComponentTime'
 import CountDownMainWindow from './countDownWindow/CountDownMainWindow'
 import axios from 'axios';
 import {connect } from 'react-redux'
-
-// import { BrowserRouter as Router, Route , useLocation } from "react-router-dom"
-import io from "socket.io-client";
-
+import socket from "../SystemManagement/socketConfig";
+// import io from "socket.io-client";
+// const socket = null;
 class MainWindow extends React.Component {
+
 update_data_io() 
 {  //update the data from the db by listening to the socket
 
   try {
     if(window.location.pathname ==='/display')
     {
-     
-      const socket = io.connect('http://localhost:4000')
       socket.on("update_message",( data ,id) => {
         let chosen_state_id=null
         let DB_info = null
@@ -39,8 +37,7 @@ update_data_io()
           console.log(err)
         }
     })//socket
-    const socket1 = io.connect('http://localhost:4000')
-    socket1.on("table saved to the DB", chosen_state_id => {
+    socket.on("table saved to the DB", chosen_state_id => {
       let  curr_chosen_state_id =null
       try {
         const serializedStateID = localStorage.getItem("chosen_state_id"); 
@@ -140,7 +137,7 @@ catch (err)
   } 
       <div className="row">
       <div style={styles.MainOperationWindow} className="col-sm-8"><MainOperationWindow /></div>
-      <div style={ styles.MainComponentTime} className="col-sm-4"><MainComponentTime /></div>
+      <div   style={ styles.MainComponentTime} className="col-sm-4"><MainComponentTime /></div>
       </div>
       <div className="row">
       <div  style={ styles.MessageWindow} className="col"><MessageWindow /></div>
