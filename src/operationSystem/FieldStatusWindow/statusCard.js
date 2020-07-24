@@ -29,13 +29,15 @@ const StatusCard = ({title ,buttons, changeColor,cardID, listID, deleteButton, a
             <Popup
             trigger={ <Button style={{width:"auto",height:"auto", marginRight:"10px"}}>+</Button>}
             modal
+            contentStyle={{width:"auto", height:"auto"}}
             closeOnDocumentClick>
            <form onSubmit={handleSubmit} >
-                <label style={{float:"center"}} >
-                    Button Title:
+                <label style={{float:"center", color:"black"}} >
+                    :שם כפתור
                     <input  type="text" name="button" onChange={handleChange} />
                 </label>
-                 <input type="submit" value="Submit" /> 
+                <br/>
+                 <input className="left" type="submit" value="אישור" /> 
             </form>  
           </Popup>)
         else 

@@ -29,8 +29,6 @@ try {
     }
     else{
         let chosen_state = JSON.parse(JSON.parse(serializedState ))
-        console.log(chosen_state.MessageWindow)
-        console.log(chosen_state)
         initialState={...chosen_state}
     }
     
@@ -93,7 +91,7 @@ const CountDownWindowReducers = (state = initialState, action) =>{
                 resources:newResourcesList,
                 events:newEventsList
              } 
-             console.log(state);
+            
              return {...state,CountDownlists: CountDownlistsNew };    
         };
         case CONSTANTS.ADD_ENTITY_COUNTDOWN:{
@@ -110,16 +108,16 @@ const CountDownWindowReducers = (state = initialState, action) =>{
             return {...state,CountDownlists: CountDownlistsNew };
         }
         case CONSTANTS.ADD_EVENT_COUNTDOWN:
-        {
-        let newID;
-        if(state.CountDownlists.events.length == 0)
-        {
-            newID=0;
-        }
-        else
-        {
-            newID = (state.CountDownlists.events[state.CountDownlists.events.length-1].id+1);
-        }
+        {    
+            let newID;
+            if(state.CountDownlists.events.length == 0)
+            {
+                newID=0;
+            }
+            else
+            {
+                newID = (state.CountDownlists.events[state.CountDownlists.events.length-1].id+1);
+            }
         const CountDownlistsNew = {
         
             resources:[...state.CountDownlists.resources],

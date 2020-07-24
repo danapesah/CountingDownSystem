@@ -87,7 +87,7 @@ const  CountDownEvent = ({id, title,startHourBytes,eventDuration, columID,commen
   }
   else
   {
-    // alert("נמחקה  "+title+"  המשימה ")
+    
     editEvent({id})
       return null;
   }

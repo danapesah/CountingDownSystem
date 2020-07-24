@@ -39,14 +39,16 @@ const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, 
             <Popup
             trigger={ <div style={{color:"green",cursor:"help", width:"2px",height:"auto",display:"inline", marginRight:"5px", fontSize:"12px"}}>+הוספת כרטיס </div>}
             modal
+            contentStyle={{width:"auto", height:"auto"}}
             closeOnDocumentClick>
            <form name="addCard" onSubmit={handleSubmit} >
-                <label style={{float:"center"}} >
-                    Card Title:
-                    <input  type="text" name="cardTitle" onChange={handleChange} />
-                    <textarea name="cardComments" onChange={handleChange} placeholder="Extra Comments"/>
+                <label style={{float:"center",color:"black"}} >
+                    :שם הכרטיס
+                    <input  style={{textAlign:"right"}}  type="text" name="cardTitle" onChange={handleChange} />
+                    <textarea style={{textAlign:"right", color:"black"}} name="cardComments" onChange={handleChange} placeholder="הערות נוספות"/>
                 </label>
-                 <input type="submit" value="Submit" /> 
+                <br/>
+                 <input className="left" type="submit" value="אישור" /> 
             </form>  
           </Popup>)
           else
@@ -58,7 +60,7 @@ const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, 
      {
          let inputCardArray=[];
         cards.map((card,i)=>{
-        inputCardArray.push(<option key={i} value={card.cardID}>{card.cardTitle}</option>)})
+        inputCardArray.push(<option style={{fontSize:"22px"}} key={i} value={card.cardID}>{card.cardTitle}</option>)})
          return inputCardArray;
     }
     const deleteAble =()=>
@@ -69,15 +71,18 @@ const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, 
             <Popup
             trigger={ <div style={{color:"red",cursor:"help", width:"2px",height:"auto",display:"inline", marginRight:"10px", fontSize:"12px"}}>-מחיקת כרטיס</div>}
             modal
+            contentStyle={{width:"auto", height:"auto"}}
             closeOnDocumentClick>
            <form name="deleteCard" onSubmit={handleSubmit} >
-           <label style={{display:"inline-block"}}>
-                 Card Title:
+           <label style={{display:"inline-block" , color:"black"}}>
+         
                 <select name= "deleteCard" style={{display:"inline-block", width:"auto"}} onChange={handleChange}>
                     {makeSelectInput()}
                 </select>
+                :שם הכרטיס
             </label>
-                 <input name="deleteCard" type="submit" value="Submit" /> 
+            <br/>
+                 <input className="left" name="deleteCard" type="submit" value="אישור" /> 
             </form>  
           </Popup>)
           else

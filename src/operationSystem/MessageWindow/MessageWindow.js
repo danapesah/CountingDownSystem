@@ -52,7 +52,6 @@ class  MessageWindow  extends React.Component  {
   }
   handleChange=(event)=>
    {
-     console.log(event.target.value)
      this.setState({message: event.target.value})
    }
 
@@ -63,18 +62,19 @@ class  MessageWindow  extends React.Component  {
         let success = this.save_to_db()
      }   
    editMessage=()=>
-   { //CHECK IF EDITABLE
+   { 
      if(true)
       return(
         <Popup
         trigger={<button style={{float:"right",position:"absolute", width:"25px", height:"25px"}}>+</button>}
         modal
+        contentStyle={{textAlign:"right"}}
         closeOnDocumentClick>
           {close =>(
               <div>
                <form onSubmit={this.handleSubmit}>
-              <textarea name="comments" onChange={this.handleChange} defaultValue={this.state.message} style={{height:"250px"}}/>
-              <input type="submit" value="Submit" /> 
+              <textarea name="comments" onChange={this.handleChange} defaultValue={this.state.message} style={{height:"250px", textAlign:"right"}}/>
+              <input type="submit" value="אישור" /> 
               </form>  
               <a className="close" onClick={close} style={styles.close}>
                &times;

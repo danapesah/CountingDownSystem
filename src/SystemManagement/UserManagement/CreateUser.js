@@ -19,8 +19,6 @@ constructor(props) {
   this.onChangePassword =this.onChangePassword.bind(this);
   this.onChangePermissions =this.onChangePermissions.bind(this);
 
-  // this.onSubmit = this.onSubmit.bind(this);
-
   this.state = {
     username: '',
     password:'',
@@ -36,11 +34,12 @@ constructor(props) {
   }
 }
 componentDidMount() {
-  axios.get('http://localhost:5000/users/') //GET REQUEST
+  axios.get('http://localhost:5000/users/') //GET REQUEST - gets all the tables from the DB
     .then(response => {
     if (response.data.length===0)return;
-    this.setState({ DB_users_info :response.data, data_length:response.data.length, spinner_on:false,})
-   // console.log(this.state.DB_users_info)
+    this.setState({ DB_users_info :response.data, 
+      data_length:response.data.length, spinner_on:false,})
+
     try {
       const serializedState = localStorage.getItem("chosen_state");
       const serializedStateID = localStorage.getItem("chosen_state_id");
@@ -68,8 +67,6 @@ check_input_and_save(_user_name , _password ,_permissions )
 {//check if the  input is legal and if the username isnt already exist in the db
   if(_user_name!=='' && _password!=='' && _permissions!== ''  )
   {
-    //console.log(user);
-
       for(let i=0 ; i < this.state.data_length ; i ++ )
       { 
 
@@ -91,7 +88,6 @@ check_input_and_save(_user_name , _password ,_permissions )
         return;
       }
 
-
       const user = {
         username:_user_name,
         password: _password,
@@ -103,12 +99,9 @@ check_input_and_save(_user_name , _password ,_permissions )
     .then(res => console.log(res.data)) //promise, after its posted well console our the res.data
     // .catch(e=>  console.log(e))
     .finally(
-    console.log(user),
     this.setState({popup_message: "משתמש חדש נוסף למערכת " ,})
     )
     
-
-
   }
 }
 onChangeUsername(e) {

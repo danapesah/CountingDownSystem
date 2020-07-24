@@ -17,6 +17,7 @@ class Routes extends Component {
         super(props)
         this.state={
           _user_already_logged : false,
+<<<<<<< HEAD
         }
       }
   componentDidMount() {
@@ -27,12 +28,113 @@ class Routes extends Component {
           this.setState({_user_already_logged:true})
         }
       } catch (err) {
+=======
+          _curr_location: 'page_found',
+        }
+      }
+componentDidMount(){
+
+  this.check_path_name()     
+}
+
+check_path_name(){
+  try {
+    const curr_login = localStorage.getItem("login_info");
+    const _edit_id = localStorage.getItem("edit_state_id");
+    const _display_id = localStorage.getItem("chosen_state_id");
+    const _chosen_state = localStorage.getItem("chosen_state");
+    if (curr_login !== null ) 
+    {
+      let _user_info_parse = JSON.parse(JSON.parse(curr_login))
+      let parse_permission = _user_info_parse.permissions
+       this.setState({_user_already_logged:true,})
+      //alert(_user_info_parse.permissions)
+      if( window.location.pathname === "/display" && _display_id===null  )
+      {
+        this.setState({_curr_location:"page_not_found"})
+      }
+      
+      if(_user_info_parse.permissions==="Admin")
+      {//Admin Only
+        if (window.location.pathname !== "/" && 
+        window.location.pathname.search("/delete") === -1  && 
+        window.location.pathname !== "/list" &&
+        window.location.pathname.search("/edit") === -1 &&
+        window.location.pathname !== "/system" &&
+        window.location.pathname !== "/display" &&
+        window.location.pathname !== "/user" &&
+        window.location.pathname !== "/usersList" )
+        {  
+          this.setState({_curr_location:"page_not_found"})
+        //  return;
+        } 
+
+        if( window.location.pathname.search("/edit") !== -1 && _edit_id!==null )
+        {
+          try{
+          let tempID = JSON.parse(JSON.parse(_edit_id))
+          let temp_path_id =window.location.pathname.slice(window.location.pathname.indexOf("edit")+5) 
+           if(temp_path_id !== tempID)
+           {
+            this.setState({_curr_location:"page_not_found"})
+            }
+          }
+          catch (err) {
+          return err
+          } 
+        }
+        if( window.location.pathname === "/system" && _chosen_state===null  )
+        {
+          this.setState({_curr_location:"page_not_found"})
+        }
+
+    }
+
+      if(_user_info_parse.permissions==="Editor")
+      {//Editor Only
+        if (window.location.pathname !== "/" && 
+        window.location.pathname !== "/list" &&
+        window.location.pathname.search("/edit") === -1 &&
+        window.location.pathname !== "/display")
+        {  
+          this.setState({_curr_location:"page_not_found"})
+        } 
+        if( window.location.pathname.search("/edit") !== -1 && _edit_id!==null  )
+        try{
+          let tempID = JSON.parse(JSON.parse(_edit_id))
+          let temp_path_id =window.location.pathname.slice(window.location.pathname.indexOf("edit")+5) 
+          if(temp_path_id !== tempID)
+          {
+            this.setState({_curr_location:"page_not_found"})
+          }
+        }
+        catch (err) {
+          return err
+      }
+      }
+
+
+      if(_user_info_parse.permissions==="Viewer")
+      {//Viewer Only
+        if (window.location.pathname !== "/" && 
+        window.location.pathname !== "/list" &&
+        window.location.pathname !== "/display")
+        {  
+          this.setState({_curr_location:"page_not_found"})
+        } 
+      }
+     }
+    } 
+      
+      catch (err) {
+>>>>>>> master
         return err;
       }
   
   }
 
 
+<<<<<<< HEAD
     render(){
     return (
        
@@ -43,6 +145,14 @@ class Routes extends Component {
         <Switch>
            <div >
            <br/>
+=======
+render(){
+return (
+       
+<div>
+    
+{ this.state._curr_location === 'page_found' &&  this.state._user_already_logged === true ?
+>>>>>>> master
 
          { this.state._user_already_logged === false ? 
            <div >

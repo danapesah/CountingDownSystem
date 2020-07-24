@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect } from 'react-redux'
+<<<<<<< HEAD
 import axios from 'axios';
 import { Link , BrowserRouter , useLocation  } from 'react-router-dom'; //link to different routs
 import { change_to_show_chosen_table_state , delete_chosen_table} from "../Actions";
@@ -7,6 +8,16 @@ import CountDownAddNewTablePopUp from './CountDownAddNewTablePopUp'; //the popup
 import ConfirmDeletePopup from './ConfirmDeletePopup'; //the popup for confirm delete
 import openSocket from 'socket.io-client';
 import io from "socket.io-client";
+=======
+import axios from 'axios'
+import { Link } from 'react-router-dom'; //link to different routs
+import CountDownMainWindow from '../operationSystem/countDownWindow/CountDownMainWindow'
+import { change_to_show_chosen_table_state , delete_chosen_table} from "../Actions"
+import CountDownAddNewTablePopUp from './CountDownAddNewTablePopUp' //the popup for create new table
+import ConfirmDeletePopup from './ConfirmDeletePopup' //the popup for confirm delete
+import openSocket from 'socket.io-client'
+import io from "socket.io-client"
+>>>>>>> master
 import Spinner from "./Spinner"
 
 class TablesList extends Component {
@@ -23,7 +34,6 @@ class TablesList extends Component {
      
     axios.get('http://localhost:5000/counts/') //GET REQUEST
       .then(response => {
-      if (response.data.length===0)return;
       this.setState({ 
         DB_info :response.data, 
         data_length:response.data.length,
@@ -34,10 +44,10 @@ class TablesList extends Component {
     .catch((error) => { //catch errors 
       console.log(error);
     })
-    //.removeItem("chosen_state") while exit edit/display
+    //removeItem("chosen_state") while exit edit/display
     try {
-      const serializedState = localStorage.getItem("chosen_state"); //''something
-      const login_info_state = localStorage.getItem("login_info"); //''something  
+      const serializedState = localStorage.getItem("chosen_state"); 
+      const login_info_state = localStorage.getItem("login_info"); 
       const serializedStateID = localStorage.getItem("chosen_state_id");
       const edit_state_id = localStorage.getItem("edit_state_id");
       if (serializedStateID !== null ) {
@@ -45,7 +55,6 @@ class TablesList extends Component {
       }
       if (serializedState !== null ) {
         localStorage.removeItem("chosen_state") 
-        //let chosen_state = JSON.parse(JSON.parse(serializedState ))
       }
       if (edit_state_id !== null ) {
         localStorage.removeItem("edit_state_id") 
@@ -80,7 +89,7 @@ class TablesList extends Component {
               // console.log(this.state.DB_info[i]._system_info_object)
               axios.post('http://localhost:5000/counts/add',  this.state.DB_info[i]._system_info_object)
               .then(res => console.log(res.data  )  )//promise, after its posted well console our the res.data
-              alert("new table added: " +"\""+ newTable.title+"\"")
+              //alert("new table added: " +"\""+ newTable.title+"\"")
             }
           }
         >העתקת פעילות  </Link>
@@ -101,7 +110,6 @@ class TablesList extends Component {
           localStorage.setItem("chosen_state", JSON.stringify(serializedState));
           localStorage.setItem("chosen_state_id",  JSON.stringify(serializedStateID));
 
-         //  console.log(JSON.stringify(serializedStateID))
           }  
           catch(e){
           console.log(e)
@@ -118,7 +126,7 @@ class TablesList extends Component {
           new_or_edit={"edit"}
           chosen_table_title={this.state.DB_info[i]._system_info_object.title}
           trigger_name={"עריכת פעילות"}
-          form_title={this.state.DB_info[i]._system_info_object.title + " : עריכת מערכת "}
+          form_title={this.state.DB_info[i]._system_info_object.title + " : עריכת פעילות "}
           placeholder_before={this.state.DB_info[i]._system_info_object.hours_before_target} 
           placeholder_after={this.state.DB_info[i]._system_info_object.hours_after_target} 
           path={"/edit/"+this.state.DB_info[i]._id}
@@ -171,12 +179,12 @@ class TablesList extends Component {
         <CountDownAddNewTablePopUp 
           new_or_edit={"new"}
           chosen_table_title={''}
-          trigger_name={"הוספת מערכת חדשה"}
-          form_title={"שם המערכת החדשה"}
+          trigger_name={"הוספת פעילות חדשה"}
+          form_title={"שם פעילות החדשה"}
           placeholder_before={"HH:MM"}
           placeholder_after={"HH:MM"} 
           path={"/system"}
-          link_name={"צור טבלה חדשה "}
+          link_name={"צור פעילות חדשה "}
           color={"black"}
         />
         :null}

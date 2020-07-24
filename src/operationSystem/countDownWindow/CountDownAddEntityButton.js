@@ -12,7 +12,7 @@ class CountDownAddEntityButton extends Component
   inputValidtion =()=>
   {
     if(this.state.title != "")
-      return  <input type="submit" value="Submit" /> 
+      return ( <div> <br/> <input type="submit" value="אישור" />  </div> )
   }
 
   handleChange=(event)=>
@@ -38,13 +38,14 @@ class CountDownAddEntityButton extends Component
             modal
             closeOnEscape
             repositionOnResize
+            contentStyle={{width:"auto", height:"auto"}}
             closeOnDocumentClick>
             {close =>(
               <div>
            <form onSubmit={this.handleSubmit} >
-                <label >
-                    Entity Title:
-                    <input type="text" name="title" onChange={this.handleChange} />
+                <label style={{ color:"black"}} className="center">
+                :שם עמודה
+                    <input style={{textAlign:"right"}}type="text" name="title" onChange={this.handleChange} />
                 </label>
                 {this.inputValidtion()}
             </form> 

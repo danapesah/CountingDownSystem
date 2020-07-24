@@ -27,7 +27,6 @@ class MyNavbar extends Component {
         if (serializedState !== null &&( window.location.pathname.search("display")!== -1 ) || window.location.pathname.search("edit")!== -1 )  {
           let _chosen_state_parse = JSON.parse(JSON.parse(serializedState ))
           this.setState({chosen_system_title: _chosen_state_parse.title})
-         // console.log(_chosen_state_parse.title)
         }
         if (serializedStateInfo !== null) {
           let _user_info_parse = JSON.parse(JSON.parse(serializedStateInfo ))
@@ -52,7 +51,7 @@ render() {
   <div style={{backgroundColor:"#343a40", width : "100%" , height:"85px", color:"white",paddingLeft:"50px"}}>
   <div > 
   <h4 style={{textAlign:"center"}}> 
-{/* {  alert(this.state.chosen_system_title)} */}
+
   
   { this.state.chosen_system_title !== '' ?
 

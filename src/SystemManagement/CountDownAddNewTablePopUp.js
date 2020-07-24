@@ -16,7 +16,6 @@ constructor(props) {
       up_count: this.props.placeholder_after, //numbers of up hours
       down_count:this.props.placeholder_before,//numbers of down hours
     };
-   // console.log("state:  " , this.state)
 } 
 set_title(event){
     this.setState({title: event.target.value})
@@ -36,8 +35,8 @@ check_input() //check if the input is valid
     {
       for (let i =0; i < 5 ; i++){
     
-        if(this.state.up_count[i]=== 'M' || this.state.up_count[i]=== 'Y' || 
-            this.state.down_count[i]=== 'M' || this.state.down_count[i]=== 'Y'  )
+        if(this.state.up_count[i]=== 'H' || this.state.up_count[i]=== 'M' || 
+            this.state.down_count[i]=== 'H' || this.state.down_count[i]=== 'M'  )
           { 
             flag=0
           }
@@ -48,29 +47,7 @@ check_input() //check if the input is valid
   }
   if(this.props.new_or_edit==="edit")
   {
-  //  console.log(this.state)
 
-    
-    // if(this.state.title ==='' )
-    // {
-
-    //   alert("do you want to save the mane")
-    //  // this.setState({title: this.props.chosen_table_title})
-    // }
-    // 
-    // if(this.state.up_count.length===5 && this.state.down_count.length===5  )
-    // { console.log(this.state)
-    //   for (let i =0; i < 5 ; i++){
-    
-    //     if(this.state.up_count[i]=== 'M' || this.state.up_count[i]=== 'Y' || 
-    //         this.state.down_count[i]=== 'M' || this.state.up_count[i]=== 'Y'  )
-    //       { 
-    //         flag=0
-    //       }
-    //       else{flag=1}
-    //   }
-
-    // }
     flag=1
   }
 
@@ -90,7 +67,6 @@ render(){
         onMouseOver={(e) =>{ e.target.style.textDecorationLine= 'underline';e.target.style.fontWeight='bold';e.target.style.color="blue"} }
         onMouseOut={(e) =>{ e.target.style.textDecorationLine= null ; e.target.style.fontWeight=null ;  e.target.style.color= this.props.color}} 
         >{this.props.trigger_name}</div>}
-        
         modal closeOnDocumentClick 
         contentStyle={{width:"auto", height:"auto"}}
         >
@@ -100,7 +76,7 @@ render(){
             <label style={{paddingLeft:"120px",color:"black" }} >
             {this.props.form_title}
 
-            <input type="text"  value = {this.state.title} onChange={(event)=>{this.set_title(event)}} />
+            <input style={{textAlign:"right"}} type="text"  value = {this.state.title} onChange={(event)=>{this.set_title(event)}} />
             
             </label>
             <br></br>
@@ -108,7 +84,7 @@ render(){
             <label style={{paddingLeft:"120px", color:"black" }}>
                 <NumberFormat  name="startHour" format="##:##" placeholder={this.props.placeholder_before} 
                 
-                mask={['M', 'M', 'Y', 'Y']}   
+                mask={['H', 'H', 'M', 'M']}   
               
               onChange={(event)=>this.set_num_of_down_count(event)}  style={{width:"100px",color:"black"}}/>
               שעות לפני הספירה
@@ -117,7 +93,7 @@ render(){
             <br></br> 
             <label style={{paddingLeft:"120px" , color:"black"}}>
               <NumberFormat name="startHour" format="##:##" placeholder={this.props.placeholder_after} 
-              mask={['M', 'M', 'Y', 'Y']} onChange={(event)=>this.set_num_of_up_count(event)}  style={{width:"100px", color:"black"}}/>
+              mask={['H', 'H', 'M', 'M']} onChange={(event)=>this.set_num_of_up_count(event)}  style={{width:"100px", color:"black"}}/>
              שעות אחרי הספירה
 
             </label>
@@ -147,7 +123,6 @@ render(){
 
           const serializedState = JSON.stringify(chosen_state)
           localStorage.setItem("chosen_state", JSON.stringify(serializedState));
-          console.log(JSON.stringify(serializedState))
 
           const serializedStateID = JSON.stringify(this.props.id)
           localStorage.setItem("edit_state_id",  JSON.stringify(serializedStateID));

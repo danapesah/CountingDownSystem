@@ -29,34 +29,34 @@ import Popup from "reactjs-popup"
     popup_message: "משתמש לא קיים במערכת",
   }
 }
-componentDidMount() {
-  axios.get('http://localhost:5000/users/') //GET REQUEST
-    .then(response => {
-    if (response.data.length===0)return;
-    this.setState({ DB_users_info :response.data })
-    //console.log(this.state.DB_users_info)
-  })
 
-  .catch((error) => { //catch errors 
-    console.log(error);
-  })
-
-}
-
-onChangeUsername(e) {
+onChangeUsername(e) { //set the username
 this.setState({
   username: e.target.value
 })
 }
-onChangePassword(e) {
+onChangePassword(e) { //set the password
 
 this.setState({
     password: e.target.value
   })
 }
 
-onSubmit(e) {
+onSubmit(e) { //check the user input 
 e.preventDefault();
+
+axios.get('http://localhost:5000/users/') //GET REQUEST
+.then(response => {
+if (response.data.length===0)return;
+this.setState({ DB_users_info :response.data })
+}).finally(()=>this.checkUser())
+.catch((error) => { //catch errors 
+console.log(error);
+})
+}
+
+
+checkUser(){
 let temp_permissions=''
 for(let i =  0; i < this.state.DB_users_info.length ; i++){
   if(this.state.username ===  this.state.DB_users_info[i].user_info.username &&
@@ -83,8 +83,7 @@ for(let i =  0; i < this.state.DB_users_info.length ; i++){
         catch(e){
           console.log(e)
         }   
-    //  window.location="/list"
-      
+    //  window.location="/list"    
   }
  
 }
@@ -95,73 +94,72 @@ for(let i =  0; i < this.state.DB_users_info.length ; i++){
 render(){
 return (
 
-  <div>
+<div>
+<div style={{paddingLeft:"500px", width : "1100px"}} >
+<br></br>
+<h3 style={{textAlign:"center"}} >התחברות</h3>
+<form >
+<div style={{textAlign:"right"}} >
+<div className="form-group"> 
+<label>:שם משתמש </label>
+<input  type="text"
+required
+className="form-control"
+value={this.state.username}
+onChange={this.onChangeUsername}
+style={{textAlign:"right"}} 
+/>
+</div>
+<div className="form-group"> 
+<label>:סיסמא </label>
+<input  type="password" name="password"
+required
+className="form-control"
+value={this.state.password}
+onChange={this.onChangePassword}
+style={{textAlign:"right"}} 
+/>
+</div>
+</div>
+<br></br>
+<br></br>
 
-    <div style={{paddingLeft:"500px", width : "1100px"}} >
-      <br></br>
-    <h3 style={{textAlign:"center"}} >התחברות</h3>
-    <form >
-    <div style={{textAlign:"right"}} >
-      <div className="form-group"> 
-        <label>:שם משתמש </label>
-        <input  type="text"
-            required
-            className="form-control"
-            value={this.state.username}
-            onChange={this.onChangeUsername}
-            style={{textAlign:"right"}} 
-            />
-      </div>
-      <div className="form-group"> 
-        <label>:סיסמא </label>
-        <input  type="password" name="password"
-            required
-            className="form-control"
-            value={this.state.password}
-            onChange={this.onChangePassword}
-            style={{textAlign:"right"}} 
-            />
-      </div>
-      </div>
-      <br></br>
-      <br></br>
-     
-      </form>
- <div >
-      </div> 
+</form>
+<div >
+</div> 
       <Popup 
-    trigger={
+      trigger={
 
-    <div style={{textAlign:"center",color:"#fff" , backgroundColor: "#007bff" , borderColor: "#007bff" , width:"20%", 
-    border:" 1px solid transparent", fontSize:"20px",}} 
+      <div style={{textAlign:"center",color:"#fff" , backgroundColor: "#007bff" , borderColor: "#007bff" , width:"20%", 
+      border:" 1px solid transparent", fontSize:"20px",}} 
       onMouseOver={(e) =>{ e.target.style.fontWeight='bold'; } }
       onMouseOut={(e) =>{ e.target.style.fontWeight=null }}
       onClickCapture=  {this.onSubmit}
-    > התחבר
-    </div> 
-    } 
-    modal closeOnDocumentClick contentStyle={{width:"auto", height:"auto"}}> 
-    {close =>(
-        setTimeout(function(){
-          window.location = '/'
-        },1000),
+      > התחבר
+      </div> 
+      } 
+      modal closeOnDocumentClick contentStyle={{width:"auto", height:"auto"}}> 
+      {close =>(
+      setTimeout(function(){
+        window.location = '/'
+      },1000),
 
-    <form >
-   <label style={{fontSize: "19px" , color:"black", fontWeight:'bold' , border: '30px solid white',textAlign:"center",}} > 
-    {this.state.popup_message}
-    <div><Spinner/> </div> 
-    {this.state._spinner !=="none" ?
-     <div><Spinner/> </div> :null}
-    </label>
+      <form >
+      <label style={{fontSize: "19px" , color:"black", fontWeight:'bold' , border: '30px solid white',textAlign:"center",}} > 
+      {this.state.popup_message}
+      <div><Spinner/> </div> 
+      {/* {this.state._spinner !=="none" ?
+      <div><Spinner/> </div> :null} */}
+      </label>
 
- </form>
-     )}
+</form>
+)}
 </Popup> 
 </div>    
-    </div>
-    );
-  }
- }
+</div>
+);
+}
+}
 
  const mapStateToProps = (state)=> ({
   state: state,

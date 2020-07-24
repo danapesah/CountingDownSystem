@@ -3,13 +3,11 @@ import MainOperationWindow from './OperationWindow/MainComponent'
 import MainStatusWindow from './FieldStatusWindow/mainComponent'
 import MessageWindow from './MessageWindow/MessageWindow'
 import MainComponentTime from './TimeWindow/MainComponentTime'
-import MainCountDownWindow from './countDownWindow/MainCountDownWindow'
-import Logs from './countDownWindow/Logs'
+import CountDownMainWindow from './countDownWindow/CountDownMainWindow'
 import axios from 'axios';
 import {connect } from 'react-redux'
-import {change_to_show_chosen_table_state} from "../Actions"
-import ReactDOM from "react-dom";
-import FlexLayout from "flexlayout-react";
+
+// import { BrowserRouter as Router, Route , useLocation } from "react-router-dom"
 import io from "socket.io-client";
 
 class MainWindow extends React.Component {
@@ -34,10 +32,6 @@ update_data_io()
               axios.post('http://localhost:5000/counts/edit/' + id , data  )
               .then(res => console.log(res.data),
               socket.emit("table saved to the DB" ,id))
-            
-            
-
-
             }
         } 
         catch (err) 
@@ -62,7 +56,6 @@ update_data_io()
     }
     if(curr_chosen_state_id!==null && curr_chosen_state_id===chosen_state_id )
     {
-      console.log("table saved to the DB") 
       axios.get('http://localhost:5000/counts/') //GET REQUEST
       .then(response => {
       
@@ -80,8 +73,6 @@ update_data_io()
               localStorage.removeItem("chosen_state") 
               let serializedState1 = JSON.stringify(DB_info[i]._system_info_object)
               localStorage.setItem("chosen_state", JSON.stringify(serializedState1));
-            //  console.log("local storage has changed") 
-
                 window.location.reload()
             }
           }
@@ -125,11 +116,10 @@ catch (err)
           StatusList: this.props.FieldStatusReducers.StatusList,
           CountDownlists: this.props.CountDownWindowReducers.CountDownlists
         }
-          console.log("count: SAVE_STATE " , this.props.state);
           axios.post('http://localhost:5000/counts/add',  newState)
           .then(res => console.log(res.data  ),  );//promise, after its posted well console our the res.data
           window.location = '/list';
-        }} >שמור טבלה חדשה  </button>:
+        }} >שמור פעילות חדשה  </button>:
           
         <button style={{top:"5%",position:"absolute",left:"3%"}}  onClick={()=>{
           let newState ={
@@ -143,12 +133,10 @@ catch (err)
             StatusList: this.props.FieldStatusReducers.StatusList,
             CountDownlists: this.props.CountDownWindowReducers.CountDownlists
           }
-          //console.log(this.props.CountDownWindowReducers)
-          console.log("count edit: SAVE_STATE " , newState);
             axios.post('http://localhost:5000/counts/edit/' + curr_location.slice(6), newState)
             .then(res => console.log(res.data)); 
            window.location = '/list';
-         }} >שמור טבלה ערוכה </button>
+         }} >שמור עריכת פעילות </button>
   } 
       <div className="row">
       <div style={styles.MainOperationWindow} className="col-sm-8"><MainOperationWindow /></div>
@@ -158,7 +146,10 @@ catch (err)
       <div  style={ styles.MessageWindow} className="col"><MessageWindow /></div>
       </div>
       <div className="row">
-      <div  className="col-sm-8" style={ styles.Logs}><MainCountDownWindow /></div>
+     
+      <div  className="col-sm-8"   style={ styles.Logs} > 
+      <div style={{textAlign:"center" }} >חלון ספירה יורדת</div>
+        <div ><CountDownMainWindow /></div></div>
       <div style={ styles.MainStatusWindow} className="col-sm-4"><MainStatusWindow /></div>
       
       </div>
