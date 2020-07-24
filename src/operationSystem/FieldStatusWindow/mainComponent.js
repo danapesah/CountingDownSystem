@@ -81,9 +81,15 @@ save_to_db(){
 
 
    changeColor =(cardID,buttonid,listID)=>
-   {    
-       this.props.dispatch(changeColorButtonFieldStatus(cardID,buttonid,listID))
-    this.save_to_db()
+   {     
+        let login_info_state = localStorage.getItem("login_info");
+        let chosen_info = JSON.parse(JSON.parse(login_info_state));
+
+        if(chosen_info.permissions !== "Viewer")
+        {
+            this.props.dispatch(changeColorButtonFieldStatus(cardID,buttonid,listID))
+            this.save_to_db()
+        }
    }
    
     deleteButton = (cardID,buttonID,listID)=>

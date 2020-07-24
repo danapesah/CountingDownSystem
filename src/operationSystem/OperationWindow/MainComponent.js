@@ -20,8 +20,14 @@ class MainWindow extends Component
 
     changeCheckBoxState =(cardID,listID,checkBoxID)=>
     {
+      let login_info_state = localStorage.getItem("login_info");
+      let chosen_info = JSON.parse(JSON.parse(login_info_state));
+
+      if(chosen_info.permissions !== "Viewer")
+      {
       this.props.dispatch(changeCheckBoxStateOperation(cardID,listID,checkBoxID));
       this.save_to_db()
+      }
     }
 
 save_to_db(){
