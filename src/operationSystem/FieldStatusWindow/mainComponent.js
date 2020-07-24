@@ -9,7 +9,7 @@ class MainComponent extends Component
 {
     state=
     {
-        deleteList:"",
+        deleteList:0,
         addListTitle:"",
     }
     
@@ -64,15 +64,15 @@ save_to_db(){
         event.preventDefault();
         if(event.target.name === "deleteList")
         {
-            if(this.state.deleteList === "")
+            if(this.state.deleteList >= this.props.lists.length)
             {
-                this.props.dispatch(deleteListFieldStatus(this.props.lists[0].listID));
+              this.props.dispatch(deleteListFieldStatus(this.props.lists[0].listID));
+              this.setState({deleteListID:0})
             }
             else
             {
-                this.props.dispatch(deleteListFieldStatus(this.state.deleteList));
-            }  
-            this.setState({deleteList: ""})
+              this.props.dispatch(deleteListFieldStatus(this.props.lists[this.state.deleteList].listID));
+            }
         }
         else if(event.target.name === "addList")
             this.props.dispatch(addListFieldStatus(this.state.addListTitle));
@@ -140,7 +140,7 @@ save_to_db(){
     {
         let inputListArray=[];
         this.props.lists.map((list,i)=>{
-        inputListArray.push(<option style={{fontSize:"22px"}} key={i} value={list.listID}>{list.listTitle}</option>)})
+        inputListArray.push(<option style={{fontSize:"22px"}} key={i} value={i}>{list.listTitle}</option>)})
         return inputListArray;
         
    }
@@ -158,7 +158,7 @@ save_to_db(){
           <form name="deleteList" onSubmit={this.handleSubmit}>
           <label style={{display:"inline-block", float:"right", color:"black"}}>
              
-               <select name= "deleteList" style={{display:"inline-block", width:"auto"}} onChange={this.handleChange}>
+               <select name= "deleteList" style={{display:"inline-block", width:"auto"}} onChange={this.handleChange} value={this.state.deleteList}>
                    {this.makeSelectInput()}
                </select>
                :שם כרטיס

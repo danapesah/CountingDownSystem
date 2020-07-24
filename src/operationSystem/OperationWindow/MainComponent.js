@@ -182,8 +182,16 @@ if(window.location.pathname ==='/display')
       }
       if(event.target.name === 'deleteList')
       {
-          console.log(this.state.deleteListID)
-        this.props.dispatch(deleteListOperation(this.state.deleteListID));
+          if(this.state.deleteListID >= this.props.lists.length)
+          {
+            this.props.dispatch(deleteListOperation(this.props.lists[0].listID));
+            this.setState({deleteListID:0})
+          }
+          else
+          {
+            this.props.dispatch(deleteListOperation(this.props.lists[this.state.deleteListID].listID));
+          }
+          
       }
     
    }   
@@ -217,8 +225,8 @@ if(window.location.pathname ==='/display')
             <form name="deleteList" onSubmit={(event)=>this.handleSubmit(event,"closeWindow")}>
                 <label style={{float:"center",color:"black"}} >
                
-                    <select name= "deleteList" style={{display:"inline-block", width:"auto"}} onChange={this.handleChange}>
-                    {this.props.lists.map((list,i)=>(<option style={{fontSize:"22px"}} key={i} value={list.listID}>{i+1}</option>))}
+                    <select name= "deleteList" style={{display:"inline-block", width:"auto"}} onChange={this.handleChange} value={this.state.deleteListID}>
+                    {this.props.lists.map((list,i)=>(<option style={{fontSize:"22px"}} key={i} value={i}>{i+1}</option>))}
                     </select>
                     :מספר רשימה
                 </label><br/>
