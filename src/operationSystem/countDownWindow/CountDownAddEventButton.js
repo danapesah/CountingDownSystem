@@ -15,21 +15,24 @@ class countDownAddEventButton extends Component
 
     timeValidator =(inputTime) =>
     {
+        if(inputTime!= "" ||inputTime != null)
+        {
         let hourInput = parseInt(inputTime.substring(1,3));
         let minInput = parseInt(inputTime.substring(4));
         if(inputTime[0] == "-")
         {
             let hourBefore = parseInt(this.props.hours_before_target.substring(0,2));
             let minBefore  = parseInt(this.props.hours_before_target.substring(3));
-             return (hourInput<=hourBefore && minInput<60)
+            return ((hourBefore == hourInput && minInput == 0) || (hourInput<hourBefore && minInput<60))
 
         }
         if(inputTime[0] == "+")
         {
             let hourafter = parseInt(this.props.hours_after_target.substring(0,2));
             let minafter  = parseInt(this.props.hours_after_target.substring(3));
-             return (hourInput<=hourafter && minInput<60)
+             return ((hourInput == hourafter && minInput == 0) || (hourInput<hourafter && minInput<60))
         }
+    }
     }
   
     InputValidation =()=>
@@ -41,15 +44,15 @@ class countDownAddEventButton extends Component
     handleChange=(event)=>
     {
         if(event.target.name === 'title')
-        this.setState({title: event.target.value})
+            this.setState({title: event.target.value})
         else if(event.target.name === 'startHour')
-        this.setState({startHour: event.target.value})
+            this.setState({startHour: event.target.value})
         else if(event.target.name === 'endHour')
-        this.setState({endHour: event.target.value})
+            this.setState({endHour: event.target.value})
         else if(event.target.name === 'comments')
-        this.setState({comments: event.target.value})
+            this.setState({comments: event.target.value})
         else if(event.target.name === 'entity')
-        this.setState({entity: event.target.value})
+            this.setState({entity: event.target.value})
 
     }
 
