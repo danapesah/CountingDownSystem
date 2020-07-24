@@ -76,6 +76,7 @@ io.on('connection', (socket) => {
   console.log('made socket connection', socket.id )
    socket.on("update_message", (update_message, id)=>{
      console.log("Received: "+ update_message);
+     console.log( socket.client.conn.server.clientsCount + " users connected" );
      io.sockets.emit('update_message', update_message, id);
   })
 
@@ -83,10 +84,6 @@ io.on('connection', (socket) => {
     console.log("saved: "+ chosen_state_id);
     io.sockets.emit('table saved to the DB', chosen_state_id);
  })
-
- io.on('connection', function (socket) {
-  console.log( socket.client.conn.server.clientsCount + " users connected" );
-});
 
  serverUDPCDRC.on('message', function(message, remote) {
    if(message != udpCDRCMessage)
