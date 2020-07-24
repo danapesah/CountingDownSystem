@@ -17,8 +17,11 @@ const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, 
         addCard(listID,state.cardTitle,state.cardComments);
         else if(event.target.name === "deleteCard")
         {
+            if(state.deleteCard == "")
+            {
+                state.deleteCard=cards[0].cardID;
+            }
             deleteCard(listID, state.deleteCard);
-
         }
    }   
    
@@ -66,7 +69,7 @@ const StatusList = ({listID,title, cards, changeColor, deleteButton, addButton, 
     const deleteAble =()=>
     {
         //CHECK IF EDITABLE
-        if(window.location.pathname.search("display") == -1)
+        if(window.location.pathname.search("display") == -1 && cards.length >=1)
             return(
             <Popup
             trigger={ <div style={{color:"red",cursor:"help", width:"2px",height:"auto",display:"inline", marginRight:"10px", fontSize:"12px"}}>-מחיקת כרטיס</div>}
