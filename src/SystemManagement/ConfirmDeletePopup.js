@@ -33,17 +33,10 @@ render(){
         {close =>(
           <form >
             <label style={{fontSize: "19px" , color:"black", fontWeight:'bold'}} >
-           ?האם ברצונך למחוק פעילות זה מהמערכת
+           ?האם ברצונך למחוק פעילות זו מהמערכת
             </label>
 
             <br></br>
-
-          
-            {/* <button style={{backgroundColor : "blue"}} 
-            onMouseOver={(e) =>{ e.target.style.fontSize= '25px';e.target.style.fontWeight='bold'; e.target.style.backgroundColor= "red" } }
-            onMouseOut={(e) =>{ e.target.style.fontSize= '20px' ; e.target.style.fontWeight=null ; e.target.style.backgroundColor= "blue"}}
-            onClick={(e)=>window.location="/list"}
-            >לא</button> */}
 
 
             <Link to={"/"} style={{float:"left",fontSize:'20px',backgroundColor:'#d9d0d0',border:"1px solid",color:"black"}}

@@ -114,8 +114,8 @@ catch (err)
           CountDownlists: this.props.CountDownWindowReducers.CountDownlists
         }
           axios.post('http://localhost:5000/counts/add',  newState)
-          .then(res => console.log(res.data  ),  );//promise, after its posted well console our the res.data
-          window.location = '/list';
+          .then(res => console.log(res.data  ),  )//promise, after its posted well console our the res.data
+          .finally (function (){ window.location = '/list'})
         }} >שמור פעילות חדשה  </button>:
           
         <button style={{top:"5%",position:"absolute",left:"3%"}}  onClick={()=>{
@@ -131,8 +131,8 @@ catch (err)
             CountDownlists: this.props.CountDownWindowReducers.CountDownlists
           }
             axios.post('http://localhost:5000/counts/edit/' + curr_location.slice(6), newState)
-            .then(res => console.log(res.data)); 
-           window.location = '/list';
+            .then(res => console.log(res.data))
+            .finally (function (){ window.location = '/list'})
          }} >שמור עריכת פעילות </button>
   } 
       <div className="row">
