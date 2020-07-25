@@ -7,8 +7,7 @@ import CountDownMainWindow from './countDownWindow/CountDownMainWindow'
 import axios from 'axios';
 import {connect } from 'react-redux'
 import socket from "../SystemManagement/socketConfig";
-// import io from "socket.io-client";
-// const socket = null;
+
 class MainWindow extends React.Component {
 
 update_data_io() 
@@ -28,8 +27,8 @@ update_data_io()
               chosen_state_id = JSON.parse(JSON.parse(serializedStateID ))
               
               axios.post('http://localhost:5000/counts/edit/' + id , data  )
-              .then(res => console.log(res.data),
-              socket.emit("table saved to the DB" ,id))
+              .then(res => console.log(res.data))
+              .finally(function (){socket.emit("table saved to the DB" ,id)})
             }
         } 
         catch (err) 
@@ -70,13 +69,14 @@ update_data_io()
               localStorage.removeItem("chosen_state") 
               let serializedState1 = JSON.stringify(DB_info[i]._system_info_object)
               localStorage.setItem("chosen_state", JSON.stringify(serializedState1));
-                window.location.reload()
+             
             }
           }
 
         }
 
-      })//axios
+      }).finally(function ()
+      {window.location.reload()})//axios
     }
 
   })//socket

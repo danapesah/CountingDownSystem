@@ -68,7 +68,7 @@ function intervalFunc() {
   console.log('Server is running on port:',  {port} );
 }
 
-setInterval(intervalFunc, 90000);
+setInterval(intervalFunc, 60000);
 /////io
 
 var udpCDRCMessage = "";
