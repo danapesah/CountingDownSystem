@@ -64,7 +64,11 @@ serverUDPTod.on('listening', function() {
 
 
 ////////////////////////////////////////
+function intervalFunc() {
+  console.log('Server is running on port:',  {port} );
+}
 
+setInterval(intervalFunc, 60000);
 /////io
 
 var udpCDRCMessage = "";
@@ -73,7 +77,8 @@ const serverSharon = require("http").createServer(app);
 const io = require("socket.io")(serverSharon);
 
 io.on('connection', (socket) => {
-  console.log('made socket connection', socket.id )
+  console.log( socket.client.conn.server.clientsCount + " users connected " + socket.id );
+
    socket.on("update_message", (update_message, id)=>{
      console.log("Received: "+ update_message);
      io.sockets.emit('update_message', update_message, id);
@@ -83,7 +88,6 @@ io.on('connection', (socket) => {
     console.log("saved: "+ chosen_state_id);
     io.sockets.emit('table saved to the DB', chosen_state_id);
  })
-
 
  serverUDPCDRC.on('message', function(message, remote) {
    if(message != udpCDRCMessage)

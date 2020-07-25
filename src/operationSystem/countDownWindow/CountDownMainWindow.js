@@ -3,10 +3,10 @@ import {connect } from 'react-redux'
 import CountDownEvent from './CountDownEvent';
 import CountDownAddEventButton from './CountDownAddEventButton';
 import CountDownAddEntityButton from './CountDownAddEntityButton';
-import io from "socket.io-client"
 import axios from 'axios'
 import CountDownBar from './CountDownBar';
 import {deleteEventCountDown,deleteEntityCountDown,changeEventColorCountDown} from '../../Actions';
+import socket from "../../SystemManagement/socketConfig";
 
 class CountDownMainWindow extends Component
 { 
@@ -71,8 +71,14 @@ class CountDownMainWindow extends Component
 
     changeEventColor =(id)=>
     {
-        this.props.dispatch(changeEventColorCountDown(id))
-        this.save_to_db()
+        let login_info_state = localStorage.getItem("login_info");
+        let chosen_info = JSON.parse(JSON.parse(login_info_state));
+
+        if(chosen_info.permissions !== "Viewer")
+        {
+            this.props.dispatch(changeEventColorCountDown(id))
+            this.save_to_db()
+        }
     }
 save_to_db(){
 //save to the db after the state changed
@@ -94,7 +100,6 @@ if(window.location.pathname ==='/display')
         axios.post('http://localhost:5000/counts/edit/' + chosen_state_id, copy_state)
         .then(res => console.log(res.data)).
         finally (function (){
-        let socket = io.connect('http://localhost:4000')
         socket.emit("update_message" ,copy_state,chosen_state_id )
         })
             

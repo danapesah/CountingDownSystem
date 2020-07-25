@@ -99,13 +99,18 @@ const FieldStatusReducers = (state = initialState, action) =>{
         }
         case CONSTANTS.DELETE_CARD_FIELDSTATUS:
         {
+            console.log("IN");
             let list;
             for(let i=0;i<state.StatusList.length; i++)
+            {
                 if(state.StatusList[i].listID == action.payload.listID)
-                   list = i;
+                    list = i;
+            }
             let newStatusList = [...state.StatusList];
             newStatusList[list].cards= state.StatusList[list].cards.filter(card =>
                 {
+                    console.log("cardID "+card.cardID);
+                    console.log("action.payload.cardID "+action.payload.cardID);
                     if(card.cardID != action.payload.cardID)
                         return card;
                 });

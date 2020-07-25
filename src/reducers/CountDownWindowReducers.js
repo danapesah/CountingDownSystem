@@ -5,20 +5,8 @@ let initialState = {
     todClock:"",
     CountDownlists:  
      {
-       
-        resources:[
-            // {title: "משימה 1", key:"0"},
-            // {title: "משימה 2", key:"1"},
-            // {title: "משימה 3", key:"2"},
-            // {title: "משימה 4", key:"3"},
-            // {title: "משימה 5", key:"4"},
-            // {title: "משימה 6", key:"5"},
-        ],
-        events:[
-            // {id:1,title:"sharon",startHour:3,endHour:4, columID:0, comments:"Dana", color:"green"},
-            // {id:2,title:"dana",startHour:5,endHour:7, columID:3, comments:"Shoky"},
-            // {id:3,title:"lior",startHour:1,endHour:2, columID:4, comments: "Tooffee"}
-        ]
+        resources:[ ],
+        events:[]
      }
 }
 try {

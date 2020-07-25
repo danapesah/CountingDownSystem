@@ -3,8 +3,8 @@ import { connect  } from 'react-redux'
 import OperationList from './OperationList'
 import { deleteCardOperation,addRowOperation,deleteRowOperation,addCardOperation, addListOperation,deleteListOperation,changeCheckBoxStateOperation } from '../../Actions';
 import Popup from "reactjs-popup";
-import io from "socket.io-client"
 import axios from 'axios'
+import socket from "../../SystemManagement/socketConfig";
 
 class MainWindow extends Component
 {
@@ -20,8 +20,14 @@ class MainWindow extends Component
 
     changeCheckBoxState =(cardID,listID,checkBoxID)=>
     {
+      let login_info_state = localStorage.getItem("login_info");
+      let chosen_info = JSON.parse(JSON.parse(login_info_state));
+
+      if(chosen_info.permissions !== "Viewer")
+      {
       this.props.dispatch(changeCheckBoxStateOperation(cardID,listID,checkBoxID));
       this.save_to_db()
+      }
     }
 
 save_to_db(){
@@ -44,7 +50,6 @@ if(window.location.pathname ==='/display')
         axios.post('http://localhost:5000/counts/edit/' + chosen_state_id, copy_state)
         .then(res => console.log(res.data)).
         finally (function (){
-        let socket = io.connect('http://localhost:4000')
         socket.emit("update_message" ,copy_state,chosen_state_id)
           })
             
@@ -176,8 +181,16 @@ if(window.location.pathname ==='/display')
       }
       if(event.target.name === 'deleteList')
       {
-          console.log(this.state.deleteListID)
-        this.props.dispatch(deleteListOperation(this.state.deleteListID));
+          if(this.state.deleteListID >= this.props.lists.length)
+          {
+            this.props.dispatch(deleteListOperation(this.props.lists[0].listID));
+            this.setState({deleteListID:0})
+          }
+          else
+          {
+            this.props.dispatch(deleteListOperation(this.props.lists[this.state.deleteListID].listID));
+          }
+          
       }
     
    }   
@@ -211,8 +224,8 @@ if(window.location.pathname ==='/display')
             <form name="deleteList" onSubmit={(event)=>this.handleSubmit(event,"closeWindow")}>
                 <label style={{float:"center",color:"black"}} >
                
-                    <select name= "deleteList" style={{display:"inline-block", width:"auto"}} onChange={this.handleChange}>
-                    {this.props.lists.map((list,i)=>(<option style={{fontSize:"22px"}} key={i} value={list.listID}>{i+1}</option>))}
+                    <select name= "deleteList" style={{display:"inline-block", width:"auto"}} onChange={this.handleChange} value={this.state.deleteListID}>
+                    {this.props.lists.map((list,i)=>(<option style={{fontSize:"22px"}} key={i} value={i}>{i+1}</option>))}
                     </select>
                     :מספר רשימה
                 </label><br/>

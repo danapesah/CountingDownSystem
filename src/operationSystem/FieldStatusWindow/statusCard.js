@@ -46,11 +46,13 @@ const StatusCard = ({title ,buttons, changeColor,cardID, listID, deleteButton, a
     }
     
 
-    const deleteAble =(cardID,buttonID,listID)=>
+    const deleteAble =(cardID,buttonID,listID, buttonColor)=>
     {
-        
+        let xColor ="red";
+        if(buttonColor == "red")
+           xColor="black";
         if(window.location.pathname.search("display") == -1)
-            return <div style={{float:"right",color:"red",cursor:"help", width:"2px",height:"auto",marginLeft:"5px"}} onClick={()=>deleteButton(cardID,buttonID,listID)}>x</div>
+            return <div style={{float:"right",color:xColor,cursor:"help", width:"2px",height:"auto",marginLeft:"5px"}} onClick={()=>deleteButton(cardID,buttonID,listID)}>x</div>
         else
             return (null);
     }
@@ -80,7 +82,7 @@ const StatusCard = ({title ,buttons, changeColor,cardID, listID, deleteButton, a
          {showCardComments()}
         <div>
         {buttons.map((button,i)=>(<Button key={i} style={{backgroundColor: button.color, width:"auto"}} onClick={()=>changeColor(cardID,button.id,listID)}>
-        {deleteAble(cardID,button.id,listID)}
+        {deleteAble(cardID,button.id,listID, button.color)}
         {button.titleButton} </Button>))}
         </div>
       {addAble()}
