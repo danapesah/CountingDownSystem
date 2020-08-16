@@ -7,8 +7,7 @@ import CountDownMainWindow from './countDownWindow/CountDownMainWindow'
 import axios from 'axios';
 import {connect } from 'react-redux'
 import socket from "../SystemManagement/socketConfig";
-// import io from "socket.io-client";
-// const socket = null;
+
 class MainWindow extends React.Component {
 
 update_data_io() 
@@ -28,8 +27,8 @@ update_data_io()
               chosen_state_id = JSON.parse(JSON.parse(serializedStateID ))
               
               axios.post('http://localhost:5000/counts/edit/' + id , data  )
-              .then(res => console.log(res.data),
-              socket.emit("table saved to the DB" ,id))
+              .then(res => console.log(res.data))
+              .finally(function (){socket.emit("table saved to the DB" ,id)})
             }
         } 
         catch (err) 
@@ -70,13 +69,14 @@ update_data_io()
               localStorage.removeItem("chosen_state") 
               let serializedState1 = JSON.stringify(DB_info[i]._system_info_object)
               localStorage.setItem("chosen_state", JSON.stringify(serializedState1));
-                window.location.reload()
+             
             }
           }
 
         }
 
-      })//axios
+      }).finally(function ()
+      {window.location.reload()})//axios
     }
 
   })//socket
@@ -114,8 +114,8 @@ catch (err)
           CountDownlists: this.props.CountDownWindowReducers.CountDownlists
         }
           axios.post('http://localhost:5000/counts/add',  newState)
-          .then(res => console.log(res.data  ),  );//promise, after its posted well console our the res.data
-          window.location = '/list';
+          .then(res => console.log(res.data  ),  )//promise, after its posted well console our the res.data
+          .finally (function (){ window.location = '/list'})
         }} >שמור פעילות חדשה  </button>:
           
         <button style={{top:"5%",position:"absolute",left:"3%"}}  onClick={()=>{
@@ -131,8 +131,8 @@ catch (err)
             CountDownlists: this.props.CountDownWindowReducers.CountDownlists
           }
             axios.post('http://localhost:5000/counts/edit/' + curr_location.slice(6), newState)
-            .then(res => console.log(res.data)); 
-           window.location = '/list';
+            .then(res => console.log(res.data))
+            .finally (function (){ window.location = '/list'})
          }} >שמור עריכת פעילות </button>
   } 
       <div className="row">
