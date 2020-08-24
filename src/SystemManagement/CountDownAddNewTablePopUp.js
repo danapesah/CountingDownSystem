@@ -1,4 +1,4 @@
-//popup for the 'create new table' btm
+//popup for the 'create new table' btn
 
 import React, {Component} from 'react'
 import {connect } from 'react-redux'
@@ -6,6 +6,7 @@ import Popup from "reactjs-popup";
 import NumberFormat from 'react-number-format';
 import {set_new_table, edit_title_hours, change_to_show_chosen_table_state} from "../Actions";
 import { Link } from 'react-router-dom'; //link to different routs
+import axios from 'axios'
 
 class CountDownAddNewTablePopUp extends Component {
 
@@ -13,10 +14,34 @@ constructor(props) {
     super(props);
     this.state = {
       title: this.props.chosen_table_title, // the name of the new table  
-      up_count: this.props.placeholder_after, //numbers of up hours
-      down_count:this.props.placeholder_before,//numbers of down hours
+      up_count: null, //numbers of up hours
+      down_count: null,//numbers of down hours
+      data: null //_system_info_object
     };
 } 
+
+componentDidMount() {
+  if(this.props.new_or_edit==="new")
+  {
+    this.setState({
+      up_count: this.props.placeholder_after, 
+      down_count: this.props.placeholder_before,
+    })
+    
+  }
+  if(this.props.new_or_edit==="edit")
+  {
+    axios.get('http://localhost:5000/counts/search/'+this.props.id)
+    .then(res =>{
+    this.setState({
+      up_count:res.data._system_info_object.hours_after_target, 
+      down_count:res.data._system_info_object.hours_before_target,
+      data: res.data._system_info_object,
+    })
+  })
+  }
+
+}
 set_title(event){
     this.setState({title: event.target.value})
 }
@@ -82,7 +107,7 @@ render(){
             <br></br>
 
             <label style={{paddingLeft:"120px", color:"black" }}>
-                <NumberFormat  name="startHour" format="##:##" placeholder={this.props.placeholder_before} 
+                <NumberFormat  name="startHour" format="##:##" placeholder={this.state.down_count} 
                 
                 mask={['H', 'H', 'M', 'M']}   
               
@@ -92,7 +117,7 @@ render(){
 
             <br></br> 
             <label style={{paddingLeft:"120px" , color:"black"}}>
-              <NumberFormat name="startHour" format="##:##" placeholder={this.props.placeholder_after} 
+              <NumberFormat name="startHour" format="##:##" placeholder={this.state.up_count} 
               mask={['H', 'H', 'M', 'M']} onChange={(event)=>this.set_num_of_up_count(event)}  style={{width:"100px", color:"black"}}/>
              שעות אחרי הספירה
 
@@ -109,14 +134,16 @@ render(){
           } } >
          {this.props.link_name}  </Link>    
         : 
-        
+        //edit
         <Link to={this.props.path} style={{backgroundColor:'#d9d0d0',border:"1px solid",color:"black"}}      
         onClick={() =>{ 
-          this.props.dispatch(change_to_show_chosen_table_state(this.props.data));
+
+
+          this.props.dispatch(change_to_show_chosen_table_state(this.state.data));
           this.props.dispatch(edit_title_hours(this.state.title,this.state.down_count,this.state.up_count,this.props.id) ) 
          try{
              //create local storage of the chosen table when path is  '/edit'  that saves a copy of the table
-         let chosen_state = {...this.props.data}
+         let chosen_state = {...this.state.data}
          chosen_state.title= this.state.title
          chosen_state.hours_before_target= this.state.down_count
          chosen_state.hours_after_target= this.state.up_count
@@ -138,8 +165,6 @@ render(){
         
         }
     
-          
-
 
     <a className="close" onClick={close} style={styles.close}>
             &times;
