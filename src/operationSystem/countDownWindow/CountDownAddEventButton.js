@@ -2,12 +2,15 @@ import React, {Component} from 'react';
 import {connect } from 'react-redux'
 import Popup from "reactjs-popup";
 import { addEventCountDown } from "../../Actions";
+import NumberFormat from 'react-number-format';
 class countDownAddEventButton extends Component
 {
     state={
         title:"",
         startHour:"",
+        startHourDefiner:"-",
         endHour:"",
+        endHourDefiner:"-",
         comments:"",
         entity:"0",
 
@@ -37,7 +40,9 @@ class countDownAddEventButton extends Component
   
     InputValidation =()=>
     {
-        if(this.timeValidator(this.state.startHour) && this.timeValidator(this.state.endHour) && this.state.title !="") 
+        let startHour = this.state.startHourDefiner+this.state.startHour;
+        let endHour = this.state.endHourDefiner+this.state.endHour;
+        if(this.timeValidator(startHour) && this.timeValidator(endHour) && this.state.title !="") 
              return <input className="left" type="submit" value="אישור" />  
     }    
 
@@ -53,6 +58,10 @@ class countDownAddEventButton extends Component
             this.setState({comments: event.target.value})
         else if(event.target.name === 'entity')
             this.setState({entity: event.target.value})
+        else if(event.target.name === 'startHourDefiner')
+            this.setState({startHourDefiner: event.target.value})
+        else if(event.target.name === 'endHourDefiner')
+            this.setState({endHourDefiner: event.target.value})
 
     }
 
@@ -61,11 +70,15 @@ class countDownAddEventButton extends Component
          event.preventDefault();
          if(this.state.entity == "")
             this.state.entity=this.props.lists[0].key;
-
-        this.props.dispatch(addEventCountDown(this.state.title,this.state.startHour,this.state.endHour,this.state.comments, this.state.entity));
+       
+        let startHour = this.state.startHourDefiner+this.state.startHour;
+        let endHour = this.state.endHourDefiner+this.state.endHour;
+        this.props.dispatch(addEventCountDown(this.state.title,startHour,endHour,this.state.comments, this.state.entity));
         this.setState({title:"",
         startHour:"",
+        startHourDefiner:"-",
         endHour:"",
+        endHourDefiner:"-",
         comments:"",
         entity:"0",})
      }   
@@ -111,22 +124,25 @@ class countDownAddEventButton extends Component
         </label>
 
         <br/>
-
-        <label style={{ color:"black"}} >
         
-        <input name="endHour" placeholder="(+|-)HH:MM" pattern="[+|-]{1}[0-9]{2}:[0-5]{1}[0-9]{1}"
-                onChange={this.handleChange} style={{width:"100px"}} value={this.state.endHour} required></input>
-                :שעת סיום
+        <select name= "endHourDefiner" style={{display:"inline-block", width:"auto"}} onChange={this.handleChange} value={this.state.entity}>
+        <option style={{fontSize:"22px"}}key="start-" value="-">-</option>
+        <option style={{fontSize:"22px"}}key="start+" value="+">+</option>
+        </select>
+        <label style={{color:"black", paddingRight:"50px" }}>
+                <NumberFormat  name="endHour" format="##:##"  value={this.state.endHour} placeholder="HH:MM" mask={['H', 'H', 'M', 'M']} style={{width:"100px",color:"black"}} onChange={this.handleChange} required/>
+                  שעת סיום
         </label>
 
-         <label style={{rightMargin:"10px", color:"black"}}>
+        <select name= "startHourDefiner" style={{display:"inline-block", width:"auto"}} onChange={this.handleChange} value={this.state.entity}>
+        <option style={{fontSize:"22px"}}key="start-" value="-">-</option>
+        <option style={{fontSize:"22px"}}key="start+" value="+">+</option>
+        </select>
+        <label style={{color:"black" }}>
+                <NumberFormat  name="startHour" format="##:##"  value={this.state.startHour} placeholder="HH:MM" mask={['H', 'H', 'M', 'M']} style={{width:"100px",color:"black"}} onChange={this.handleChange} required/>
+                  :שעת התחלה
+        </label>
     
-        <input name="startHour" placeholder="(+|-)HH:MM" pattern="[+|-]{1}[0-9]{2}:[0-5]{1}[0-9]{1}"
-                onChange={this.handleChange} style={{width:"100px"}} value={this.state.startHour} required></input>
-                :שעת התחלה
-        </label>
-
-
             <textarea style={{ textAlign:"right"}}   name="comments" onChange={this.handleChange} placeholder={"הערות נוספות"} value={this.state.comments}/>
             {this.InputValidation()}
         </form>  
