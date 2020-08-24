@@ -1,7 +1,7 @@
 import React from 'react';
 import Popup from "reactjs-popup";
 
-const  CountDownEvent = ({id, title,startHourBytes,eventDuration, columID,comments,startHour,endHour, editEvent,color, changeColor,validMission,multipleEvent})=>
+const  CountDownEvent = ({id, title,startHourBytes,eventDuration, columID,comments,startHour,endHour, editEvent,color, changeColor,validMission,place,sumMultipleEvents})=>
 {
   const checkIfEditAble=()=>
   {
@@ -13,25 +13,6 @@ const  CountDownEvent = ({id, title,startHourBytes,eventDuration, columID,commen
     else
       return(null);
   }
-
-  const checkWhereTitle =(titleLocation)=>
-  {
-    if(eventDuration<50)
-    {
-      if(titleLocation == "popup")
-        return <div style={{borderBottom:"solid",color:"black"}}>{title}</div>
-      if(titleLocation == "event")
-        return(null);
-    }
-    else
-    {
-      if(titleLocation == "popup")
-        return(null);
-    if(titleLocation == "event")
-      return <div style={{textAlign:"right"}}>{title}</div>
-    }
-  }
-
   let textColor;
   if(color == "black")
     textColor = "white";
@@ -50,20 +31,29 @@ const  CountDownEvent = ({id, title,startHourBytes,eventDuration, columID,commen
 
   let leftPlace;
   let eventWidth;  
-  if (multipleEvent === -1)  
+
+  eventWidth=140/sumMultipleEvents;
+  leftPlace=50+columID*140+eventWidth*place; 
+  console.log(eventWidth);
+
+  const checkWhereTitle =(titleLocation)=>
   {
-    leftPlace=50+columID*140; 
-    eventWidth="140px"
-  }
-  else if(multipleEvent === 1)
-  {
-    leftPlace=50+columID*140;
-    eventWidth ="70px";
-  }
-  else if(multipleEvent === 2)
-  {
-    leftPlace=50+columID*140+70;
-    eventWidth ="70px";
+      console.log()
+
+    if(eventDuration<50 || eventWidth <40 )
+    {
+      if(titleLocation == "popup")
+        return <div style={{borderBottom:"solid",color:"black"}}>{title}</div>
+      if(titleLocation == "event")
+        return(null);
+    }
+    else
+    {
+      if(titleLocation == "popup")
+        return(null);
+    if(titleLocation == "event")
+      return <div style={{textAlign:"right"}}>{title}</div>
+    }
   }
 
   if(validMission)
@@ -77,7 +67,7 @@ const  CountDownEvent = ({id, title,startHourBytes,eventDuration, columID,commen
               <div>
               <div style={{borderRadius:"50%", backgroundColor:nextColor,width:"20px",float:"right",color:"black",textAlign:"center"}} onClick={()=>changeColor({id})}>()</div>
                 <div style={{borderBottom:"solid",color:"black"}}>{startHour} - {endHour}</div>
-                {checkWhereTitle("popup")}
+                <div style={{borderBottom:"solid",color:"black"}}>{title}</div>
                 <div style={{color:"black"}}>{comments}</div>
               </div>
             </Popup>
