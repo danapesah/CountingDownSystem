@@ -52,31 +52,34 @@ update_data_io()
     }
     if(curr_chosen_state_id!==null && curr_chosen_state_id===chosen_state_id )
     {
-      axios.get('http://localhost:5000/counts/') //GET REQUEST
+      axios.get('http://localhost:5000/counts/search/'+ curr_chosen_state_id) //GET REQUEST
       .then(response => {
       
         let DB_info = null
         let data_len = null
-      if (response.data.length===0) return;
-      data_len= response.data.length
+     // if (response.data.length===0) return;
+     // data_len= response.data.length
       DB_info={...response.data}
-      if(DB_info!== null &&  chosen_state_id!==null  )
-      {  
-          for(let i = 0 ; i <data_len ; i++)
-          {   
-            if( DB_info[i]._id===chosen_state_id ) 
-            { 
+    //  if(DB_info!== null &&  chosen_state_id!==null  )
+      //{  
+          // for(let i = 0 ; i <data_len ; i++)
+          // {   
+          //   if( DB_info[i]._id===chosen_state_id ) 
+          //   { 
               localStorage.removeItem("chosen_state") 
-              let serializedState1 = JSON.stringify(DB_info[i]._system_info_object)
+              let serializedState1 = JSON.stringify(DB_info._system_info_object)
               localStorage.setItem("chosen_state", JSON.stringify(serializedState1));
              
-            }
-          }
+          //   }
+          // }
 
-        }
+      //  }
 
       }).finally(function ()
-      {window.location.reload()})//axios
+      {
+         window.location.reload()
+      }
+         )//axios
     }
 
   })//socket
